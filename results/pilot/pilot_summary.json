@@ -1,0 +1,249 @@
+{
+  "decision": "INCONCLUSIVE",
+  "anchors": 100,
+  "actions_per_anchor": 41,
+  "probe": {
+    "current_only": {
+      "calibration_gt": {
+        "samples": 2460,
+        "positive_fraction": 0.5853658536585366,
+        "balanced_accuracy": 0.5,
+        "macro_f1": 0.36923076923076925,
+        "brier": 0.24265200448003973,
+        "ece_10bin": 0.0043691005648636445,
+        "confusion_matrix": [
+          [
+            0,
+            1020
+          ],
+          [
+            0,
+            1440
+          ]
+        ],
+        "auroc": 0.5111397058823529
+      },
+      "evaluation_gt": {
+        "samples": 4100,
+        "positive_fraction": 0.5863414634146341,
+        "balanced_accuracy": 0.5,
+        "macro_f1": 0.36961869618696186,
+        "brier": 0.24294775360183624,
+        "ece_10bin": 0.0021530365798530736,
+        "confusion_matrix": [
+          [
+            0,
+            1696
+          ],
+          [
+            0,
+            2404
+          ]
+        ],
+        "auroc": 0.45954487214705053
+      },
+      "evaluation_predicted": {
+        "samples": 4100,
+        "positive_fraction": 0.5863414634146341,
+        "balanced_accuracy": 0.5,
+        "macro_f1": 0.36961869618696186,
+        "brier": 0.24294775360183624,
+        "ece_10bin": 0.0021530365798530736,
+        "confusion_matrix": [
+          [
+            0,
+            1696
+          ],
+          [
+            0,
+            2404
+          ]
+        ],
+        "auroc": 0.45954487214705053
+      }
+    },
+    "endpoint": {
+      "calibration_gt": {
+        "samples": 2460,
+        "positive_fraction": 0.5853658536585366,
+        "balanced_accuracy": 0.7912581699346406,
+        "macro_f1": 0.7948045403497708,
+        "brier": 0.14050021139565666,
+        "ece_10bin": 0.03103094619180158,
+        "confusion_matrix": [
+          [
+            733,
+            287
+          ],
+          [
+            196,
+            1244
+          ]
+        ],
+        "auroc": 0.8738752723311547
+      },
+      "evaluation_gt": {
+        "samples": 4100,
+        "positive_fraction": 0.5863414634146341,
+        "balanced_accuracy": 0.8137121111041347,
+        "macro_f1": 0.8106050936289158,
+        "brier": 0.13608834027682273,
+        "ece_10bin": 0.035192303008729255,
+        "confusion_matrix": [
+          [
+            1371,
+            325
+          ],
+          [
+            435,
+            1969
+          ]
+        ],
+        "auroc": 0.884469526025806
+      },
+      "evaluation_predicted": {
+        "samples": 4100,
+        "positive_fraction": 0.5863414634146341,
+        "balanced_accuracy": 0.8018691332056636,
+        "macro_f1": 0.7993736543354863,
+        "brier": 0.13853600253061393,
+        "ece_10bin": 0.03897943111454567,
+        "confusion_matrix": [
+          [
+            1340,
+            356
+          ],
+          [
+            448,
+            1956
+          ]
+        ],
+        "auroc": 0.8805864537877123
+      }
+    },
+    "trajectory": {
+      "calibration_gt": {
+        "samples": 2460,
+        "positive_fraction": 0.5853658536585366,
+        "balanced_accuracy": 0.8573937908496732,
+        "macro_f1": 0.8584594234810664,
+        "brier": 0.10150292652784516,
+        "ece_10bin": 0.020949081762464766,
+        "confusion_matrix": [
+          [
+            841,
+            179
+          ],
+          [
+            158,
+            1282
+          ]
+        ],
+        "auroc": 0.933115468409586
+      },
+      "evaluation_gt": {
+        "samples": 4100,
+        "positive_fraction": 0.5863414634146341,
+        "balanced_accuracy": 0.8470625804476815,
+        "macro_f1": 0.847122820574148,
+        "brier": 0.10161096394451805,
+        "ece_10bin": 0.016720319482485084,
+        "confusion_matrix": [
+          [
+            1391,
+            305
+          ],
+          [
+            303,
+            2101
+          ]
+        ],
+        "auroc": 0.9334957657049572
+      },
+      "evaluation_predicted": {
+        "samples": 4100,
+        "positive_fraction": 0.5863414634146341,
+        "balanced_accuracy": 0.8481069287037328,
+        "macro_f1": 0.8538385121323416,
+        "brier": 0.09959502702651662,
+        "ece_10bin": 0.024823706671609807,
+        "confusion_matrix": [
+          [
+            1312,
+            384
+          ],
+          [
+            186,
+            2218
+          ]
+        ],
+        "auroc": 0.9351760921263303
+      }
+    }
+  },
+  "latent_error": {
+    "count": 100.0,
+    "mean": 0.14593149691820145,
+    "std": 0.0616179308641321,
+    "min": 0.05139445513486862,
+    "25%": 0.09945552982389927,
+    "50%": 0.14143621176481247,
+    "75%": 0.18400659039616585,
+    "max": 0.3384975492954254
+  },
+  "boundary_error": {
+    "count": 100.0,
+    "mean": 0.24305240589243637,
+    "std": 0.3281653867792642,
+    "min": 0.0004109825563317071,
+    "25%": 0.04501082965362132,
+    "50%": 0.10066243272854866,
+    "75%": 0.21338488972251998,
+    "max": 1.0
+  },
+  "probe_floor_boundary_error": {
+    "count": 100.0,
+    "mean": 0.17374620441545297,
+    "std": 0.26410822024659053,
+    "min": 0.001772350862556856,
+    "25%": 0.030414457200386,
+    "50%": 0.08110838595736014,
+    "75%": 0.19061654976031345,
+    "max": 1.0
+  },
+  "planning_regret": {
+    "count": 100.0,
+    "mean": 0.10799957156181335,
+    "std": 0.12374652104321365,
+    "min": 0.0,
+    "25%": 0.005950495600700378,
+    "50%": 0.05604013800621033,
+    "75%": 0.17921236157417297,
+    "max": 0.4664461612701416
+  },
+  "latent_error_vs_regret": {
+    "rho": 0.21012803746634376,
+    "ci_low": 0.006539167335252328,
+    "ci_high": 0.3903960879897844,
+    "states": 100
+  },
+  "boundary_error_vs_regret": {
+    "rho": 0.08878747767362641,
+    "ci_low": -0.10674893515349929,
+    "ci_high": 0.279731753698813,
+    "states": 100
+  },
+  "correlation_difference": {
+    "rho_difference_boundary_minus_latent": -0.12134055979271735,
+    "ci_low": -0.37592438213185303,
+    "ci_high": 0.11623693896400417,
+    "states": 100
+  },
+  "low_latent_high_boundary_fraction": 0.07,
+  "go_no_go_questions": {
+    "Q1_probe_recovers_mode": true,
+    "Q2_low_error_boundary_misalignment_exists": false,
+    "Q3_boundary_more_associated_with_regret_point": false,
+    "Q3_boundary_more_associated_with_regret_strong": false
+  }
+}

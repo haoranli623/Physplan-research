@@ -1,0 +1,179 @@
+{
+  "current_only": {
+    "calibration_gt": {
+      "samples": 2460,
+      "positive_fraction": 0.5853658536585366,
+      "balanced_accuracy": 0.5,
+      "macro_f1": 0.36923076923076925,
+      "brier": 0.24265200448003973,
+      "ece_10bin": 0.0043691005648636445,
+      "confusion_matrix": [
+        [
+          0,
+          1020
+        ],
+        [
+          0,
+          1440
+        ]
+      ],
+      "auroc": 0.5111397058823529
+    },
+    "evaluation_gt": {
+      "samples": 4100,
+      "positive_fraction": 0.5863414634146341,
+      "balanced_accuracy": 0.5,
+      "macro_f1": 0.36961869618696186,
+      "brier": 0.24294775360183624,
+      "ece_10bin": 0.0021530365798530736,
+      "confusion_matrix": [
+        [
+          0,
+          1696
+        ],
+        [
+          0,
+          2404
+        ]
+      ],
+      "auroc": 0.45954487214705053
+    },
+    "evaluation_predicted": {
+      "samples": 4100,
+      "positive_fraction": 0.5863414634146341,
+      "balanced_accuracy": 0.5,
+      "macro_f1": 0.36961869618696186,
+      "brier": 0.24294775360183624,
+      "ece_10bin": 0.0021530365798530736,
+      "confusion_matrix": [
+        [
+          0,
+          1696
+        ],
+        [
+          0,
+          2404
+        ]
+      ],
+      "auroc": 0.45954487214705053
+    }
+  },
+  "endpoint": {
+    "calibration_gt": {
+      "samples": 2460,
+      "positive_fraction": 0.5853658536585366,
+      "balanced_accuracy": 0.7912581699346406,
+      "macro_f1": 0.7948045403497708,
+      "brier": 0.14050021139565666,
+      "ece_10bin": 0.03103094619180158,
+      "confusion_matrix": [
+        [
+          733,
+          287
+        ],
+        [
+          196,
+          1244
+        ]
+      ],
+      "auroc": 0.8738752723311547
+    },
+    "evaluation_gt": {
+      "samples": 4100,
+      "positive_fraction": 0.5863414634146341,
+      "balanced_accuracy": 0.8137121111041347,
+      "macro_f1": 0.8106050936289158,
+      "brier": 0.13608834027682273,
+      "ece_10bin": 0.035192303008729255,
+      "confusion_matrix": [
+        [
+          1371,
+          325
+        ],
+        [
+          435,
+          1969
+        ]
+      ],
+      "auroc": 0.884469526025806
+    },
+    "evaluation_predicted": {
+      "samples": 4100,
+      "positive_fraction": 0.5863414634146341,
+      "balanced_accuracy": 0.8018691332056636,
+      "macro_f1": 0.7993736543354863,
+      "brier": 0.13853600253061393,
+      "ece_10bin": 0.03897943111454567,
+      "confusion_matrix": [
+        [
+          1340,
+          356
+        ],
+        [
+          448,
+          1956
+        ]
+      ],
+      "auroc": 0.8805864537877123
+    }
+  },
+  "trajectory": {
+    "calibration_gt": {
+      "samples": 2460,
+      "positive_fraction": 0.5853658536585366,
+      "balanced_accuracy": 0.8573937908496732,
+      "macro_f1": 0.8584594234810664,
+      "brier": 0.10150292652784516,
+      "ece_10bin": 0.020949081762464766,
+      "confusion_matrix": [
+        [
+          841,
+          179
+        ],
+        [
+          158,
+          1282
+        ]
+      ],
+      "auroc": 0.933115468409586
+    },
+    "evaluation_gt": {
+      "samples": 4100,
+      "positive_fraction": 0.5863414634146341,
+      "balanced_accuracy": 0.8470625804476815,
+      "macro_f1": 0.847122820574148,
+      "brier": 0.10161096394451805,
+      "ece_10bin": 0.016720319482485084,
+      "confusion_matrix": [
+        [
+          1391,
+          305
+        ],
+        [
+          303,
+          2101
+        ]
+      ],
+      "auroc": 0.9334957657049572
+    },
+    "evaluation_predicted": {
+      "samples": 4100,
+      "positive_fraction": 0.5863414634146341,
+      "balanced_accuracy": 0.8481069287037328,
+      "macro_f1": 0.8538385121323416,
+      "brier": 0.09959502702651662,
+      "ece_10bin": 0.024823706671609807,
+      "confusion_matrix": [
+        [
+          1312,
+          384
+        ],
+        [
+          186,
+          2218
+        ]
+      ],
+      "auroc": 0.9351760921263303
+    }
+  }
+}

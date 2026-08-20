@@ -93,11 +93,18 @@ class SweepWriter:
         # Exact float64 anchor/action values are required for bitwise-reproducible
         # cloned contact dynamics. Float32 truncation can be amplified at impact.
         h5.create_dataset("anchor_states", (n, 7), dtype="f8")
-        h5.create_dataset("initial_images", (n, 224, 224, 3), dtype="u1", compression="lzf")
+        h5.create_dataset("initial_images", (n, 224, 224, 3), dtype="u1", chunks=(1, 224, 224, 3))
         h5.create_dataset("actions", (n, k, 2), dtype="f8")
         h5.create_dataset("offsets", (n, k), dtype="f8")
         h5.create_dataset("sweep_side", (n,), dtype="i1")
-        h5.create_dataset("future_images", (n, k, h, 224, 224, 3), dtype="u1", compression="lzf")
+        # Uncompressed per-rollout chunks trade ~4.2 GB for the full pilot for
+        # much lower CPU wall time. Frozen latent caches remain compact.
+        h5.create_dataset(
+            "future_images",
+            (n, k, h, 224, 224, 3),
+            dtype="u1",
+            chunks=(1, 1, h, 224, 224, 3),
+        )
         h5.create_dataset("future_states", (n, k, h, 7), dtype="f4")
         h5.create_dataset("contact_steps", (n, k, t), dtype="i1")
         h5.create_dataset("any_contact", (n, k), dtype="i1")
