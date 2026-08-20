@@ -28,6 +28,7 @@ MUJOCO_LOG.TXT
 artifacts/checkpoints/
 artifacts/torch_cache/
 artifacts/pilot_cache/
+artifacts/invalid_*/
 results/checkpoints/
 logs/
 

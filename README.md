@@ -640,6 +640,15 @@ conda install -c numba numba=0.56.4 -y
 
 ---
 
+## Boundary-JEPA overnight pilot
+
+The `boundary-jepa-overnight` branch contains a cloned-state Push-T feasibility
+pilot built on the official pretrained JEPA-WM. See
+[`docs/boundary_jepa_pilot.md`](docs/boundary_jepa_pilot.md) for the locked
+protocol, environment adaptation, and exact reproduction commands.
+
+---
+
 ## 📄 License
 
 This project is licensed under [CC-BY-NC 4.0](LICENSE). See [THIRD-PARTY-LICENSES.md](THIRD-PARTY-LICENSES.md) for third-party components.

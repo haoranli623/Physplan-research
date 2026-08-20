@@ -1,0 +1,68 @@
+{
+  "completed_anchors": 100,
+  "actions_per_anchor": 41,
+  "positive_contact_fraction": 0.5863414634146341,
+  "all_anchors_have_exactly_one_crossing": true,
+  "first_action_contact_fraction": 1.0,
+  "last_action_contact_fraction": 0.0,
+  "crossing_index_min": 4,
+  "crossing_index_median": 23.0,
+  "crossing_index_max": 39,
+  "contact_step_fraction": 0.32763414634146343,
+  "replay_checks": 12,
+  "replay_failure_count": 10,
+  "replay_failures": [
+    {
+      "anchor": 89,
+      "candidate": 15,
+      "field": "states"
+    },
+    {
+      "anchor": 33,
+      "candidate": 28,
+      "field": "states"
+    },
+    {
+      "anchor": 3,
+      "candidate": 4,
+      "field": "states"
+    },
+    {
+      "anchor": 9,
+      "candidate": 1,
+      "field": "states"
+    },
+    {
+      "anchor": 88,
+      "candidate": 19,
+      "field": "states"
+    },
+    {
+      "anchor": 38,
+      "candidate": 5,
+      "field": "states"
+    },
+    {
+      "anchor": 70,
+      "candidate": 5,
+      "field": "states"
+    },
+    {
+      "anchor": 80,
+      "candidate": 22,
+      "field": "states"
+    },
+    {
+      "anchor": 8,
+      "candidate": 15,
+      "field": "states"
+    },
+    {
+      "anchor": 26,
+      "candidate": 11,
+      "field": "states"
+    }
+  ],
+  "primary_label": "any simulator collision point during ten control steps",
+  "task_outcome_used_in_label": false
+}

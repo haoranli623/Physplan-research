@@ -1,0 +1,17 @@
+{
+  "completed_anchors": 5,
+  "actions_per_anchor": 41,
+  "positive_contact_fraction": 0.7170731707317073,
+  "all_anchors_have_exactly_one_crossing": true,
+  "first_action_contact_fraction": 1.0,
+  "last_action_contact_fraction": 0.0,
+  "crossing_index_min": 20,
+  "crossing_index_median": 26.0,
+  "crossing_index_max": 37,
+  "contact_step_fraction": 0.4214634146341463,
+  "replay_checks": 12,
+  "replay_failure_count": 0,
+  "replay_failures": [],
+  "primary_label": "any simulator collision point during ten control steps",
+  "task_outcome_used_in_label": false
+}

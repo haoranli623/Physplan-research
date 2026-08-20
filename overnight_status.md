@@ -1,6 +1,6 @@
 # Boundary-JEPA Overnight Status
 
-Last updated: 2026-08-20 02:39 EDT
+Last updated: 2026-08-20 02:47 EDT
 
 ## Current stage
 
@@ -53,10 +53,11 @@ P1 — parallel state-disjoint cloned-sweep generation; evaluation feature/probe
 - Added tested, resumable HDF5 sweep generation; a 5-anchor smoke run required 6 attempts and produced clean single boundaries.
 - Added batched frozen encoder/predictor feature caching, action-blind current/endpoint/trajectory probes, calibrated metrics, boundary/regret analysis, state bootstrap, deterministic non-cherry-picked plotting, and report generation.
 - Six focused Boundary-JEPA tests currently pass.
+- Generated and GPU-encoded the first 100-anchor evaluation cache, then ran the mandatory label/replay audit before probe fitting.
 
 ## Experiment currently running
 
-- Two CPU processes are generating disjoint caches in parallel: 240 probe-training anchors and 100 held-out evaluation anchors, each with 41 actions and two latent steps. At 02:39 the caches were 57/240 and 97/100 complete.
+- Corrective regeneration is next. The initial evaluation cache and partial probe cache are invalid for exact replay because anchor/actions were stored as float32.
 
 ## Failures/debugging notes
 
@@ -64,6 +65,7 @@ P1 — parallel state-disjoint cloned-sweep generation; evaluation feature/probe
 - Repository metadata targets Python 3.10. A dedicated Python 3.10 environment may be required if the minimal Python 3.11 smoke test exposes incompatibility.
 - Direct script invocation does not put the repository root on `sys.path`; reproducible commands use `python -m scripts.boundary_jepa.<name>`.
 - Gym emits its expected NumPy-2 compatibility warning, but deterministic simulator tests and generation succeed on the exercised API.
+- **02:46 audit failure:** 10/12 saved-cache replays reproduced contact labels and coverage but not future state to `1e-6`. Root cause: the generator executed float64 anchor/action values but stored them as float32; small truncation is amplified during impact. This was detected before any probe was trained or result interpreted. Pre-fix audit artifacts are retained. The schema is changed to float64 anchor/actions and both splits will be regenerated from scratch.
 
 ## Important decisions
 
@@ -74,7 +76,8 @@ P1 — parallel state-disjoint cloned-sweep generation; evaluation feature/probe
 - Clean one-dimensional boundaries are selected by a predeclared simulator-only rule: a one-sided angular slice must contain exactly one contact/no-contact crossing.
 - Canonical planner goal is fixed in config; all candidates are ranked with the same official terminal latent-L2 objective plus the official 0.1 proprio weight.
 - Pilot GO/NO-GO thresholds were encoded before probe/evaluation results were available.
+- No scientific definition, label, threshold, or candidate geometry was changed by the replay fix; only lossless storage precision changed.
 
 ## Next automatic step
 
-As soon as evaluation generation closes its HDF5 file, cache GT/predicted features on the GPU; continue probe-train generation concurrently, then encode it, train/freeze the probe, and run the full 100-state analysis.
+Stop the invalid partial generator, preserve its audit, remove only generated invalid HDF5 caches, regenerate both splits with float64 anchor/actions, and require a zero-failure replay audit before feature caching resumes.

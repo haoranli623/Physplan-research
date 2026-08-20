@@ -90,10 +90,12 @@ class SweepWriter:
                 "require_single_boundary": int(self.spec.require_single_boundary),
             }
         )
-        h5.create_dataset("anchor_states", (n, 7), dtype="f4")
+        # Exact float64 anchor/action values are required for bitwise-reproducible
+        # cloned contact dynamics. Float32 truncation can be amplified at impact.
+        h5.create_dataset("anchor_states", (n, 7), dtype="f8")
         h5.create_dataset("initial_images", (n, 224, 224, 3), dtype="u1", compression="lzf")
-        h5.create_dataset("actions", (n, k, 2), dtype="f4")
-        h5.create_dataset("offsets", (n, k), dtype="f4")
+        h5.create_dataset("actions", (n, k, 2), dtype="f8")
+        h5.create_dataset("offsets", (n, k), dtype="f8")
         h5.create_dataset("sweep_side", (n,), dtype="i1")
         h5.create_dataset("future_images", (n, k, h, 224, 224, 3), dtype="u1", compression="lzf")
         h5.create_dataset("future_states", (n, k, h, 7), dtype="f4")
