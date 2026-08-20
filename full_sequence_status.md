@@ -34,7 +34,14 @@
 - Final protocol was committed before final generation as `3cbd3c50c472f1e3bcaad6e50c3b2835e007094c`.
 - The immutable scientific-artifact audit passed 54/54 checks before launch.
 - The final runner started at 2026-08-20 19:00:44 EDT with seeds 20360830–20360859 and no filtering, retry, or replacement.
-- As of 2026-08-20 19:35 EDT, 2/30 episode artifacts have been atomically saved; episode 2 is running.
+- As of 2026-08-20 19:35 EDT, 2/30 complete JSON/NPZ episode pairs have been saved; episode 2 is running. The JSON is written after the NPZ and is therefore used as the completion marker.
 - Only process health, artifact count/schema, GPU utilization, and stderr are being monitored. Final effect metrics remain uninspected until all 30 episodes are complete.
 - Observed throughput is approximately 17 minutes per complete episode. No protocol, model, scorer, threshold, or statistic has changed after launch.
 - Next automatic step: finish all 30 episodes, run the frozen analysis once, then generate plots and update the paper without retuning.
+
+## 2026-08-20 — pre-unblinding analysis integrity audit
+
+- Before inspecting any final metric, the analysis entry point was checked against the on-disk artifact schema.
+- Engineering-only correction: analysis now requires both JSON and NPZ files and verifies the frozen episode/seed identity before computing statistics.
+- Engineering-only correction: the phase manifest now includes raw final JSON/NPZ artifacts instead of hashing only configs, reports, results, and plots.
+- The metric definitions, bootstrap, thresholds, interpretation rules, model, scorer, seeds, and candidate budget were not changed.

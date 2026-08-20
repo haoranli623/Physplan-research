@@ -31,9 +31,19 @@ def main() -> None:
     rows = []
     for episode in range(int(cfg["final_episodes"])):
         path = directory / f"episode_{episode:03d}.json"
-        if not path.exists():
-            raise RuntimeError(f"Missing final episode artifact: {path}")
+        raw_path = directory / f"episode_{episode:03d}.npz"
+        if not path.exists() or not raw_path.exists():
+            raise RuntimeError(
+                f"Missing paired final episode artifacts: json={path.exists()} npz={raw_path.exists()} "
+                f"for episode {episode}"
+            )
         item = json.loads(path.read_text(encoding="utf-8"))
+        expected_seed = int(cfg["final_seed"]) + episode
+        if int(item.get("episode", -1)) != episode or int(item.get("seed", -1)) != expected_seed:
+            raise RuntimeError(
+                f"Episode identity mismatch for {path}: expected episode={episode}, seed={expected_seed}; "
+                f"got episode={item.get('episode')}, seed={item.get('seed')}"
+            )
         fixed, search, e2e = item["fixed_trace"], item["search"], item["end_to_end"]
         rows.append({
             "episode": episode, "seed": item["seed"],

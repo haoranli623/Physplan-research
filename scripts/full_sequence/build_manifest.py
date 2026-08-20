@@ -9,6 +9,7 @@ from pathlib import Path
 
 ROOTS = [
     Path("configs/full_sequence"),
+    Path("artifacts/full_sequence/final"),
     Path("results/full_sequence"),
     Path("plots/full_sequence"),
 ]
