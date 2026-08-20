@@ -1,0 +1,16 @@
+{
+  "generated_utc": "2026-08-20T18:07:00Z",
+  "hash_algorithm": "SHA256",
+  "artifacts": [
+    {"path": "artifacts/bottleneck_decomposition/development_sweeps.h5", "bytes": 5866730360, "sha256": "D873F8A9A4C5706D217C569587CA370F82CA4A7F3743CDE97B166A1966720CA7"},
+    {"path": "artifacts/bottleneck_decomposition/development_features.h5", "bytes": 124762408, "sha256": "2F9DCB09843FE801B8EB0F8C5A8919D58108404E4C0AC1DDC282741F119958F7"},
+    {"path": "artifacts/bottleneck_decomposition/test_sweeps.h5", "bytes": 7333406520, "sha256": "4F6D0EEC34E77924058B1F87A189D5B03B98167BB3764D52F4FA9ABC5448C361"},
+    {"path": "artifacts/bottleneck_decomposition/test_features_bf16.h5", "bytes": 155950248, "sha256": "F8FB18D73B89C907DA50A0A993851E549E14C26E641912431A155E2C6E2E6524"},
+    {"path": "artifacts/bottleneck_decomposition/test_features_fp32.h5", "bytes": 155950248, "sha256": "24E69548E81ECFA0D91D545AA112266F7C9A8A9EB8F340267B7F1B9523298E0B"},
+    {"path": "results/bottleneck_decomposition/development/frozen_gt_latent_ridge.joblib", "bytes": 12317, "sha256": "2D3A1E3A8DB79F01043BE580A07D41E10B2D5287C42FB7E4E1CD819770B86216"},
+    {"path": "results/bottleneck_decomposition/test/decomposition_summary.json", "bytes": 9917, "sha256": "EA14ABD5892CC3154F54D4201C19F94F1B2156AB6300AC15A91B1CF0A1E40CA2"},
+    {"path": "results/bottleneck_decomposition/test/raw_decomposition.npz", "bytes": 284601, "sha256": "19B11E5EF7F3DC32F4DEA9840124839F1A0A76D983F62C3D49C0BB16EE800391"},
+    {"path": "results/bottleneck_decomposition/repair/repair_summary.json", "bytes": 1867, "sha256": "D3618E9130E7BC120F7B7DAD2F86336E761A91B3609BE908157B52E836ADCA5C"},
+    {"path": "results/bottleneck_decomposition/repair/repair_raw.npz", "bytes": 67927, "sha256": "396136726143DC5AD1EFD8BAE6F0464742B8493AC3DB66DFCF048E44E58FD402"}
+  ]
+}

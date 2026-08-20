@@ -37,6 +37,14 @@
 
 ---
 
+## Local research extension: latent-planning bottleneck decomposition
+
+This working branch contains a prospective Push-T diagnostic built on the official checkpoint and simulator. On 100 fresh cloned states it identifies the **decision metric**, not prediction or candidate coverage, as the dominant local planning bottleneck. Replacing only latent L2 with a frozen development-trained readout reduces matched-CEM regret from 0.1237 to 0.0421; an FP32 predictor wrong-layer control remains at 0.1220.
+
+See [BOTTLENECK_DECOMPOSITION_SUMMARY.md](BOTTLENECK_DECOMPOSITION_SUMMARY.md), [the full report](bottleneck_decomposition_report.md), and [reproduction instructions](docs/bottleneck_decomposition.md). Boundary-JEPA is not trained: its motivating predictor-specific hypothesis was not supported by the earlier frozen experiments.
+
+---
+
 ## 🎯 Pretrained Models
 
 We provide pretrained [JEPA-WMs](https://arxiv.org/abs/2512.24497), as well as [DINO-WM](https://arxiv.org/abs/2411.04983) and [V-JEPA-2-AC(fixed)](https://arxiv.org/abs/2506.09985) baseline models for various environments.

@@ -1,6 +1,6 @@
 # Bottleneck Decomposition Status
 
-Last updated: 2026-08-20 15:05 EDT
+Last updated: 2026-08-20 14:07 EDT
 
 ## Current stage
 
@@ -113,7 +113,31 @@ P0-P3 are complete. The implementation and fresh development experiment are comp
 
 ## Next automatic step
 
-Commit the diagnosis, then run the matched 65-query readout-CEM repair and the predeclared FP32-predictor/L2 wrong-layer control.
+Final reporting and verification.
+
+## Prospective repair results
+
+- Diagnosis commit: `de4d8ca1a2c74ebbf860e80ce4dc6ff76e44d44d`. Neither repair results nor the FP32 feature cache existed before this commit.
+- Targeted BF16+readout CEM regret: 0.0421 [0.0315, 0.0541], versus baseline BF16+L2 0.1237 [0.0989, 0.1491].
+- Targeted improvement: 0.0815 [0.0563, 0.1079]; the frozen targeted-repair gate passes.
+- Wrong-layer FP32+L2 regret: 0.1220 [0.0990, 0.1469]. Improvement: 0.0017 [-0.0028, 0.0065], not material.
+- Targeted/wrong mean-improvement ratio: 48.1. The frozen actionability gate passes.
+- Project decision: **STRONG GO on the local Push-T protocol**.
+- Failure audit: targeted repair helps 62% of states, leaves 21% unchanged, and harms 17%. State 25 is the largest harmful counterexample (-0.148 improvement) and remains reported.
+
+## Second-task decision
+
+- No second task was run. Only the Push-T checkpoint and validated simulator were installed locally. A post-result environment port would not meet the requested prospective baseline discipline in the remaining session.
+- Recommended next task: Wall, selected for a future precommitted experiment because its official checkpoint is public, its two-dimensional obstacle dynamics are cloneable, and its planning geometry complements contact-rich Push-T without MuJoCo/MetaWorld dependencies.
+
+## Final artifacts
+
+- Executive summary: `BOTTLENECK_DECOMPOSITION_SUMMARY.md`.
+- Scientific report: `bottleneck_decomposition_report.md`.
+- Reproduction guide: `docs/bottleneck_decomposition.md`.
+- Frozen diagnosis: `bottleneck_predictions.json`.
+- State-level/raw results: `results/bottleneck_decomposition/`.
+- Figures: `plots/bottleneck_decomposition/`.
 
 ## Integrity boundary
 

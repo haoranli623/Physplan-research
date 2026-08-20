@@ -1,0 +1,16 @@
+{
+  "selection_rules": "deterministic extrema/median rules evaluated over all 100 frozen states",
+  "manual_cherry_pick": false,
+  "states": {
+    "gt_readout_largest_regret": 88,
+    "largest_prediction_gap": 13,
+    "latent_l2_surprisingly_best": 2,
+    "search_largest_coverage_gap": 2,
+    "most_ambiguous_metric_vs_search": 0,
+    "targeted_repair_worst_change": 25,
+    "representative_median_positive_repair_with_metric_gap": 29
+  },
+  "targeted_repair_harmed_fraction": 0.17,
+  "targeted_repair_unchanged_fraction": 0.21,
+  "targeted_repair_helped_fraction": 0.62
+}

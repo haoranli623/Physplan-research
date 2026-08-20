@@ -1,0 +1,59 @@
+{
+  "stage": "targeted_repair_observed_after_diagnosis_commit",
+  "diagnosis_commit": "de4d8ca1a2c74ebbf860e80ce4dc6ff76e44d44d",
+  "baseline_search_regret": {
+    "mean": 0.1236750316619873,
+    "ci_low": 0.09894069404900074,
+    "ci_high": 0.14914689400792122,
+    "states": 100,
+    "median": 0.08255654573440552
+  },
+  "targeted_readout_search_regret": {
+    "mean": 0.042126861214637754,
+    "ci_low": 0.03148509062826634,
+    "ci_high": 0.05408695057034491,
+    "states": 100,
+    "median": 0.012814193964004517
+  },
+  "targeted_improvement": {
+    "mean": 0.08154817044734955,
+    "ci_low": 0.056285857900977156,
+    "ci_high": 0.10793517711758614,
+    "states": 100,
+    "median": 0.02878803014755249
+  },
+  "matched_query_budget": 65,
+  "matched_search_seeds": true,
+  "passes_frozen_targeted_gate": true,
+  "wrong_layer_fp32_search_regret": {
+    "mean": 0.12197886109352112,
+    "ci_low": 0.09899675810337068,
+    "ci_high": 0.1469092739969492,
+    "states": 100,
+    "median": 0.08137336373329163
+  },
+  "wrong_layer_improvement": {
+    "mean": 0.0016961705684661865,
+    "ci_low": -0.00279410208761692,
+    "ci_high": 0.006502092808485029,
+    "states": 100,
+    "median": 0.0
+  },
+  "mean_absolute_readout_score_change_bf16_to_fp32": {
+    "mean": 0.001798830265761353,
+    "ci_low": 0.0016707315536768875,
+    "ci_high": 0.001931933348212624,
+    "states": 100,
+    "median": 0.0016667376039549708
+  },
+  "targeted_over_wrong_mean_improvement_ratio": 48.07781243433079,
+  "wrong_layer_material": false,
+  "diagnosis_actionable": true,
+  "wrong_layer_runtime": {
+    "feature_cache_seconds": 405.84905560000334,
+    "candidate_rollouts_per_second": 19.958159045177617,
+    "gpu_peak_allocated_bytes": 5264854528,
+    "gpu_peak_reserved_bytes": 6908018688
+  },
+  "project_decision": "STRONG GO"
+}
