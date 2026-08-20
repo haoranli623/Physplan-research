@@ -1,0 +1,231 @@
+{
+  "development_only": true,
+  "episodes": 5,
+  "candidates_per_episode": 9001,
+  "selected_alpha": 0.1,
+  "alpha_cv": {
+    "0.1": {
+      "fold_mse": [
+        0.0035950823221355677,
+        0.0009487376664765179,
+        0.0020664294715970755,
+        0.008825229480862617,
+        0.017870837822556496
+      ],
+      "mean_mse": 0.006661263352725655
+    },
+    "1.0": {
+      "fold_mse": [
+        0.003584143938496709,
+        0.0009477774729020894,
+        0.0020683060865849257,
+        0.00882888212800026,
+        0.017888018861413002
+      ],
+      "mean_mse": 0.006663425697479397
+    },
+    "10.0": {
+      "fold_mse": [
+        0.0034957528114318848,
+        0.0009379001567140222,
+        0.00207900139503181,
+        0.008861307986080647,
+        0.018108075484633446
+      ],
+      "mean_mse": 0.006696407566778362
+    },
+    "100.0": {
+      "fold_mse": [
+        0.0032514999620616436,
+        0.0008773005101829767,
+        0.0020995016675442457,
+        0.009084598161280155,
+        0.020244240760803223
+      ],
+      "mean_mse": 0.007111428212374449
+    },
+    "1000.0": {
+      "fold_mse": [
+        0.0036866727750748396,
+        0.0009568360401317477,
+        0.0024464065209031105,
+        0.008993370458483696,
+        0.02886113151907921
+      ],
+      "mean_mse": 0.00898888346273452
+    }
+  },
+  "scorer_sha256": "EDCFED77C89A0625C638FF45A6AC8A8BE9323AE946C5653DAEB6CDC4945EEACC",
+  "episode_metrics": [
+    {
+      "episode": 0,
+      "cost_range": 0.6205114722251892,
+      "gt_rho": 0.9475698025441907,
+      "pred_rho": 0.7379298618177279,
+      "gt_regret": 0.10007021576166153,
+      "pred_regret": 0.20667454600334167,
+      "l2_regret": 0.10735967010259628
+    },
+    {
+      "episode": 1,
+      "cost_range": 0.5947007536888123,
+      "gt_rho": 0.9659012435369534,
+      "pred_rho": 0.9040734964918481,
+      "gt_regret": 0.1026526615023613,
+      "pred_regret": 0.14515776932239532,
+      "l2_regret": 0.1801776885986328
+    },
+    {
+      "episode": 2,
+      "cost_range": 0.44978100061416626,
+      "gt_rho": 0.9144424337941142,
+      "pred_rho": 0.8891379668998737,
+      "gt_regret": 0.16531340777873993,
+      "pred_regret": 0.24536630511283875,
+      "l2_regret": 0.6823848485946655
+    },
+    {
+      "episode": 3,
+      "cost_range": 0.3992820382118225,
+      "gt_rho": 0.882777986103347,
+      "pred_rho": 0.8554038792824411,
+      "gt_regret": 0.0,
+      "pred_regret": 0.0,
+      "l2_regret": 0.796299397945404
+    },
+    {
+      "episode": 4,
+      "cost_range": 0.6812941431999207,
+      "gt_rho": 0.9547267693538775,
+      "pred_rho": 0.6197458690359423,
+      "gt_regret": 0.06319130957126617,
+      "pred_regret": 0.48431864380836487,
+      "l2_regret": 0.9947494268417358
+    }
+  ],
+  "mean_gt_rho": 0.9330836470664966,
+  "mean_pred_rho": 0.8012582147055667,
+  "mean_gt_regret": 0.08624551892280578,
+  "mean_pred_regret": 0.21630345284938812,
+  "mean_l2_regret": 0.5521942064166069,
+  "targeted_integration_metrics": [
+    {
+      "episode": 0,
+      "baseline_selected_raw_cost": 0.4461064338684082,
+      "targeted_selected_raw_cost": 0.4195702373981476,
+      "targeted_oracle_raw_cost": 0.41557037830352783,
+      "raw_cost_improvement": 0.02653619647026062
+    },
+    {
+      "episode": 1,
+      "baseline_selected_raw_cost": 0.5103561878204346,
+      "targeted_selected_raw_cost": 0.6131566762924194,
+      "targeted_oracle_raw_cost": 0.40683498978614807,
+      "raw_cost_improvement": -0.10280048847198486
+    }
+  ],
+  "timings": [
+    {
+      "episode": 0,
+      "seed": 20260830,
+      "cem_seconds": 302.21528469992336,
+      "sim_seconds": 266.44122300005984,
+      "encode_seconds": 22.083764599985443,
+      "candidates": 9001
+    },
+    {
+      "episode": 1,
+      "seed": 20260831,
+      "cem_seconds": 301.09995649999473,
+      "sim_seconds": 281.3216581000015,
+      "encode_seconds": 22.33255679998547,
+      "candidates": 9001
+    },
+    {
+      "episode": 2,
+      "seed": 20260832,
+      "cem_seconds": 312.30963480006903,
+      "sim_seconds": 234.8412921000272,
+      "encode_seconds": 20.984689000062644,
+      "candidates": 9001
+    },
+    {
+      "episode": 3,
+      "seed": 20260833,
+      "cem_seconds": 282.61940359999426,
+      "sim_seconds": 213.1713154000463,
+      "encode_seconds": 20.88242070004344,
+      "candidates": 9001
+    },
+    {
+      "episode": 4,
+      "seed": 20260834,
+      "cem_seconds": 282.79958779993467,
+      "sim_seconds": 228.79084240004886,
+      "encode_seconds": 21.031827099970542,
+      "candidates": 9001
+    }
+  ],
+  "config": {
+    "experiment": "pusht_official_h6_full_sequence_development",
+    "stage": "development_only",
+    "seed": 20260830,
+    "episodes": 5,
+    "targeted_validation_episodes": 2,
+    "checkpoint": "artifacts/checkpoints/jepa_wm_pusht.pth.tar",
+    "device": "cuda:0",
+    "initial_states": {
+      "generator": "fresh_actionable_near_contact_v1",
+      "block_xy_range": [
+        175.0,
+        337.0
+      ],
+      "agent_radius_range": [
+        75.0,
+        125.0
+      ],
+      "canonical_goal_pose": [
+        256.0,
+        256.0,
+        0.7853981633974483
+      ]
+    },
+    "model": {
+      "official_config": "configs/evals/simu_env_planning/pt/jepa-wm/pt_L2_cem_sourcedset_H6_nas6_ctxt2_r224_alpha0.1_ep96_decode.yaml",
+      "horizon": 6,
+      "frameskip": 5,
+      "raw_action_dim": 2,
+      "model_action_dim": 10,
+      "inference_dtype": "float32",
+      "model_query_batch_size": 75
+    },
+    "planner": {
+      "implementation": "traced_exact_official_cem_update",
+      "iterations": 30,
+      "samples": 300,
+      "elites": 10,
+      "var_scale": 1.0,
+      "momentum_mean": 0.0,
+      "momentum_std": 0.0,
+      "terminal_proprio_alpha": 0.1
+    },
+    "readout": {
+      "family": "standard_scaler_ridge",
+      "input": "terminal_global_mean_visual_plus_terminal_proprio",
+      "reads_action": false,
+      "alphas": [
+        0.1,
+        1.0,
+        10.0,
+        100.0,
+        1000.0
+      ],
+      "selection": "grouped_episode_cv_mse"
+    },
+    "outputs": {
+      "directory": "results/full_sequence/development",
+      "episode_directory": "artifacts/full_sequence/development",
+      "scorer": "results/full_sequence/development/frozen_full_sequence_ridge.joblib"
+    }
+  }
+}

@@ -1,0 +1,132 @@
+experiment: pusht_official_h6_full_sequence_final
+protocol_version: frozen-final-1
+stage: frozen_final_protocol
+frozen_utc_date: 2026-08-20
+scientific_question: Does the local Push-T decision-metric bottleneck survive official H6 action-sequence CEM planning?
+
+checkpoint: artifacts/checkpoints/jepa_wm_pusht.pth.tar
+checkpoint_sha256: 9BECA3EAFE0739C3B3ADB5D734FA435CCBDA0FEA8A65D53D4CCCEC176AAAA0EB
+device: cuda:0
+
+development_summary: results/full_sequence/development/development_summary.json
+development_summary_sha256: DD97BB0FDE2511E2B646ECEA05A8B7B842ADF325338D47D77D29F2C8606232CD
+development_seed: 20260830
+development_episodes: 5
+
+final_seed: 20360830
+final_episodes: 30
+final_state_policy:
+  generator: fresh_actionable_near_contact_v1
+  no_outcome_filtering: true
+  no_retry_or_replacement: true
+  block_xy_range: [175.0, 337.0]
+  agent_radius_range: [75.0, 125.0]
+  canonical_goal_pose: [256.0, 256.0, 0.7853981633974483]
+  disjoint_from_development_by_seed_range: true
+
+model:
+  official_config: configs/evals/simu_env_planning/pt/jepa-wm/pt_L2_cem_sourcedset_H6_nas6_ctxt2_r224_alpha0.1_ep96_decode.yaml
+  horizon: 6
+  frameskip: 5
+  raw_control_steps: 30
+  raw_action_dim: 2
+  model_action_dim: 10
+  scalar_sequence_dimension: 60
+  inference_dtype: float32
+  model_query_batch_size: 75
+  batching_adaptation: Score each official 300-candidate population in four deterministic model batches; candidates, scores, elites, CEM updates, and query count are unchanged.
+
+planner:
+  implementation: traced_exact_official_cem_update
+  one_shot: true
+  iterations: 30
+  samples: 300
+  elites: 10
+  queries_per_episode: 9000
+  append_returned_final_mean_for_audit: true
+  var_scale: 1.0
+  momentum_mean: 0.0
+  momentum_std: 0.0
+  mean_sample_included: true
+  terminal_proprio_alpha: 0.1
+  baseline_scorer: official_terminal_latent_l2
+  targeted_scorer: frozen_action_blind_task_readout
+  matched_between_runs:
+    - world_model
+    - initial_episode
+    - horizon
+    - iterations
+    - candidates_per_iteration
+    - elites
+    - initial_distribution
+    - model_query_budget
+    - random_seed_policy
+  only_changed_component: scorer
+
+readout:
+  path: results/full_sequence/development/frozen_full_sequence_ridge.joblib
+  sha256: EDCFED77C89A0625C638FF45A6AC8A8BE9323AE946C5653DAEB6CDC4945EEACC
+  family: standard_scaler_ridge
+  alpha: 0.1
+  selected_by: five-fold grouped-development-episode MSE
+  input: terminal_global_mean_visual_plus_terminal_proprio
+  reads_action: false
+  fitted_only_on_development_gt_latents: true
+  torch_sklearn_development_max_abs_error: 0.00000023841858
+
+evaluation:
+  fixed_trace_source: baseline_official_l2_cem
+  fixed_trace_candidates: all_9000_queries_plus_returned_mean
+  gt_encoder_batch_size: 128
+  readout_equivalence_tolerance: 0.00001
+  simulator_cost: one_minus_final_coverage
+  lower_is_better: true
+  fixed_trace_normalization: per_episode_baseline_trace_min_max
+  prediction_gap: pred_readout_regret_minus_gt_readout_regret
+  metric_gap: pred_l2_regret_minus_pred_readout_regret
+  baseline_selection_gap: baseline_selected_cost_minus_baseline_trace_simulator_oracle
+  targeted_selection_gap: targeted_selected_cost_minus_targeted_trace_simulator_oracle
+  adaptive_reference: union_of_baseline_and_targeted_traces
+  adaptive_reference_limitation: The union is an audit reference, not an independent global action oracle.
+  retain_every_candidate: true
+  independent_unit: episode_initial_state
+
+statistics:
+  bootstrap: nonparametric_episode_level
+  bootstrap_samples: 5000
+  bootstrap_seed: 20260901
+  confidence: 0.95
+  unchanged_tolerance: 0.000001
+  report:
+    - mean
+    - median
+    - bootstrap_ci
+    - helped_unchanged_harmed
+
+interpretation:
+  material_gap: 0.02
+  dominance_ratio: 1.5
+  strong_validation: metric_gap lower CI exceeds material gap, metric mean dominates prediction, and repair-improvement lower CI exceeds zero
+  metric_without_repair: metric dominates but end-to-end repair lower CI does not exceed zero
+  prediction_becomes_important: prediction gap lower CI exceeds material gap and prediction mean dominates metric
+  search_becomes_dominant: baseline coverage-gap lower CI exceeds 0.02 when neither prediction nor metric dominates
+  no_clear_signal: none of the frozen cases above applies
+  no_post_final_retuning: true
+
+outputs:
+  episode_directory: artifacts/full_sequence/final
+  result_directory: results/full_sequence
+  plot_directory: plots/full_sequence
+
+commands:
+  final: D:/anaconda/envs/torch-gpu/python.exe -m scripts.full_sequence.run_final --config configs/full_sequence/protocol.yaml
+  analyze: D:/anaconda/envs/torch-gpu/python.exe -m scripts.full_sequence.analyze --config configs/full_sequence/protocol.yaml
+  plot: D:/anaconda/envs/torch-gpu/python.exe -m scripts.full_sequence.plot_results
+
+compute_basis:
+  gpu: NVIDIA GeForce RTX 3080 Laptop GPU 16GB
+  completed_full_budget_benchmark:
+    cem_seconds: 302.9885
+    simulator_seconds: 270.8822
+    gt_encode_seconds: 22.3111
+  final_episode_count_reason: Thirty episodes are the largest precommitted complete run expected to fit the remaining overnight window; preferred 50-80 is infeasible at the official 18000 model queries plus two full simulator traces per episode.
