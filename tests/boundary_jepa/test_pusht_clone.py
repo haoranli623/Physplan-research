@@ -30,3 +30,15 @@ def test_contact_and_task_labels_are_separate():
         "success",
         "cost",
     }
+
+
+def test_endpoint_only_rendering_preserves_physics_and_endpoint_rgb():
+    state = np.array([256, 400, 256, 300, 0, 0, 0], dtype=np.float64)
+    actions = np.repeat(np.array([[0.0, -0.5]], dtype=np.float64), 10, axis=0)
+    full = rollout_from_cloned_state(state, actions, seed=17)
+    endpoint = rollout_from_cloned_state(state, actions, seed=17, render_steps={5, 10})
+    np.testing.assert_array_equal(full.contacts, endpoint.contacts)
+    np.testing.assert_array_equal(full.states, endpoint.states)
+    np.testing.assert_array_equal(full.rewards, endpoint.rewards)
+    np.testing.assert_array_equal(full.coverages, endpoint.coverages)
+    np.testing.assert_array_equal(full.images[[0, 5, 10]], endpoint.images[[0, 5, 10]])

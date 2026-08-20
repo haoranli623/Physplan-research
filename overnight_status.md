@@ -1,6 +1,6 @@
 # Boundary-JEPA Overnight Status
 
-Last updated: 2026-08-20 02:47 EDT
+Last updated: 2026-08-20 02:54 EDT
 
 ## Current stage
 
@@ -66,6 +66,7 @@ P1 — parallel state-disjoint cloned-sweep generation; evaluation feature/probe
 - Direct script invocation does not put the repository root on `sys.path`; reproducible commands use `python -m scripts.boundary_jepa.<name>`.
 - Gym emits its expected NumPy-2 compatibility warning, but deterministic simulator tests and generation succeed on the exercised API.
 - **02:46 audit failure:** 10/12 saved-cache replays reproduced contact labels and coverage but not future state to `1e-6`. Root cause: the generator executed float64 anchor/action values but stored them as float32; small truncation is amplified during impact. This was detected before any probe was trained or result interpreted. Pre-fix audit artifacts are retained. The schema is changed to float64 anchor/actions and both splits will be regenerated from scratch.
+- **02:53 resume failure:** stopping the old probe-train generator interrupted an HDF5 LZF block write; the file raised `filter returned failure during read` on resume. It is quarantined, not repaired or silently reused. Evaluation resume is healthy. Probe-train restarts from the original split seed with the validated fast-render path.
 
 ## Important decisions
 
@@ -77,6 +78,7 @@ P1 — parallel state-disjoint cloned-sweep generation; evaluation feature/probe
 - Canonical planner goal is fixed in config; all candidates are ranked with the same official terminal latent-L2 objective plus the official 0.1 proprio weight.
 - Pilot GO/NO-GO thresholds were encoded before probe/evaluation results were available.
 - No scientific definition, label, threshold, or candidate geometry was changed by the replay fix; only lossless storage precision changed.
+- Generation profiling showed that eight of ten RGB renders per rollout were discarded. An endpoint-only rendering path is being validated against full rendering; it retains the official physics/reward/contact step and changes no scientific data used by the pilot.
 
 ## Next automatic step
 

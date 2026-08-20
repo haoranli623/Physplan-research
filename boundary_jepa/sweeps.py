@@ -201,10 +201,12 @@ def generate_sweeps(
             labels = []
             for candidate_index, action in enumerate(candidate_actions):
                 control_actions = np.repeat(action[None], spec.control_steps, axis=0)
+                endpoint_steps = set(range(spec.frameskip, spec.control_steps + 1, spec.frameskip))
                 rollout = rollout_from_cloned_state(
                     state,
                     control_actions,
                     seed=effective_seed + int(writer.handle.attrs["attempted_anchors"]),
+                    render_steps=endpoint_steps,
                 )
                 rollouts.append(rollout)
                 labels.append(int(rollout.physical["any_contact"]))

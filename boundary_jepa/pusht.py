@@ -37,6 +37,7 @@ def rollout_from_cloned_state(
     seed: int,
     shape: str = "T",
     goal_pose: np.ndarray | None = None,
+    render_steps: set[int] | None = None,
 ) -> PushTRollout:
     """Reset a fresh simulator to ``state`` and execute raw relative actions.
 
@@ -72,9 +73,23 @@ def rollout_from_cloned_state(
         contacts: list[int] = []
         rewards: list[float] = []
         coverages: list[float] = []
-        for action in actions:
-            obs, reward, _, info = env.step(action)
-            images.append(obs["visual"])
+        for step_index, action in enumerate(actions, start=1):
+            # Rendering has no effect on Pymunk dynamics. Large sweeps only need
+            # latent-step endpoints, so suppress unused intermediate renders while
+            # retaining an index-aligned placeholder image.
+            suppress_render = render_steps is not None and step_index not in render_steps
+            if suppress_render:
+                original_render = env._render_frame
+                env._render_frame = lambda mode: None
+            try:
+                obs, reward, _, info = env.step(action)
+            finally:
+                if suppress_render:
+                    env._render_frame = original_render
+            if suppress_render:
+                images.append(images[-1])
+            else:
+                images.append(obs["visual"])
             states.append(info["state"])
             contacts.append(int(info["n_contacts"] > 0))
             rewards.append(float(reward))
