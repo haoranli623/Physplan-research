@@ -65,7 +65,8 @@ These diagnostics do not rescue the primary result. They identify two limitation
 - `875d709` — enforce exact float64 sweep replay
 - `56cd9ed` — accelerate endpoint-only sweep rendering
 - `5eda1cd` — complete locked feasibility pilot
-- Final diagnostics/documentation commit: see `git log -1` after handoff.
+- `bbc18c8` — diagnose inconclusive pilot and finalize handoff
+- Final summary-metadata-only commit: see `git log -1` after handoff.
 
 ## Reproduction
 
