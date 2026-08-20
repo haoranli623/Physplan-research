@@ -1,10 +1,22 @@
 # Wall Replication Status
 
-Last updated: 2026-08-20 15:43 EDT
+Last updated: 2026-08-20 15:55 EDT
 
 ## Current stage
 
-P0-P3 are complete and Wall passed feasibility. D_wall_dev development and the frozen D_wall_diagnosis are complete. The diagnosis is `PREDICTION`. `wall_bottleneck_prediction.json` has been written while D_wall_repair remains unopened.
+The complete Wall phase is finished: feasibility, dev-only protocol selection, frozen diagnosis, committed repair prediction, unseen repair validation, secondary prediction-error audit, plots, and paper ledgers. No further Wall tuning is authorized.
+
+## Independent repair validation
+
+- Repair-prediction commit: `8559594b94846b33e84292b60dfdb308bb927b18`.
+- D_wall_repair was generated only after that commit: 80 anchors, seeds starting `1200000`, six repair-only layouts.
+- Baseline matched-query normalized regret: `0.5561`.
+- Targeted predictor repair regret: `0.1670`; improvement `0.3891`, CI `[0.2930, 0.4804]`.
+- Wrong-layer metric repair regret: `0.5492`; improvement `0.0069`, CI `[-0.0489, 0.0625]`.
+- Targeted-minus-wrong contrast: `0.3822`, CI `[0.2797, 0.4798]`.
+- Targeted helped/unchanged/harmed: `62/7/11` states.
+- Secondary full-trajectory visual MSE: `0.8564 -> 0.1999`. This metric was not part of the success rule.
+- Counterexample anchor 31 is preserved: planning regret worsens `0.2150 -> 0.9905` despite lower latent MSE.
 
 ## Frozen diagnosis
 
@@ -85,4 +97,4 @@ Protocol freeze commit: `71e019f17df524602c9a5db89205da161a4e372a`.
 
 Frozen protocol SHA256: `058852BEC36525F3ACB69F0E21D9F231F60A84427D5792ED3A2BE2A3E7BF0544`.
 
-Commit `wall_bottleneck_prediction.json`. Only after that commit may D_wall_repair be generated.
+Finish integrity manifest, rerun tests and Push-T hash audit, commit canonical Wall artifacts, and stop without starting a third task or full Push-T CEM.

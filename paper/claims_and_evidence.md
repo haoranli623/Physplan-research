@@ -60,26 +60,53 @@
 
 **Evidence**
 
-- Pending feasibility, frozen diagnosis, and unseen repair validation.
+- Official model and exact-clone feasibility passed.
+- Frozen 80-state Wall diagnosis: prediction gap 0.5636 [0.4871, 0.6373], metric gap -0.0279 with CI spanning zero, proposal gap 0.0333.
+- The same dominance rule used in the protocol diagnoses `PREDICTION`, unlike Push-T's `DECISION METRIC`.
 
 **Limitations**
 
-- No claim until all three Wall splits and temporal commits exist.
+- Controlled 1-D waypoint family, not official continuous CEM.
+- Disjoint layout tuples introduce mild distribution shift.
 
 **Unsupported stronger claim**
 
-- Cross-task generality based only on Push-T.
+- Universal validity across world-model architectures, tasks, or planners.
 
 ## Claim W2 — Diagnosis predicts repair on unseen Wall states
 
 **Evidence**
 
-- Pending `wall_bottleneck_prediction.json` commit and untouched repair set.
+- `wall_bottleneck_prediction.json` was committed in `8559594` while the repair cache was absent.
+- On 80 subsequently generated repair states, predictor repair improves normalized regret by 0.3891 [0.2930, 0.4804].
+- Wrong-layer metric repair improves by 0.0069 [-0.0489, 0.0625].
+- Targeted-minus-control contrast: 0.3822 [0.2797, 0.4798].
+- Secondary latent MSE falls 0.8564 → 0.1999, consistent with the targeted component changing as intended.
 
 **Limitations**
 
-- Must report helped/unchanged/harmed fractions and null results.
+- Helped/unchanged/harmed: 62/7/11; the 11 harmed states remain visible.
+- One repair training seed.
+- Predictor fine-tune uses fixed dev data, not a matched offline training-cost comparison to the metric readout.
 
 **Unsupported stronger claim**
 
-- Independent validation before repair-set evaluation is complete.
+- Lower prediction loss guarantees better decisions: anchor 31 is a direct counterexample.
+- The framework always finds a single dominant bottleneck.
+
+## Claim X1 — The framework distinguishes regimes rather than always blaming L2
+
+**Evidence**
+
+- Identical conceptual substitutions classify Push-T as decision metric and Wall as prediction.
+- Corresponding targeted repairs win over task-appropriate wrong-layer controls in both studies.
+
+**Limitations**
+
+- Task-specific candidate geometries and cost normalizations differ by design.
+- Only Wall has a fully disjoint repair-validation set.
+
+**Unsupported stronger claim**
+
+- All failures can be uniquely or additively attributed.
+- A two-task result establishes broad generality.

@@ -1,0 +1,162 @@
+{
+  "dataset": "wall_repair",
+  "anchors": 80,
+  "out_of_sample": true,
+  "prediction_commit": "8559594b94846b33e84292b60dfdb308bb927b18",
+  "pre_registered_diagnosis": "PREDICTION",
+  "methods": {
+    "baseline_l2": {
+      "full_rho": {
+        "mean": 0.2352687579165768,
+        "median": 0.3318815331010454,
+        "ci_low": 0.13640583607744652,
+        "ci_high": 0.3314001844450875,
+        "states": 80
+      },
+      "full_normalized_regret": {
+        "mean": 0.53290184473311,
+        "median": 0.6374516555120151,
+        "ci_low": 0.4657662376012298,
+        "ci_high": 0.5990603252498112,
+        "states": 80
+      },
+      "query_normalized_total_regret": {
+        "mean": 0.5561114006154648,
+        "median": 0.6473995830543859,
+        "ci_low": 0.4894745022001477,
+        "ci_high": 0.6249949558444116,
+        "states": 80
+      },
+      "query_pixel_total_regret": {
+        "mean": 15.116293320518105,
+        "median": 15.602913996263851,
+        "ci_low": 12.989684708321974,
+        "ci_high": 17.366022309839458,
+        "states": 80
+      }
+    },
+    "targeted_predictor_l2": {
+      "full_rho": {
+        "mean": 0.6075541461404381,
+        "median": 0.8216898954703834,
+        "ci_low": 0.5001572088962642,
+        "ci_high": 0.703115549507335,
+        "states": 80
+      },
+      "full_normalized_regret": {
+        "mean": 0.19685062483526017,
+        "median": 9.018235168534333e-07,
+        "ci_low": 0.1251225237784557,
+        "ci_high": 0.2750178050823063,
+        "states": 80
+      },
+      "query_normalized_total_regret": {
+        "mean": 0.16700489503976762,
+        "median": 8.255240558702896e-07,
+        "ci_low": 0.0991929926905604,
+        "ci_high": 0.24020867704798318,
+        "states": 80
+      },
+      "query_pixel_total_regret": {
+        "mean": 3.9878578894872883,
+        "median": 2.069671063509304e-05,
+        "ci_low": 2.2462408648931698,
+        "ci_high": 5.9398925519224415,
+        "states": 80
+      }
+    },
+    "wrong_metric_readout": {
+      "full_rho": {
+        "mean": 0.2760717929272024,
+        "median": 0.2959986428169352,
+        "ci_low": 0.19280998137745925,
+        "ci_high": 0.35395848279993936,
+        "states": 80
+      },
+      "full_normalized_regret": {
+        "mean": 0.5645854108591998,
+        "median": 0.6654562637812831,
+        "ci_low": 0.49853052952673615,
+        "ci_high": 0.6291843947090096,
+        "states": 80
+      },
+      "query_normalized_total_regret": {
+        "mean": 0.5492480681153119,
+        "median": 0.6400603475284424,
+        "ci_low": 0.48091764989611274,
+        "ci_high": 0.6194383197245146,
+        "states": 80
+      },
+      "query_pixel_total_regret": {
+        "mean": 15.239127414262374,
+        "median": 14.210963536067084,
+        "ci_low": 12.980613785663746,
+        "ci_high": 17.5807100081626,
+        "states": 80
+      }
+    }
+  },
+  "targeted_improvement": {
+    "mean": 0.38910650557569726,
+    "median": 0.46943335884432047,
+    "ci_low": 0.29299162956139807,
+    "ci_high": 0.4804018435506438,
+    "states": 80,
+    "helped_count": 62,
+    "unchanged_count": 7,
+    "harmed_count": 11,
+    "helped_fraction": 0.775,
+    "unchanged_fraction": 0.0875,
+    "harmed_fraction": 0.1375
+  },
+  "wrong_layer_improvement": {
+    "mean": 0.006863332500152895,
+    "median": 0.0,
+    "ci_low": -0.04890962833917869,
+    "ci_high": 0.06247886917950229,
+    "states": 80,
+    "helped_count": 17,
+    "unchanged_count": 49,
+    "harmed_count": 14,
+    "helped_fraction": 0.2125,
+    "unchanged_fraction": 0.6125,
+    "harmed_fraction": 0.175
+  },
+  "targeted_minus_wrong_layer": {
+    "mean": 0.3822431730755443,
+    "median": 0.42202685193910094,
+    "ci_low": 0.27972609042648666,
+    "ci_high": 0.4798421840833808,
+    "states": 80
+  },
+  "secondary_prediction_error": {
+    "baseline_full_trajectory_visual_mse": {
+      "mean": 0.856407954543829,
+      "median": 0.869486927986145,
+      "ci_low": 0.7991886774078012,
+      "ci_high": 0.9151327477116137,
+      "states": 80
+    },
+    "targeted_full_trajectory_visual_mse": {
+      "mean": 0.19993071872740983,
+      "median": 0.1875264197587967,
+      "ci_low": 0.19019748276099563,
+      "ci_high": 0.2105555518437177,
+      "states": 80
+    },
+    "mse_reduction": {
+      "mean": 0.6564772367477417,
+      "median": 0.6746250987052917,
+      "ci_low": 0.6050323817133904,
+      "ci_high": 0.7074759276770055,
+      "states": 80
+    },
+    "note": "Secondary diagnostic; not part of the pre-registered repair success rule."
+  },
+  "success_checks": {
+    "targeted_material": true,
+    "targeted_ci_positive": true,
+    "targeted_exceeds_wrong_layer": true
+  },
+  "pre_registered_repair_success": true
+}

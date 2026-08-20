@@ -1,26 +1,28 @@
 # Related Work Notes
 
-These are routing notes, not final prose. Verify every citation against primary papers before writing.
+These are routing notes, not final prose. Links below were checked against primary paper/project pages on 2026-08-20.
 
 ## Latent world models for physical planning
 
-- JEPA-WMs: official repository/paper underlying the checkpoints and planning baselines used here. Position this work as diagnosis of planning interfaces, not a new representation or predictor architecture.
-- DINO-WM: visual world-model planning baseline; relevant to representation and latent-distance objectives.
-- V-JEPA 2 action-conditioned models: relevant action-conditioned latent prediction context.
+- Terver et al., *What Drives Success in Physical Planning with Joint-Embedding Predictive World Models?* ([arXiv 2512.24497](https://arxiv.org/abs/2512.24497)). This is the official JEPA-WMs paper/repository family underlying our checkpoint and evaluates architecture, objective, and planner design choices. Our distinction is state-level controlled substitution followed by prospective repair selection, not another architecture sweep.
+- Zhou et al., *DINO-WM: World Models on Pre-trained Visual Features Enable Zero-shot Planning* ([arXiv 2411.04983](https://arxiv.org/abs/2411.04983); [OpenReview](https://openreview.net/forum?id=D5RNACOZEI)). Establishes frozen DINOv2 patch features plus action-conditioned latent prediction and goal-feature planning.
+- Assran et al., *V-JEPA 2: Self-Supervised Video Models Enable Understanding, Prediction and Planning* ([official Meta publication page](https://ai.meta.com/research/publications/v-jepa-2-self-supervised-video-models-enable-understanding-prediction-and-planning/)). Relevant action-conditioned latent world-model and robot-planning context.
 
 ## Learned planning metrics
 
-- Temporal-distance, reachability, goal-conditioned value, and contrastive planning objectives already establish that Euclidean latent distance can be misaligned.
+- Park et al., *TLDR: Unsupervised Goal-Conditioned RL via Temporal Distance-Aware Representations* ([arXiv 2407.08464](https://arxiv.org/abs/2407.08464)). Use as evidence that temporally meaningful geometry is an established objective, not our novelty.
+- Farahmand et al., *Value-Aware Loss Function for Model-based Reinforcement Learning* ([AISTATS/PMLR 2017](https://proceedings.mlr.press/v54/farahmand17a.html)). Formal precedent for fitting models according to downstream decision structure rather than generic predictive loss.
+- Ayoub et al., *Model-Based Reinforcement Learning with Value-Targeted Regression* ([ICML/PMLR 2020](https://proceedings.mlr.press/v119/ayoub20a.html)). Another primary reference for decision-relevant model objectives.
 - Our claim must not be “learned metric beats L2.” Distinction: controlled component attribution selects the repair before intervention.
 
 ## Model accuracy versus control utility
 
-- Prior model-based RL and world-model work separates predictive fidelity from downstream return.
+- Value-aware and decision-aware model learning already separate probabilistic/predictive fidelity from decision utility. Cite Farahmand et al. and Ayoub et al.; optionally add Voelcker et al., *Calibrated Value-Aware Model Learning with Probabilistic Environment Models* ([ICML/PMLR 2025](https://proceedings.mlr.press/v267/voelcker25a.html)) for calibration caveats.
 - Distinction to establish: the present protocol estimates recoverable headroom at several interfaces using identical candidate sets and simulator oracles.
 
 ## Search/proposal diagnosis
 
-- CEM/MPC performance depends on candidate coverage and within-set selection.
+- Rubinstein, *The Cross-Entropy Method for Combinatorial and Continuous Optimization* ([DOI](https://doi.org/10.1023/A:1010091220143)) is the primary CEM reference. We use finite candidates to expose coverage and selection separately; do not claim a new optimizer.
 - Our audit retains every queried candidate and separately measures simulator-best queried cost versus the finite reference oracle.
 
 ## Diagnostic methodology
@@ -30,7 +32,5 @@ These are routing notes, not final prose. Verify every citation against primary 
 
 ## Citation verification queue
 
-- Confirm exact JEPA-WMs, DINO-WM, and V-JEPA 2 bibliographic entries from official papers.
-- Select 2–3 primary temporal/reachability metric papers.
-- Select 1–2 primary model-based control papers explicitly studying prediction/control mismatch.
-- Select one primary CEM/MPC reference for proposal/selection terminology.
+- Export exact BibTeX from arXiv/OpenReview/PMLR before TeX drafting.
+- Check whether the workshop format permits citing 2026 contemporaneous work such as Temporal-Distance JEPA; do not rely on it for novelty positioning without reading the full primary manuscript.

@@ -39,6 +39,7 @@ def main() -> None:
     pred_visual = np.empty((anchors, candidates, horizon, 384), dtype=np.float32)
     pred_proprio = np.empty((anchors, candidates, horizon, 16), dtype=np.float32)
     default_score = np.empty((anchors, candidates), dtype=np.float32)
+    latent_mse = np.empty((anchors, candidates), dtype=np.float32)
     device = bundle.model.device
     started = time.perf_counter()
     with torch.inference_mode(), torch.autocast(device_type="cuda", dtype=torch.bfloat16):
@@ -49,10 +50,17 @@ def main() -> None:
             goal = source["goals"][anchor]
             initial_image = render_states_224(start[None], wall_x=wall_x, door_y=door_y)[None]
             goal_image = render_states_224(goal[None], wall_x=wall_x, door_y=door_y)[None]
+            future_states = source["sampled_states"][anchor, :, 1:]
+            future_images = render_states_224(
+                future_states, wall_x=wall_x, door_y=door_y
+            )
             z0 = bundle.model.encode(
                 _obs_tensordict(initial_image, start[None, None]).to(device)
             )
             zg = bundle.model.encode(_obs_tensordict(goal_image, goal[None, None]).to(device))
+            zt = bundle.model.encode(
+                _obs_tensordict(future_images, future_states).to(device)
+            )
             chunks = flatten_normalized_action_chunks(
                 torch.from_numpy(source["actions"][anchor]), bundle.preprocessor, frameskip=5
             ).to(device)
@@ -65,9 +73,11 @@ def main() -> None:
             score += 0.1 * (proprio[:, -1] - goal_p).float().pow(2).mean(
                 dim=tuple(range(1, proprio.ndim - 1))
             )
+            mse = (visual - zt["visual"]).float().pow(2).mean(dim=(1, 2, 3, 4, 5))
             pred_visual[anchor] = _pool_visual(visual).float().cpu().numpy()
             pred_proprio[anchor] = _pool_proprio(proprio).float().cpu().numpy()
             default_score[anchor] = score.cpu().numpy()
+            latent_mse[anchor] = mse.cpu().numpy()
             print(f"Repaired predictions {anchor + 1}/{anchors}", flush=True)
     elapsed = time.perf_counter() - started
     output = Path(args.output)
@@ -78,6 +88,7 @@ def main() -> None:
         pred_visual=pred_visual,
         pred_proprio=pred_proprio,
         default_pred_score=default_score,
+        latent_mse=latent_mse,
     )
     metadata = {
         "source": str(source_path.resolve()),

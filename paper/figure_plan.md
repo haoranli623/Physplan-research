@@ -26,7 +26,14 @@ Preferred compact layout after completion:
 - Middle: preregistered repair versus baseline/wrong-layer on disjoint repair states.
 - Right: one deterministic representative and one failure state only if legible.
 
-Status: pending feasibility and frozen protocol.
+Current assets:
+
+- `plots/wall_replication/wall_bottleneck_profile.png`
+- `plots/wall_replication/wall_repair_validation.png`
+- `plots/wall_replication/wall_representative_state.png`
+- `plots/wall_replication/wall_failure_state.png`
+
+Use the profile and repair plot in the main paper. Keep representative/failure states as a compact third panel or supplement depending on page limits.
 
 ## Supplementary candidates
 

@@ -10,7 +10,7 @@ Controlled Bottleneck Attribution for World-Model Planning
 - Method: controlled oracle substitutions estimate representation/readout, prediction, decision-metric, proposal, and within-search headroom.
 - Push-T result: prediction headroom is small; metric headroom is large; diagnosis was committed before a matched repair.
 - Push-T intervention: metric repair substantially outperforms an inference-precision control.
-- Wall independent diagnosis/repair result: **pending**.
+- Wall independent diagnosis/repair result: prediction gap 0.564; predictor repair improves normalized regret by 0.389 on unseen states, while the wrong-layer metric repair is near zero.
 - Full action-sequence validation: **future placeholder; not part of the current Wall phase**.
 
 ## 1. Introduction
@@ -70,11 +70,13 @@ Diagnosis and repair share the same final state set, despite correct temporal pr
 
 ## 4. Independent Wall Replication
 
-- Official model/environment feasibility: **pending**.
-- Three-way dev/diagnosis/repair split: **pending**.
-- Frozen Wall protocol: **pending**.
-- Diagnosis: **pending**.
-- Independently validated repair: **pending**.
+- Official model/environment feasibility passed, including exact clone replay.
+- Three-way split: 60 dev / 80 diagnosis / 80 repair, with disjoint seeds, states, and layout tuples.
+- Protocol commit `71e019f`; repair prediction commit `8559594` precedes repair generation.
+- Diagnosis: prediction gap 0.5636 [0.4871, 0.6373]; metric gap -0.0279 with CI crossing zero; frozen label `PREDICTION`.
+- Independent repair: normalized regret 0.5561 → 0.1670; improvement 0.3891 [0.2930, 0.4804].
+- Wrong-layer metric readout: improvement 0.0069 [-0.0489, 0.0625].
+- Cross-task story: the same framework selects different components rather than encoding a fixed anti-L2 conclusion.
 
 ## 5. Full-Sequence Planning
 
@@ -89,7 +91,7 @@ Placeholder only. Do not add experiments during the Wall phase.
 
 ## 7. Limitations
 
-- One completed task at present.
+- Two controlled tasks, but only one independently separated repair set.
 - Controlled local candidate geometry rather than official full sequence search.
 - Readout ceiling combines representation and readout capacity.
 - Headroom interactions prevent additive causal attribution.
@@ -97,4 +99,4 @@ Placeholder only. Do not add experiments during the Wall phase.
 
 ## 8. Conclusion
 
-Diagnose the limiting interface before spending compute retraining the world model. Wall outcome pending.
+Diagnose the limiting interface before spending compute on the wrong component. Push-T and Wall expose different regimes, and the committed Wall diagnosis selected the effective repair on unseen states.

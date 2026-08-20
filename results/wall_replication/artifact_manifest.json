@@ -1,0 +1,244 @@
+{
+  "schema_version": 1,
+  "phase": "wall_independent_replication",
+  "initial_pusht_commit": "ad4a2524eb7b36ca59c56cf3478435d290334f2c",
+  "protocol_freeze_commit": "71e019f17df524602c9a5db89205da161a4e372a",
+  "repair_prediction_commit": "8559594b94846b33e84292b60dfdb308bb927b18",
+  "artifacts": [
+    {
+      "path": "artifacts/checkpoints/jepa_wm_wall.pth.tar",
+      "bytes": 211639231,
+      "sha256": "8EFB0623CFBA1CB3CA210DE26F7579C83DD24936635F11989C515AFCB23BEA1E"
+    },
+    {
+      "path": "artifacts/wall_replication/feasibility_features.npz",
+      "bytes": 21375095,
+      "sha256": "32F4F5F736597922FC9F67EC2A33AA6FD4219A9DF185F9A91A0A8BEEFD6B5F05"
+    },
+    {
+      "path": "artifacts/wall_replication/feasibility_features.timing.json",
+      "bytes": 514,
+      "sha256": "CF1E5A6C8F059F0AD99FDDC62914E0809946E35F95CE3FD4BECAE612D8FCE66A"
+    },
+    {
+      "path": "artifacts/wall_replication/development_features.npz",
+      "bytes": 42702534,
+      "sha256": "B520890FC3A9FA1F7AF9DF63DAD30E788FD62211C7B3C0AF7AFC6532AF45A350"
+    },
+    {
+      "path": "artifacts/wall_replication/development_features.timing.json",
+      "bytes": 513,
+      "sha256": "398C528E475D11B9742904154817AFF4B69218C9D0FD09DA10C2B06DD8F34034"
+    },
+    {
+      "path": "artifacts/wall_replication/diagnosis_features.npz",
+      "bytes": 56922049,
+      "sha256": "C39F6ED3DABAD50ECB2828BFDD9512844B14F0069854F5F9B36A4E74702960FA"
+    },
+    {
+      "path": "artifacts/wall_replication/diagnosis_features.timing.json",
+      "bytes": 515,
+      "sha256": "C0F6A559E49C61E01CA64239F1ACCC701D7BD69284081A1AA6B40E90155E58F4"
+    },
+    {
+      "path": "artifacts/wall_replication/repair_features.npz",
+      "bytes": 57043480,
+      "sha256": "D97FF18CADA2D5EAFA23041ECA0CEA39FBD66913985CC5B70E07CAB893BFEA10"
+    },
+    {
+      "path": "artifacts/wall_replication/repair_features.timing.json",
+      "bytes": 513,
+      "sha256": "AFA7E9E488700BFB5C782A9F5D991AEC83FACDBDF2FF92D2E79B172ACB213B2D"
+    },
+    {
+      "path": "artifacts/wall_replication/repair_repaired_predictions.npz",
+      "bytes": 28723034,
+      "sha256": "5E67DF53EF164E8C738C12533BE326F174FE3C6F9E1ECB47C0D9DA4C33E0CCB6"
+    },
+    {
+      "path": "artifacts/wall_replication/repair_repaired_predictions.json",
+      "bytes": 378,
+      "sha256": "A07D2A6211F001BCEFEC5955F06F8D0077A79584BF98FFE04C9EECC06CCC8378"
+    },
+    {
+      "path": "configs/wall_replication/feasibility.yaml",
+      "bytes": 1175,
+      "sha256": "6EF9AB999791D77BA486E93C2301D14B947827BAA60B352CC29EA77334298F57"
+    },
+    {
+      "path": "configs/wall_replication/development.yaml",
+      "bytes": 1789,
+      "sha256": "431570288EE66FCDEC2C3E9B20B2F6ECCD0C36AD8C46B0D48E1BDD87B7C4FC41"
+    },
+    {
+      "path": "configs/wall_replication/protocol.yaml",
+      "bytes": 4583,
+      "sha256": "058852BEC36525F3ACB69F0E21D9F231F60A84427D5792ED3A2BE2A3E7BF0544"
+    },
+    {
+      "path": "configs/wall_replication/diagnosis.yaml",
+      "bytes": 731,
+      "sha256": "4B783F73EECCC9EBA9F011B312448777DFD620B3302F3CBF9EEC16D3AAD3A94D"
+    },
+    {
+      "path": "configs/wall_replication/repair.yaml",
+      "bytes": 727,
+      "sha256": "E71668D15B53A2E575EFE579F24236CF00E3FD1C0DDE5D3672A99E0B810BB960"
+    },
+    {
+      "path": "results/wall_replication/feasibility.json",
+      "bytes": 4795,
+      "sha256": "8F36129F89B4BD2A53BC5E4ED98D14C493BC06F89748D20E283B98C9FD46AD4F"
+    },
+    {
+      "path": "results/wall_replication/development/development_summary.json",
+      "bytes": 9953,
+      "sha256": "A8FFDA6E6EAEA7BA4B46AB0C034526B1C8569412F843D7B71F835A9F7E7FE616"
+    },
+    {
+      "path": "results/wall_replication/development/development_scores.npz",
+      "bytes": 49535,
+      "sha256": "A9EAF10807CA287E160076FBD3E17A53A81B43F3F3F618F6BF5C22F0F57173D3"
+    },
+    {
+      "path": "results/wall_replication/development/frozen_gt_latent_ridge.joblib",
+      "bytes": 34717,
+      "sha256": "F658A360F2AAC485DED0EE6934608133726D1A9CAEEEAF65A9138EB5A811EA95"
+    },
+    {
+      "path": "results/wall_replication/development/predictor_repair_development.json",
+      "bytes": 1670,
+      "sha256": "11AC6A786564D67F7E12CCD038F8D8683769F6318376A281B2B6921C9F80F890"
+    },
+    {
+      "path": "results/wall_replication/development/predictor_repair_dev_selected.pth.tar",
+      "bytes": 70537731,
+      "sha256": "B3C737971D246A779C146364B66D1135A582E7A5F51D9B5FD59F025214398BA9"
+    },
+    {
+      "path": "results/wall_replication/diagnosis/diagnosis.json",
+      "bytes": 6039,
+      "sha256": "EBBFC46B61933CD650754E83884247D5C1CA4F24A9BAF503A59C21AC0F6DF958"
+    },
+    {
+      "path": "results/wall_replication/diagnosis/state_metrics.csv",
+      "bytes": 17213,
+      "sha256": "025EB2AF4E7159CD7F6E44F23BD4203554FDA1ECE1D2E8C157D9806B11D156FC"
+    },
+    {
+      "path": "results/wall_replication/diagnosis/scores.npz",
+      "bytes": 58557,
+      "sha256": "3A67196DA6CBF7A6A15823DB6609943EF9E4BC45450A3A2648BB43287C98E431"
+    },
+    {
+      "path": "results/wall_replication/repair/repair.json",
+      "bytes": 4861,
+      "sha256": "89848E7A539551989CC3A8C75425FD96B13E2F2DC9DF3C99E30C23DD06695168"
+    },
+    {
+      "path": "results/wall_replication/repair/state_metrics.csv",
+      "bytes": 12898,
+      "sha256": "48D5267C26FEFD831AEDA9C86E44714729AD1029327DAE54D28AC8E6BAB2FFD1"
+    },
+    {
+      "path": "results/wall_replication/repair/scores.npz",
+      "bytes": 48726,
+      "sha256": "EE76AC45837714752197071EE741D88339CF4020D37F870D121D4BF07EAD8010"
+    },
+    {
+      "path": "plots/wall_replication/wall_bottleneck_profile.png",
+      "bytes": 51453,
+      "sha256": "20AFA808FFF3894ED9D212B6C8FB0F7A259A1360D96741932AACEAB5DEFB57DD"
+    },
+    {
+      "path": "plots/wall_replication/wall_bottleneck_profile.pdf",
+      "bytes": 16550,
+      "sha256": "1B54BC5E00D8EDD2C48977C0A47904FF4EB57851E74A8B0FB255E9DBE42A0DE4"
+    },
+    {
+      "path": "plots/wall_replication/wall_repair_validation.png",
+      "bytes": 129219,
+      "sha256": "51B06B4F3377BBA8581413989AEB786D2554815CB360F5B9B5AB4974214E37FA"
+    },
+    {
+      "path": "plots/wall_replication/wall_repair_validation.pdf",
+      "bytes": 24830,
+      "sha256": "30A5D498B5B8631FEC073E4B61FF9CF7B87B17FF3562929BD5A8DFDB0681F9E9"
+    },
+    {
+      "path": "plots/wall_replication/wall_representative_state.png",
+      "bytes": 117071,
+      "sha256": "DE706CB7A0BABAD48BBEC1BEF017D547AA0B9A863AF60C9C24EE4D82FC4CF5C5"
+    },
+    {
+      "path": "plots/wall_replication/wall_representative_state.pdf",
+      "bytes": 21399,
+      "sha256": "3F52A553B27AA048DF5ED3291482237DD2BD617433121F97C1BFC69783CBB9F8"
+    },
+    {
+      "path": "plots/wall_replication/wall_failure_state.png",
+      "bytes": 121614,
+      "sha256": "4D1795ECBA0BC34EFFA8CD6BE66DA80B4DB65918F12902DDEEFA27E5FF5BF4A3"
+    },
+    {
+      "path": "plots/wall_replication/wall_failure_state.pdf",
+      "bytes": 21502,
+      "sha256": "36E6A1117F79A84678C4F3F09C596740E55C9FCCFC62BB76A9520BB473D6823D"
+    },
+    {
+      "path": "plots/wall_replication/selected_states.json",
+      "bytes": 62,
+      "sha256": "04036454A6198F8ABE1B5D1FE2C76D22D6CB1D78872C2D8054541408E24C92C8"
+    },
+    {
+      "path": "wall_bottleneck_prediction.json",
+      "bytes": 3781,
+      "sha256": "B016B2E633D2573301429FDB9BF2B243E8B9F3F0B5ABBE1A825EB2EC18387145"
+    },
+    {
+      "path": "WALL_FEASIBILITY_REPORT.md",
+      "bytes": 3802,
+      "sha256": "AB1F96295B3156B13D222943CE1D62AC87232BE9C9783797048398628E2A30F1"
+    },
+    {
+      "path": "WALL_REPLICATION_SUMMARY.md",
+      "bytes": 1713,
+      "sha256": "A87A9B998BB8B1D256EA93743903487C4C5972C50F557172B56B6E470C65790D"
+    },
+    {
+      "path": "wall_replication_report.md",
+      "bytes": 6494,
+      "sha256": "47AFF59B535A234E82B7A41CE6470C45A98771B7ED67BF97C05E17ADE2C2AA7C"
+    },
+    {
+      "path": "WALL_PHASE_SUMMARY.md",
+      "bytes": 3381,
+      "sha256": "781A4ED0FF47BA17B7A2B283CBC6B0F086986EFD722BBE04AFCEB4CC217E597D"
+    },
+    {
+      "path": "docs/wall_replication.md",
+      "bytes": 2181,
+      "sha256": "D71824151E163F10C7225DA0D038D184F1AEEDD9E876113D48FB7599A8B254B6"
+    },
+    {
+      "path": "paper/outline.md",
+      "bytes": 4777,
+      "sha256": "84DB9734093DBBD84D27D6EBF3648D25A3B770B89B9B6398EE9F57CBD833E2CB"
+    },
+    {
+      "path": "paper/claims_and_evidence.md",
+      "bytes": 3828,
+      "sha256": "1410DBED845ECE6FC6DE2440F6D73B32DE7F306A81DBEEC17EA1641D8C33C45E"
+    },
+    {
+      "path": "paper/related_work_notes.md",
+      "bytes": 3789,
+      "sha256": "BA85C674F7AA6D969B205C705E2E08390606790ED2673451678DE610CEAFBCB0"
+    },
+    {
+      "path": "paper/figure_plan.md",
+      "bytes": 1774,
+      "sha256": "95CD564CCBA35BE36540CEDF9D867EB48B508E140E3B63D9FB3D4608A036CD1A"
+    }
+  ]
+}
