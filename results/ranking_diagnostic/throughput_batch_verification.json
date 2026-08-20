@@ -30,5 +30,15 @@
     "delta_regret": 0.0034943386912345887,
     "decision_unchanged": "PREDICTOR NOT BOTTLENECK"
   },
-  "decision": "Retain batch=1 as canonical: batch=5 reaches approximately 84% of 16 GiB VRAM but provides only 1.2% throughput gain and changes BF16 predicted features slightly."
+  "batch_6_aborted": {
+    "completed_anchors": 60,
+    "requested_anchor_batch_size": 6,
+    "observed_total_gpu_memory_mib": 15900,
+    "baseline_after_termination_mib": 1187,
+    "approximate_job_fraction_of_16gib": 0.898,
+    "elapsed": "more than nine minutes for half the cache",
+    "reason": "Severe throughput degradation near the requested 85-92% occupancy range; explicitly terminated and never used for scientific metrics.",
+    "retained_partial_cache": "artifacts/ranking_diagnostic/test_features_batch6_aborted_at_60.h5"
+  },
+  "decision": "Retain batch=1 as canonical: batch=5 reaches approximately 80% of 16 GiB VRAM but provides only 1.2% throughput gain and changes BF16 predicted features slightly; batch=6 approaches 90% but is dramatically slower."
 }

@@ -98,8 +98,10 @@ planner floor under this local protocol.
 - Chronological log: `ranking_diagnostic_status.md`
 - Raw test trajectories/features: `artifacts/ranking_diagnostic/` (ignored by Git)
 
-The batch-5 engineering check reached approximately 84% of 16 GiB VRAM but
+The batch-5 engineering check reached approximately 80% of 16 GiB VRAM but
 improved throughput by only about 1.2% and introduced small BF16 prediction
 differences. Canonical results therefore retain batch=1; the scientific decision
-was unchanged under batch=5.
-
+was unchanged under batch=5. A batch-6 attempt reached roughly 90% process-plus-
+desktop VRAM use but became more than six times slower and was terminated at
+60/120 anchors. Higher occupancy is therefore not a valid throughput optimization
+on this execution path.

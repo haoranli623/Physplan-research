@@ -1,10 +1,10 @@
 # Local Counterfactual Ranking Diagnostic Status
 
-Last updated: 2026-08-20 11:37 EDT
+Last updated: 2026-08-20 11:50 EDT
 
 ## Current stage
 
-Fresh held-out evaluation complete exactly once. Final frozen decision: **PREDICTOR NOT BOTTLENECK**. Only audit, presentation, and reproducibility work remains.
+Complete. Fresh held-out evaluation, audits, figures, reports, reproducibility checks, and compute diagnostics are finished. Final frozen decision: **PREDICTOR NOT BOTTLENECK**.
 
 ## Starting repository state
 
@@ -107,10 +107,11 @@ These remain provisional until the explicit protocol-freeze commit.
 ## Post-result engineering robustness (does not replace canonical test)
 
 - The canonical batch=1 feature cache used only 2.60/2.93 GB peak allocated/reserved VRAM, so a resumable multi-anchor path with automatic OOM backoff was added after the scientific result was fixed.
-- Batch=5 completed without OOM at 12.40/13.78 GB allocated/reserved (about 84% of 16 GiB), but throughput improved only from 26.98 to 27.29 candidates/s because preprocessing/transfer dominates.
+- Batch=5 completed without OOM at 12.40/13.78 decimal GB allocated/reserved (about 80% of 16 GiB), but throughput improved only from 26.98 to 27.29 candidates/s because preprocessing/transfer dominates.
+- A batch=6 attempt reached approximately 15,900 MiB total GPU use (about 90% after subtracting baseline desktop use) but completed only 60/120 anchors after more than nine minutes. It was explicitly terminated, renamed `test_features_batch6_aborted_at_60.h5`, and never used scientifically. This confirms that the requested occupancy range is counterproductive on this Windows/BF16 path.
 - GT encodings were exact across batch sizes; BF16 predicted features changed slightly (mean absolute visual difference 0.00348). The secondary batch=5 result remained GT/PRED rho 0.720/0.708 and regret gap 0.0035.
 - Canonical batch=1 artifacts and their original test summary are retained. The presentation-only representative plot rerender left the scientific summary SHA256 unchanged (`76C149...B7B7BB`).
 
 ## Next automatic step
 
-Run final tests/JSON/HDF5 audits, inspect the clean worktree diff, commit the immutable result artifacts and documentation, then hand off. No further scientific experiment is justified by this result.
+Handoff. No further scientific experiment or Boundary-JEPA training is justified under this frozen protocol.
