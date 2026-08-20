@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from contextlib import nullcontext
 from pathlib import Path
+import time
 
 import h5py
 import numpy as np
@@ -108,6 +109,9 @@ def cache_sweep_features(
         writer = FeatureWriter(output_path, source, embed_dim=384, proprio_dim=proprio_dim)
         writer.handle.attrs["autocast_bfloat16"] = int(use_bfloat16 and device.type == "cuda")
         writer.handle.attrs["canonical_goal_state"] = canonical_goal_state.astype(np.float32)
+        if device.type == "cuda":
+            torch.cuda.reset_peak_memory_stats(device)
+        started = time.perf_counter()
         try:
             for anchor_index in range(writer.completed, source["anchor_states"].shape[0]):
                 initial_images = source["initial_images"][anchor_index][None, None]
@@ -165,4 +169,13 @@ def cache_sweep_features(
                     flush=True,
                 )
         finally:
+            if device.type == "cuda":
+                torch.cuda.synchronize(device)
+                writer.handle.attrs["gpu_peak_allocated_bytes"] = int(torch.cuda.max_memory_allocated(device))
+                writer.handle.attrs["gpu_peak_reserved_bytes"] = int(torch.cuda.max_memory_reserved(device))
+            elapsed = time.perf_counter() - started
+            writer.handle.attrs["feature_cache_seconds"] = float(elapsed)
+            completed_candidates = writer.completed * candidates
+            writer.handle.attrs["candidate_rollouts_per_second"] = float(completed_candidates / elapsed)
+            writer.handle.flush()
             writer.close()

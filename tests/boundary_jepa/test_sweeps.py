@@ -22,3 +22,10 @@ def test_action_slice_starts_toward_block():
     assert cosine > 0.999
     assert offsets[0] == 0
     assert np.sign(offsets[-1]) == side
+
+
+def test_ranking_test_seed_is_disjoint():
+    from boundary_jepa.sweeps import SPLIT_SEED_OFFSETS
+
+    assert len(set(SPLIT_SEED_OFFSETS.values())) == len(SPLIT_SEED_OFFSETS)
+    assert SPLIT_SEED_OFFSETS["ranking_test"] > SPLIT_SEED_OFFSETS["evaluation"]

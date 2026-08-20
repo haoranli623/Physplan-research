@@ -1,0 +1,244 @@
+{
+  "development_only": true,
+  "fresh_test_seen": false,
+  "states": 100,
+  "candidates_per_state": 41,
+  "informative_states": 76,
+  "cost_range_quantiles": {
+    "0": 0.0,
+    "0.25": 0.05616104602813721,
+    "0.5": 0.20782852172851562,
+    "0.75": 0.3419211208820343,
+    "1": 0.7485471963882446
+  },
+  "selected_alpha": 1000.0,
+  "alpha_selection_rule": "maximum mean per-state GT Spearman under five-fold anchor-grouped OOF evaluation",
+  "alpha_results": [
+    {
+      "alpha": 0.1,
+      "mean_gt_rho": 0.652735738609257,
+      "median_gt_rho": 0.8044571749563404,
+      "mean_pred_rho": 0.5901645221245592,
+      "mean_gt_regret": 0.01628033220767975,
+      "mean_pred_regret": 0.03355823159217834
+    },
+    {
+      "alpha": 1.0,
+      "mean_gt_rho": 0.655845285060344,
+      "median_gt_rho": 0.8103468392315891,
+      "mean_pred_rho": 0.5932110104756383,
+      "mean_gt_regret": 0.017228184938430785,
+      "mean_pred_regret": 0.0333676815032959
+    },
+    {
+      "alpha": 10.0,
+      "mean_gt_rho": 0.6707802725091925,
+      "median_gt_rho": 0.8112055807015506,
+      "mean_pred_rho": 0.6104814119644971,
+      "mean_gt_regret": 0.016973705291748048,
+      "mean_pred_regret": 0.03195441901683807
+    },
+    {
+      "alpha": 100.0,
+      "mean_gt_rho": 0.6677340018592536,
+      "median_gt_rho": 0.8255797406004312,
+      "mean_pred_rho": 0.6442137010298293,
+      "mean_gt_regret": 0.017505900859832765,
+      "mean_pred_regret": 0.025569708347320558
+    },
+    {
+      "alpha": 1000.0,
+      "mean_gt_rho": 0.6726375373274328,
+      "median_gt_rho": 0.8308820002520125,
+      "mean_pred_rho": 0.6624028715793195,
+      "mean_gt_regret": 0.018537352085113524,
+      "mean_pred_regret": 0.02900909960269928
+    }
+  ],
+  "metrics": {
+    "learned_gt": {
+      "all_states": {
+        "rho": {
+          "states": 89,
+          "mean": 0.6726375373274327,
+          "median": 0.8308820002520125
+        },
+        "pairwise_accuracy": {
+          "states": 89,
+          "mean": 0.8421225358175599,
+          "median": 0.9156050955414012
+        },
+        "topk_retrieval": {
+          "states": 100,
+          "mean": 0.67,
+          "median": 1.0
+        },
+        "selection_regret": {
+          "states": 100,
+          "mean": 0.018537352085113524,
+          "median": 0.0021237730979919434
+        }
+      },
+      "informative_states": {
+        "rho": {
+          "states": 76,
+          "mean": 0.7313852839338212,
+          "median": 0.8512168855302167
+        },
+        "pairwise_accuracy": {
+          "states": 76,
+          "mean": 0.8658926601600827,
+          "median": 0.9244561816078439
+        },
+        "topk_retrieval": {
+          "states": 76,
+          "mean": 0.6973684210526315,
+          "median": 1.0
+        },
+        "selection_regret": {
+          "states": 76,
+          "mean": 0.023074091265076084,
+          "median": 0.006537288427352905
+        }
+      }
+    },
+    "learned_pred": {
+      "all_states": {
+        "rho": {
+          "states": 89,
+          "mean": 0.6624028715793194,
+          "median": 0.8215990132180692
+        },
+        "pairwise_accuracy": {
+          "states": 89,
+          "mean": 0.8419685557688855,
+          "median": 0.9079837618403248
+        },
+        "topk_retrieval": {
+          "states": 100,
+          "mean": 0.62,
+          "median": 1.0
+        },
+        "selection_regret": {
+          "states": 100,
+          "mean": 0.02900909960269928,
+          "median": 0.001996546983718872
+        }
+      },
+      "informative_states": {
+        "rho": {
+          "states": 76,
+          "mean": 0.719949722733794,
+          "median": 0.8397161045889119
+        },
+        "pairwise_accuracy": {
+          "states": 76,
+          "mean": 0.8670978117812943,
+          "median": 0.9238907618988159
+        },
+        "topk_retrieval": {
+          "states": 76,
+          "mean": 0.6973684210526315,
+          "median": 1.0
+        },
+        "selection_regret": {
+          "states": 76,
+          "mean": 0.03668915049025887,
+          "median": 0.005219608545303345
+        }
+      }
+    },
+    "fixed_gt": {
+      "all_states": {
+        "rho": {
+          "states": 89,
+          "mean": -0.15437359429421119,
+          "median": -0.2392977907834412
+        },
+        "pairwise_accuracy": {
+          "states": 89,
+          "mean": 0.4217831781660909,
+          "median": 0.3764705882352941
+        },
+        "topk_retrieval": {
+          "states": 100,
+          "mean": 0.3,
+          "median": 0.0
+        },
+        "selection_regret": {
+          "states": 100,
+          "mean": 0.09563061773777008,
+          "median": 0.04573848843574524
+        }
+      },
+      "informative_states": {
+        "rho": {
+          "states": 76,
+          "mean": -0.09942548400355915,
+          "median": -0.18404386835866712
+        },
+        "pairwise_accuracy": {
+          "states": 76,
+          "mean": 0.4526307040284063,
+          "median": 0.42370967148585514
+        },
+        "topk_retrieval": {
+          "states": 76,
+          "mean": 0.3157894736842105,
+          "median": 0.0
+        },
+        "selection_regret": {
+          "states": 76,
+          "mean": 0.12316508355893586,
+          "median": 0.09914723038673401
+        }
+      }
+    },
+    "fixed_pred": {
+      "all_states": {
+        "rho": {
+          "states": 89,
+          "mean": -0.07288533264019467,
+          "median": -0.15139526917917287
+        },
+        "pairwise_accuracy": {
+          "states": 89,
+          "mean": 0.45032612629434654,
+          "median": 0.41915227629513346
+        },
+        "topk_retrieval": {
+          "states": 100,
+          "mean": 0.25,
+          "median": 0.0
+        },
+        "selection_regret": {
+          "states": 100,
+          "mean": 0.10820927262306214,
+          "median": 0.061987102031707764
+        }
+      },
+      "informative_states": {
+        "rho": {
+          "states": 76,
+          "mean": -0.031729327855379616,
+          "median": -0.11297868325180252
+        },
+        "pairwise_accuracy": {
+          "states": 76,
+          "mean": 0.4742253443663184,
+          "median": 0.45269469206751434
+        },
+        "topk_retrieval": {
+          "states": 76,
+          "mean": 0.27631578947368424,
+          "median": 0.0
+        },
+        "selection_regret": {
+          "states": 76,
+          "mean": 0.1398220109312158,
+          "median": 0.12452402710914612
+        }
+      }
+    }
+  }
+}

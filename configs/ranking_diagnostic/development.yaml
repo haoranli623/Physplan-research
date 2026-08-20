@@ -1,0 +1,18 @@
+experiment: local_counterfactual_ranking_development
+seed: 20260820
+development_sweeps: artifacts/pilot_cache/evaluation_sweeps_h6_diagnostic.h5
+development_features: artifacts/pilot_cache/evaluation_features_h6_diagnostic.h5
+output_dir: results/ranking_diagnostic/development
+scorer:
+  family: standard_scaler_ridge
+  input: terminal_global_mean_visual_plus_terminal_proprio
+  reads_action: false
+  ridge_alphas: [0.1, 1.0, 10.0, 100.0, 1000.0]
+  grouped_folds: 5
+metrics:
+  informative_cost_range: 0.05
+  pair_tie_tolerance: 0.0001
+  top_k: 5
+  boundary_near_cells: 2
+  boundary_far_cells: 5
+

@@ -12,7 +12,11 @@ import numpy as np
 from boundary_jepa.pusht import rollout_from_cloned_state
 
 
-SPLIT_SEED_OFFSETS = {"probe_train": 0, "evaluation": 1_000_000}
+SPLIT_SEED_OFFSETS = {
+    "probe_train": 0,
+    "evaluation": 1_000_000,
+    "ranking_test": 4_000_000,
+}
 
 
 @dataclass(frozen=True)
@@ -25,6 +29,7 @@ class SweepSpec:
     frameskip: int
     latent_horizon: int
     require_single_boundary: bool = True
+    min_task_cost_range: float = 0.0
 
     @property
     def control_steps(self) -> int:
@@ -84,10 +89,12 @@ class SweepWriter:
                 "rejected_no_boundary": 0,
                 "rejected_multi_boundary": 0,
                 "rejected_workspace": 0,
+                "rejected_uninformative_cost": 0,
                 "frameskip": self.spec.frameskip,
                 "latent_horizon": h,
                 "samples_per_sweep": k,
                 "require_single_boundary": int(self.spec.require_single_boundary),
+                "min_task_cost_range": float(self.spec.min_task_cost_range),
             }
         )
         # Exact float64 anchor/action values are required for bitwise-reproducible
@@ -132,6 +139,12 @@ class SweepWriter:
                 raise ValueError(f"Cannot resume {self.path}: {key}={h5.attrs[key]!r}, expected {value!r}")
         if h5["anchor_states"].shape[0] != self.anchors:
             raise ValueError("Requested anchor count differs from existing cache")
+        stored_min_range = float(h5.attrs.get("min_task_cost_range", 0.0))
+        if not np.isclose(stored_min_range, self.spec.min_task_cost_range):
+            raise ValueError(
+                f"Cannot resume {self.path}: min_task_cost_range={stored_min_range}, "
+                f"expected {self.spec.min_task_cost_range}"
+            )
 
     @property
     def completed(self) -> int:
@@ -226,6 +239,13 @@ def generate_sweeps(
                     "rejected_multi_boundary", int(writer.handle.attrs["rejected_multi_boundary"]) + 1
                 )
                 continue
+            task_costs = np.asarray([rollout.task["cost"] for rollout in rollouts], dtype=np.float64)
+            if float(np.ptp(task_costs)) < spec.min_task_cost_range:
+                writer.handle.attrs.modify(
+                    "rejected_uninformative_cost",
+                    int(writer.handle.attrs["rejected_uninformative_cost"]) + 1,
+                )
+                continue
             writer.write_anchor(state, candidate_actions, offsets, side, rollouts, int(crossings[0]), rng)
             print(
                 f"[{split}] accepted {writer.completed}/{anchors}; "
@@ -234,12 +254,16 @@ def generate_sweeps(
             )
         if writer.completed < anchors:
             raise RuntimeError(f"Only generated {writer.completed}/{anchors} anchors within {max_attempts} attempts")
-        return {key: int(writer.handle.attrs[key]) for key in [
-            "completed_anchors",
-            "attempted_anchors",
-            "rejected_no_boundary",
-            "rejected_multi_boundary",
-            "rejected_workspace",
-        ]}
+        return {
+            key: int(writer.handle.attrs.get(key, 0))
+            for key in [
+                "completed_anchors",
+                "attempted_anchors",
+                "rejected_no_boundary",
+                "rejected_multi_boundary",
+                "rejected_workspace",
+                "rejected_uninformative_cost",
+            ]
+        }
     finally:
         writer.close()
