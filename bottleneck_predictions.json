@@ -1,0 +1,51 @@
+{
+  "task": "Push-T local H6 angular reference set",
+  "diagnosed_bottleneck": "DECISION METRIC",
+  "evidence": {
+    "representation_readout": {
+      "rho_ci_low": 0.6352655406203799,
+      "regret_ci_high": 0.03659916654229164
+    },
+    "prediction_gap": {
+      "mean": 0.007109119892120362,
+      "ci_low": -0.005141948610544203,
+      "ci_high": 0.019805961802601812,
+      "states": 100,
+      "median": 0.0,
+      "q25": -0.012181714177131653,
+      "q75": 0.029402941465377808
+    },
+    "metric_gap": {
+      "mean": 0.08512156963348388,
+      "ci_low": 0.06081688071787358,
+      "ci_high": 0.11091290093958375,
+      "states": 100,
+      "median": 0.05048578977584839,
+      "q25": 0.0,
+      "q75": 0.1300985962152481
+    },
+    "search_gap": {
+      "mean": 0.007405763864517212,
+      "ci_low": 0.0042243478447198885,
+      "ci_high": 0.011481056943535803,
+      "states": 100,
+      "median": 0.0,
+      "q25": 0.0,
+      "q75": 0.005094021558761597
+    },
+    "selection_gap": {
+      "mean": 0.1162692677974701,
+      "ci_low": 0.09191039767861366,
+      "ci_high": 0.14229842501878737,
+      "states": 100,
+      "median": 0.07550865411758423,
+      "q25": 0.008452072739601135,
+      "q75": 0.1677035242319107
+    }
+  },
+  "predicted_best_repair": "frozen task-aligned readout inside the exact same finite-grid CEM",
+  "predicted_low_value_repair": "full-precision predictor inference with the original latent-L2 metric inside the same CEM",
+  "repair_results_observed": false,
+  "timestamp_utc": "2026-08-20T17:51:28.731562+00:00",
+  "git_commit": "014e91053cc7af35e27b4059f6d987fccc29b00b"
+}

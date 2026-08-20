@@ -1,6 +1,6 @@
 # Bottleneck Decomposition Status
 
-Last updated: 2026-08-20 14:00 EDT
+Last updated: 2026-08-20 15:05 EDT
 
 ## Current stage
 
@@ -94,6 +94,26 @@ P0-P3 are complete. The implementation and fresh development experiment are comp
 - Freeze commit: `6a49bdd802ccc8275a1a86fa7286a4b9c26362e0`.
 - The first final-generation invocation failed before opening/creating the test cache because the reusable generator expected a development `split` key while the frozen protocol names the identical section `test`. This is a configuration-layout plumbing bug, not a scientific definition. The generator was changed to accept either key before retry; no protocol field or state was changed.
 - The retry exposed the analogous nested key difference (`name` in development versus `split` in test), again before cache creation or RNG sampling. The generator was changed to normalize either spelling. Frozen values remain identical.
+
+## Frozen final-test diagnosis (recorded before repair)
+
+- Effective final-test seed: 28,260,820.
+- Accepted 100 anchors from 191 attempts: 46 no-boundary rejections, 45 cost-range rejections, zero multi-boundary rejections.
+- All 100 anchors are unique and have zero exact overlap with the new development split, prior 120-state ranking test, and prior 100-state pilot.
+- Twelve of twelve exact cloned replays passed. All states have exactly one contact transition and the locked cost range at least 0.05.
+- Canonical BF16/batch-1 feature cache completed in 340.24 s at 23.81 candidates/s.
+- Frozen GT readout: rho 0.696 [0.635, 0.754], regret 0.0289 [0.0221, 0.0366]. The representation/readout ceiling gate passes.
+- Frozen predicted readout: rho 0.689, regret 0.0360.
+- `G_pred`: 0.0071, CI [-0.0051, 0.0198]. This is below the locked material threshold and uncertain around zero.
+- `G_metric`: 0.0851, CI [0.0608, 0.1109]. This is material and dominates prediction/search headroom under the locked rule.
+- `G_search`: 0.0074, CI [0.0042, 0.0115]. Candidate coverage is not the dominant limitation at the fixed 65-query budget.
+- `G_select`: 0.1163, CI [0.0919, 0.1423]. This is the observed within-search consequence of selecting with the poor baseline metric and is not added to `G_metric`.
+- Final pre-repair diagnosis: **DECISION METRIC**.
+- Prospective prediction saved to `bottleneck_predictions.json`: same-CEM frozen readout is the best repair; FP32 predictor with unchanged L2 is predicted low value. No repaired-search result or FP32 test feature existed when this diagnosis was written.
+
+## Next automatic step
+
+Commit the diagnosis, then run the matched 65-query readout-CEM repair and the predeclared FP32-predictor/L2 wrong-layer control.
 
 ## Integrity boundary
 
