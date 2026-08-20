@@ -93,6 +93,7 @@ P0-P3 are complete. The implementation and fresh development experiment are comp
 
 - Freeze commit: `6a49bdd802ccc8275a1a86fa7286a4b9c26362e0`.
 - The first final-generation invocation failed before opening/creating the test cache because the reusable generator expected a development `split` key while the frozen protocol names the identical section `test`. This is a configuration-layout plumbing bug, not a scientific definition. The generator was changed to accept either key before retry; no protocol field or state was changed.
+- The retry exposed the analogous nested key difference (`name` in development versus `split` in test), again before cache creation or RNG sampling. The generator was changed to normalize either spelling. Frozen values remain identical.
 
 ## Integrity boundary
 

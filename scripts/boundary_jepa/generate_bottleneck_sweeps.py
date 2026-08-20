@@ -26,6 +26,9 @@ def main() -> None:
     split = cfg.get("split", cfg.get("test"))
     if split is None:
         raise ValueError("configuration must contain a split or test section")
+    split_name = split.get("name", split.get("split"))
+    if split_name is None:
+        raise ValueError("split/test section must contain name or split")
     spec = SweepSpec(
         samples=int(candidate["samples"]),
         angular_half_width=float(candidate["angular_half_width_radians"]),
@@ -39,7 +42,7 @@ def main() -> None:
     )
     summary = generate_sweeps(
         split["sweeps"],
-        split=split["name"],
+        split=split_name,
         anchors=int(split["anchors"]),
         seed=int(cfg["seed"]),
         spec=spec,
