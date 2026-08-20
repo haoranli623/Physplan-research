@@ -1,0 +1,30 @@
+experiment: boundary_jepa_pusht_pilot
+seed: 20260820
+device: cuda:0
+checkpoint: artifacts/checkpoints/jepa_wm_pusht.pth.tar
+environment:
+  name: pusht
+  shape: T
+  frameskip: 5
+  latent_horizon: 2
+  # Canonical goal observation for the unchanged official latent-L2 planner.
+  # [agent_x, agent_y, block_x, block_y, block_angle, agent_vx, agent_vy]
+  canonical_goal_state: [256.0, 356.0, 256.0, 256.0, 0.7853981634, 0.0, 0.0]
+sweep:
+  probe_train_anchors: 240
+  evaluation_anchors: 100
+  samples_per_sweep: 41
+  angular_half_width_radians: 1.2
+  action_magnitude: 0.5
+  min_agent_radius: 85.0
+  max_agent_radius: 125.0
+  require_single_boundary: true
+  max_anchor_attempts_factor: 20
+probe:
+  type: logistic_regression
+  input: transition_delta_mean_pooled
+  class_weight: balanced
+  calibration: sigmoid
+statistics:
+  bootstrap_samples: 2000
+  confidence: 0.95

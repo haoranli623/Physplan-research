@@ -1,0 +1,57 @@
+{
+  "checkpoint": "D:\\projects\\physplan\\artifacts\\checkpoints\\jepa_wm_pusht.pth.tar",
+  "checkpoint_epoch": 50,
+  "device": "cuda:0",
+  "clone_state_max_abs_error": 0.0,
+  "clone_image_max_abs_error": 0,
+  "clone_contacts_equal": true,
+  "contact_sequence": [
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "physical": {
+    "any_contact": true,
+    "contact_fraction": 1.0,
+    "persistent_contact": true,
+    "lost_contact": false
+  },
+  "task": {
+    "initial_coverage": 0.18742389976978302,
+    "final_coverage": 0.3562796413898468,
+    "coverage_progress": 0.16885574162006378,
+    "success": false,
+    "cost": 0.6437203586101532
+  },
+  "z0_visual_shape": [
+    1,
+    1,
+    1,
+    16,
+    16,
+    384
+  ],
+  "z_true_visual_shape": [
+    1,
+    1,
+    1,
+    16,
+    16,
+    384
+  ],
+  "z_pred_visual_shape": [
+    1,
+    1,
+    16,
+    16,
+    384
+  ],
+  "model_action_shape": [
+    1,
+    1,
+    10
+  ],
+  "single_chunk_latent_mse": 0.5590887665748596
+}

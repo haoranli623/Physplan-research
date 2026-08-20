@@ -24,5 +24,12 @@ configs/cwtemp/
 
 MUJOCO_LOG.TXT
 
+# Boundary-JEPA generated caches and public pretrained weights.
+artifacts/checkpoints/
+artifacts/torch_cache/
+artifacts/pilot_cache/
+results/checkpoints/
+logs/
+
 macros.py
 CLAUDE.md
