@@ -1,0 +1,81 @@
+experiment: pusht_bottleneck_decomposition_frozen_test
+protocol_version: 1
+seed: 20260820
+device: cuda:0
+checkpoint: artifacts/checkpoints/jepa_wm_pusht.pth.tar
+development:
+  split: bottleneck_dev
+  sweeps: artifacts/bottleneck_decomposition/development_sweeps.h5
+  features: artifacts/bottleneck_decomposition/development_features.h5
+  scorer: results/bottleneck_decomposition/development/frozen_gt_latent_ridge.joblib
+  scorer_sha256: 2D3A1E3A8DB79F01043BE580A07D41E10B2D5287C42FB7E4E1CD819770B86216
+test:
+  split: bottleneck_test
+  anchors: 100
+  sweeps: artifacts/bottleneck_decomposition/test_sweeps.h5
+  features: artifacts/bottleneck_decomposition/test_features_bf16.h5
+  wrong_layer_features: artifacts/bottleneck_decomposition/test_features_fp32.h5
+environment:
+  name: pusht
+  shape: T
+  frameskip: 5
+  latent_horizon: 6
+  canonical_goal_state: [256.0, 356.0, 256.0, 256.0, 0.7853981634, 0.0, 0.0]
+candidate_set:
+  geometry: one_sided_angular_reference_grid
+  samples: 81
+  angular_half_width_radians: 1.2
+  action_magnitude: 0.5
+  min_agent_radius: 85.0
+  max_agent_radius: 125.0
+  require_single_contact_boundary: true
+  informative_cost_range: 0.05
+  max_attempts_factor: 30
+scorer:
+  family: standard_scaler_ridge
+  alpha: 100.0
+  alpha_selection: five_fold_anchor_grouped_max_mean_gt_spearman
+  input: terminal_global_mean_visual_plus_terminal_proprio
+  trained_on: fresh_development_gt_latents_only
+  reads_action: false
+  refit_for_predicted_latents: false
+search:
+  family: finite_grid_scalar_cem
+  parameterization: normalized_angle_on_fixed_reference_grid
+  iterations: 4
+  samples_per_iteration: 16
+  elites: 4
+  initial_mean: 0.5
+  initial_std: 0.5
+  min_std: 0.03
+  final_mean_explicit_query: true
+  total_queries_including_final: 65
+  seed_offset: 10000
+metrics:
+  simulator_cost: one_minus_final_coverage
+  pair_tie_tolerance: 0.0001
+  top_k: 5
+  boundary_near_cells: 4
+  boundary_far_cells: 10
+  bootstrap_samples: 5000
+  confidence: 0.95
+dominance_rule:
+  representation_min_rho_ci_low: 0.5
+  representation_max_regret_ci_high: 0.05
+  min_material_gap: 0.02
+  dominance_ratio: 1.5
+repair_protocol:
+  diagnosis_first: true
+  if_decision_metric:
+    targeted: frozen_task_readout_inside_same_cem
+    wrong_layer_control: full_precision_predictor_with_original_l2_inside_same_cem
+  matched_search_seed: true
+  matched_query_budget: true
+  targeted_min_mean_improvement: 0.03
+  targeted_requires_ci_low_above_zero: true
+  wrong_layer_material_threshold: 0.02
+  actionable_requires_targeted_over_wrong_ratio: 2.0
+results:
+  decomposition_dir: results/bottleneck_decomposition/test
+  repair_dir: results/bottleneck_decomposition/repair
+  plots_dir: plots/bottleneck_decomposition

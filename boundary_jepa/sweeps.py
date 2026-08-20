@@ -16,6 +16,8 @@ SPLIT_SEED_OFFSETS = {
     "probe_train": 0,
     "evaluation": 1_000_000,
     "ranking_test": 4_000_000,
+    "bottleneck_dev": 6_000_000,
+    "bottleneck_test": 8_000_000,
 }
 
 

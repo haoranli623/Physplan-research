@@ -1,0 +1,54 @@
+experiment: pusht_bottleneck_decomposition_development
+protocol_version: development-1
+seed: 20260820
+device: cuda:0
+checkpoint: artifacts/checkpoints/jepa_wm_pusht.pth.tar
+split:
+  name: bottleneck_dev
+  anchors: 80
+  sweeps: artifacts/bottleneck_decomposition/development_sweeps.h5
+  features: artifacts/bottleneck_decomposition/development_features.h5
+environment:
+  name: pusht
+  shape: T
+  frameskip: 5
+  latent_horizon: 6
+  canonical_goal_state: [256.0, 356.0, 256.0, 256.0, 0.7853981634, 0.0, 0.0]
+candidate_set:
+  geometry: one_sided_angular_reference_grid
+  samples: 81
+  angular_half_width_radians: 1.2
+  action_magnitude: 0.5
+  min_agent_radius: 85.0
+  max_agent_radius: 125.0
+  require_single_contact_boundary: true
+  informative_cost_range: 0.05
+  max_attempts_factor: 30
+scorer:
+  family: standard_scaler_ridge
+  input: terminal_global_mean_visual_plus_terminal_proprio
+  reads_action: false
+  ridge_alphas: [0.1, 1.0, 10.0, 100.0, 1000.0]
+  grouped_folds: 5
+search:
+  family: finite_grid_scalar_cem
+  iterations: 4
+  samples_per_iteration: 16
+  elites: 4
+  initial_mean: 0.5
+  initial_std: 0.5
+  min_std: 0.03
+  final_mean_explicit_query: true
+metrics:
+  pair_tie_tolerance: 0.0001
+  top_k: 5
+  boundary_near_cells: 4
+  boundary_far_cells: 10
+  bootstrap_samples: 5000
+  confidence: 0.95
+dominance_rule:
+  representation_min_rho_ci_low: 0.5
+  representation_max_regret_ci_high: 0.05
+  min_material_gap: 0.02
+  dominance_ratio: 1.5
+output_dir: results/bottleneck_decomposition/development

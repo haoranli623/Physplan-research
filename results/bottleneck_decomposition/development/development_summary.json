@@ -1,0 +1,222 @@
+{
+  "development_only": true,
+  "states": 80,
+  "candidates_per_state": 81,
+  "selected_alpha": 100.0,
+  "cv": [
+    {
+      "alpha": 0.1,
+      "mean_gt_rho": 0.6852884769457221,
+      "mean_pred_rho": 0.6515646910640969,
+      "mean_gt_regret": 0.028060215711593627,
+      "mean_pred_regret": 0.04264398291707039
+    },
+    {
+      "alpha": 1.0,
+      "mean_gt_rho": 0.6872125714335067,
+      "mean_pred_rho": 0.6573509894080661,
+      "mean_gt_regret": 0.02806016132235527,
+      "mean_pred_regret": 0.04021615087985993
+    },
+    {
+      "alpha": 10.0,
+      "mean_gt_rho": 0.6914248413361197,
+      "mean_pred_rho": 0.6779611395681622,
+      "mean_gt_regret": 0.02737409994006157,
+      "mean_pred_regret": 0.035656357556581496
+    },
+    {
+      "alpha": 100.0,
+      "mean_gt_rho": 0.6937541591337835,
+      "mean_pred_rho": 0.6841752217905542,
+      "mean_gt_regret": 0.02930764704942703,
+      "mean_pred_regret": 0.0329590879380703
+    },
+    {
+      "alpha": 1000.0,
+      "mean_gt_rho": 0.6871055917957809,
+      "mean_pred_rho": 0.6998528093891849,
+      "mean_gt_regret": 0.029293157905340195,
+      "mean_pred_regret": 0.03208714947104454
+    }
+  ],
+  "metrics": {
+    "readout_gt": {
+      "rho": {
+        "mean": 0.6937541591337835,
+        "ci_low": 0.6305651700580747,
+        "ci_high": 0.7511827010859369,
+        "states": 80,
+        "median": 0.8000959316160364
+      },
+      "pairwise_accuracy": {
+        "mean": 0.8410429548152841,
+        "ci_low": 0.8078121477613762,
+        "ci_high": 0.8698795922145834,
+        "states": 80,
+        "median": 0.8862375340369415
+      },
+      "topk_retrieval": {
+        "mean": 0.6125,
+        "ci_low": 0.5,
+        "ci_high": 0.7125,
+        "states": 80,
+        "median": 1.0
+      },
+      "selection_regret": {
+        "mean": 0.02930764704942703,
+        "ci_low": 0.01861643768846989,
+        "ci_high": 0.04252163672819731,
+        "states": 80,
+        "median": 0.009723037481307983
+      }
+    },
+    "readout_pred": {
+      "rho": {
+        "mean": 0.6841752217905542,
+        "ci_low": 0.6244312230515545,
+        "ci_high": 0.7407462997366338,
+        "states": 80,
+        "median": 0.7628763327565027
+      },
+      "pairwise_accuracy": {
+        "mean": 0.8450403979680834,
+        "ci_low": 0.8129891308091525,
+        "ci_high": 0.874688698023555,
+        "states": 80,
+        "median": 0.8744985069110903
+      },
+      "topk_retrieval": {
+        "mean": 0.5,
+        "ci_low": 0.3875,
+        "ci_high": 0.6125,
+        "states": 80,
+        "median": 0.5
+      },
+      "selection_regret": {
+        "mean": 0.0329590879380703,
+        "ci_low": 0.022137802317738535,
+        "ci_high": 0.04639791123569011,
+        "states": 80,
+        "median": 0.011186927556991577
+      }
+    },
+    "l2_gt": {
+      "rho": {
+        "mean": 0.18346659221458494,
+        "ci_low": 0.0760979490582271,
+        "ci_high": 0.2881894336827546,
+        "states": 80,
+        "median": 0.20415112634670934
+      },
+      "pairwise_accuracy": {
+        "mean": 0.5829359387067153,
+        "ci_low": 0.5336413874506478,
+        "ci_high": 0.6332697648550779,
+        "states": 80,
+        "median": 0.5975056829090806
+      },
+      "topk_retrieval": {
+        "mean": 0.25,
+        "ci_low": 0.1625,
+        "ci_high": 0.35,
+        "states": 80,
+        "median": 0.0
+      },
+      "selection_regret": {
+        "mean": 0.10076889246702195,
+        "ci_low": 0.07801161294803023,
+        "ci_high": 0.12608323028311133,
+        "states": 80,
+        "median": 0.06306222081184387
+      }
+    },
+    "l2_pred": {
+      "rho": {
+        "mean": 0.259094545836507,
+        "ci_low": 0.14437740805396998,
+        "ci_high": 0.36163102730105523,
+        "states": 80,
+        "median": 0.3680107081000378
+      },
+      "pairwise_accuracy": {
+        "mean": 0.6173967592258697,
+        "ci_low": 0.5622228435653949,
+        "ci_high": 0.6695992156570091,
+        "states": 80,
+        "median": 0.6649991851221411
+      },
+      "topk_retrieval": {
+        "mean": 0.1875,
+        "ci_low": 0.1125,
+        "ci_high": 0.275,
+        "states": 80,
+        "median": 0.0
+      },
+      "selection_regret": {
+        "mean": 0.12247384339570999,
+        "ci_low": 0.0982137866690755,
+        "ci_high": 0.14839467290788888,
+        "states": 80,
+        "median": 0.08893400430679321
+      }
+    }
+  },
+  "headroom": {
+    "representation_readout": {
+      "rho_ci_low": 0.6293117707861563,
+      "regret_ci_high": 0.043047388643026346
+    },
+    "prediction_gap": {
+      "mean": 0.0036514408886432646,
+      "ci_low": -0.012663278859108685,
+      "ci_high": 0.019114095345139494,
+      "states": 80,
+      "median": 0.0
+    },
+    "metric_gap": {
+      "mean": 0.08951475545763969,
+      "ci_low": 0.060772664584219455,
+      "ci_high": 0.11932612100616097,
+      "states": 80,
+      "median": 0.07021099328994751
+    },
+    "search_gap": {
+      "mean": 0.009141719341278077,
+      "ci_low": 0.0037605118378996856,
+      "ci_high": 0.016392141208052633,
+      "states": 80,
+      "median": 0.0
+    },
+    "selection_gap": {
+      "mean": 0.11191037222743035,
+      "ci_low": 0.08644405288621784,
+      "ci_high": 0.1378093069605529,
+      "states": 80,
+      "median": 0.08295828104019165
+    }
+  },
+  "development_diagnosis": "DECISION METRIC",
+  "baseline_search_total_regret": {
+    "mean": 0.12105209156870841,
+    "ci_low": 0.09429110804572702,
+    "ci_high": 0.14821187093853952,
+    "states": 80,
+    "median": 0.08653783798217773
+  },
+  "readout_search_total_regret": {
+    "mean": 0.03863296210765839,
+    "ci_low": 0.02656781379133463,
+    "ci_high": 0.0517290842719376,
+    "states": 80,
+    "median": 0.01161929965019226
+  },
+  "targeted_search_improvement": {
+    "mean": 0.08241912946105004,
+    "ci_low": 0.05607576789334416,
+    "ci_high": 0.11018011707812547,
+    "states": 80,
+    "median": 0.04452309012413025
+  },
+  "query_budget": 65
+}

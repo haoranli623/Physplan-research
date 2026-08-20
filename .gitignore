@@ -29,6 +29,7 @@ artifacts/checkpoints/
 artifacts/torch_cache/
 artifacts/pilot_cache/
 artifacts/ranking_diagnostic/
+artifacts/bottleneck_decomposition/
 artifacts/invalid_*/
 results/checkpoints/
 logs/
