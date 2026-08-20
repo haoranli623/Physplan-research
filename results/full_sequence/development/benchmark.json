@@ -1,0 +1,49 @@
+{
+  "official_config": {
+    "horizon": 6,
+    "iterations": 30,
+    "samples": 300,
+    "elites": 10
+  },
+  "benchmark_config": {
+    "checkpoint": "artifacts/checkpoints/jepa_wm_pusht.pth.tar",
+    "output": "results/full_sequence/development/benchmark.json",
+    "iterations": 2,
+    "samples": 32,
+    "elites": 8,
+    "sim_candidates": 32,
+    "seed": 20260821
+  },
+  "model_action_dim": 10,
+  "raw_control_steps": 30,
+  "state": [
+    219.40586463156416,
+    202.63169638637248,
+    193.277348636821,
+    302.072610513597,
+    0.7011542467963188,
+    0.0,
+    0.0
+  ],
+  "checkpoint": "D:\\projects\\physplan\\artifacts\\checkpoints\\jepa_wm_pusht.pth.tar",
+  "load_seconds": 1.39518750004936,
+  "cem_seconds": 2.9093581999186426,
+  "cem_candidates_per_second": 21.9979787988257,
+  "sim_seconds": 0.9260353000136092,
+  "sim_sequences_per_second": 34.55591811622054,
+  "encode_seconds": 0.1629460999974981,
+  "encode_endpoints_per_second": 196.38395764299565,
+  "score_range": [
+    0.7139557600021362,
+    1.2528388500213623
+  ],
+  "sim_cost_range": [
+    0.8106719851493835,
+    0.8321185111999512
+  ],
+  "gt_feature_shape": [
+    32,
+    400
+  ],
+  "cuda_peak_allocated_bytes": 1928478720
+}
