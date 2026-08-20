@@ -1,0 +1,113 @@
+experiment: wall_independent_bottleneck_replication
+protocol_version: 1
+frozen_at: 2026-08-20T15:36:00-04:00
+seed: 20260820
+device: cuda:0
+checkpoint:
+  path: artifacts/checkpoints/jepa_wm_wall.pth.tar
+  sha256: 8EFB0623CFBA1CB3CA210DE26F7579C83DD24936635F11989C515AFCB23BEA1E
+  official_epoch: 50
+  inference: bfloat16_autocast
+environment:
+  name: wall
+  implementation: official_repository_DotWall
+  frameskip: 5
+  latent_horizon: 6
+  controls: 30
+  simulator_cost: terminal_euclidean_goal_distance_pixels
+candidate_set:
+  reference_geometry: two_segment_waypoint_y_grid
+  reference_samples: 41
+  waypoint_y_min: 8.0
+  waypoint_y_max: 56.0
+  planner_query_indices: [0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40]
+  planner_query_budget: 11
+  identical_candidates_for_all_methods: true
+development:
+  seed_start: 1000000
+  anchors: 60
+  layouts: [[26, 18], [26, 36], [29, 24], [32, 42], [35, 18], [38, 36]]
+  features: artifacts/wall_replication/development_features.npz
+  readout: results/wall_replication/development/frozen_gt_latent_ridge.joblib
+  readout_sha256: F658A360F2AAC485DED0EE6934608133726D1A9CAEEEAF65A9138EB5A811EA95
+  predictor_repair: results/wall_replication/development/predictor_repair_dev_selected.pth.tar
+  predictor_repair_sha256: B3C737971D246A779C146364B66D1135A582E7A5F51D9B5FD59F025214398BA9
+diagnosis:
+  seed_start: 1100000
+  anchors: 80
+  layouts: [[26, 24], [29, 42], [32, 18], [35, 36], [38, 30], [38, 48]]
+  features: artifacts/wall_replication/diagnosis_features.npz
+repair_validation:
+  seed_start: 1200000
+  anchors: 80
+  layouts: [[26, 30], [29, 18], [29, 48], [32, 36], [35, 24], [38, 42]]
+  features: artifacts/wall_replication/repair_features.npz
+  unopened_until_prediction_commit: true
+readout:
+  family: standard_scaler_ridge
+  alpha: 10.0
+  alpha_selection: five_fold_anchor_grouped_max_mean_gt_spearman_on_dev
+  input: terminal_goal_delta_signed_absolute_squared_visual_plus_proprio
+  trained_on: D_wall_dev_true_latents_only
+  reads_action: false
+  refit_on_predicted_latents: false
+default_metric:
+  visual: full_terminal_latent_L2_to_goal
+  proprio: full_terminal_latent_L2_to_goal
+  proprio_weight: 0.1
+decomposition:
+  representation_readout: GT_future_latent_plus_frozen_readout
+  prediction_gap: normalized_regret_pred_readout_minus_gt_readout_on_A_ref
+  metric_gap: normalized_regret_pred_L2_minus_pred_readout_on_A_ref
+  search_gap: normalized_best_cost_query_subset_minus_best_cost_A_ref
+  selection_gap: normalized_cost_L2_selected_minus_best_cost_query_subset
+  gaps_are_controlled_nonadditive_headroom: true
+metrics:
+  primary_regret: per_state_regret_divided_by_A_ref_cost_range
+  also_report: [pixel_regret, spearman, pairwise_accuracy, top5_retrieval]
+  pair_tie_tolerance_pixels: 0.05
+  anchor_is_independent_unit: true
+  bootstrap_samples: 5000
+  confidence: 0.95
+dominance_rule:
+  representation_min_rho_ci_low: 0.5
+  representation_max_normalized_regret_ci_high: 0.2
+  minimum_material_normalized_gap: 0.05
+  dominance_ratio: 1.5
+  labels: [REPRESENTATION_READOUT, PREDICTION, DECISION_METRIC, SEARCH_PROPOSAL, SELECTION, MIXED_UNCERTAIN, NO_CLEAR_DOMINANT_BOTTLENECK]
+repair_mapping:
+  PREDICTION:
+    targeted: frozen_dev_predictor_only_standard_latent_L2_finetune
+    training_anchors: 48
+    checkpoint_selection_anchors: 12
+    epochs_selected_by_min_validation_latent_L2: 5
+    learning_rate: 0.00003
+    weight_decay: 0.01
+    wrong_layer_control: frozen_task_readout_on_unmodified_BF16_predictions
+  DECISION_METRIC:
+    targeted: frozen_task_readout_on_unmodified_BF16_predictions
+    wrong_layer_control: increasing_predictor_inference_precision_to_FP32_with_L2
+  SEARCH_PROPOSAL:
+    targeted: six_uniform_queries_then_five_nearest_unqueried_to_model_best
+    matched_total_queries: 11
+    wrong_layer_control: frozen_task_readout_with_original_uniform_queries
+  REPRESENTATION_READOUT:
+    targeted: none_report_limitation
+  SELECTION:
+    targeted: none_without_clean_predeclared_mechanism
+  MIXED_UNCERTAIN:
+    targeted: none_report_inconclusive
+repair_success_rule:
+  targeted_min_mean_normalized_improvement: 0.05
+  targeted_requires_bootstrap_ci_low_above_zero: true
+  targeted_minus_wrong_layer_min_mean: 0.05
+  report_helped_unchanged_harmed: true
+  unchanged_tolerance_normalized_regret: 0.000001
+stopping:
+  no_repair_if_representation_readout_or_mixed: true
+  no_protocol_changes_after_diagnosis_opened: true
+  no_repair_data_before_prediction_commit: true
+outputs:
+  diagnosis_dir: results/wall_replication/diagnosis
+  repair_dir: results/wall_replication/repair
+  plots_dir: plots/wall_replication

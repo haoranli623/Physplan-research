@@ -1,0 +1,62 @@
+{
+  "development_only": true,
+  "selection_metric": "minimum_validation_standard_latent_l2",
+  "selected_epoch": 5,
+  "selected_validation_loss": 0.1507371404791266,
+  "history": [
+    {
+      "epoch": 0,
+      "validation": {
+        "loss": 0.9076958463443974,
+        "visual_loss": 0.9076881113091135,
+        "proprio_loss": 7.73196593141117e-05
+      }
+    },
+    {
+      "epoch": 1,
+      "train_loss": 0.458055348718554,
+      "validation": {
+        "loss": 0.2844974197507874,
+        "visual_loss": 0.28448309064880617,
+        "proprio_loss": 0.00014330123010994412
+      }
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.24918888763683597,
+      "validation": {
+        "loss": 0.2168546774523045,
+        "visual_loss": 0.21683733661969504,
+        "proprio_loss": 0.00017340043682711033
+      }
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.19364312272973178,
+      "validation": {
+        "loss": 0.183385954276333,
+        "visual_loss": 0.1833754034061742,
+        "proprio_loss": 0.00010551795092736924
+      }
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.16739193961872317,
+      "validation": {
+        "loss": 0.16835789503605386,
+        "visual_loss": 0.16834473537235725,
+        "proprio_loss": 0.00013159054089659385
+      }
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.14926226852022537,
+      "validation": {
+        "loss": 0.1507371404791266,
+        "visual_loss": 0.1507272014046103,
+        "proprio_loss": 9.940645845116653e-05
+      }
+    }
+  ],
+  "checkpoint": "results\\wall_replication\\development\\predictor_repair_dev_selected.pth.tar"
+}

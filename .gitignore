@@ -30,8 +30,10 @@ artifacts/torch_cache/
 artifacts/pilot_cache/
 artifacts/ranking_diagnostic/
 artifacts/bottleneck_decomposition/
+artifacts/wall_replication/
 artifacts/invalid_*/
 results/checkpoints/
+results/wall_replication/**/*.pth.tar
 logs/
 
 macros.py
