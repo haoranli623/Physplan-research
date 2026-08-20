@@ -1,5 +1,11 @@
 # Claims and Evidence Ledger
 
+## Headline claim
+
+Different latent world-model planning problems can expose different recoverable bottlenecks. Candidate-matched oracle substitutions diagnosed the limiting interface before intervention in the completed Push-T and Wall studies, and the selected repair subsequently outperformed the wrong-layer control.
+
+This is an intervention-oriented empirical claim under two frozen protocols, not a universal or additive causal decomposition.
+
 ## Claim P1 — Push-T predictor headroom is small under the frozen local protocol
 
 **Evidence**
@@ -110,3 +116,22 @@
 
 - All failures can be uniquely or additively attributed.
 - A two-task result establishes broad generality.
+
+## Claim F1 — Official full action-sequence planning
+
+**Status**
+
+- Pending. Development and final episodes must be new.
+- No scientific result may be added until the protocol YAML is committed before final evaluation.
+
+**Required evidence**
+
+- Fixed-trace GT-readout, predicted-readout, and predicted-L2 comparisons on identical CEM candidate sequences.
+- Simulator evaluation of retained queried sequences, proposal coverage, and within-search selection.
+- Matched-query adaptive CEM comparison in which only the scorer changes.
+- Episode-level bootstrap intervals and helped/unchanged/harmed counts.
+
+**Unsupported until completion**
+
+- Push-T is metric limited under the official full planner.
+- The local diagnosis survives iterative high-dimensional proposal adaptation.

@@ -34,3 +34,7 @@ These are routing notes, not final prose. Links below were checked against prima
 
 - Export exact BibTeX from arXiv/OpenReview/PMLR before TeX drafting.
 - Check whether the workshop format permits citing 2026 contemporaneous work such as Temporal-Distance JEPA; do not rely on it for novelty positioning without reading the full primary manuscript.
+
+## Draft positioning paragraph
+
+The paper should not compete on a new JEPA architecture, learned distance, or CEM variant. Position it between latent world-model planning and decision-aware model learning: existing work supplies strong latent predictors and motivates task-relevant objectives, while our experiment asks which pipeline interface actually has recoverable decision headroom before choosing an intervention. The cross-task result is important because the same frozen attribution logic selects a metric repair on Push-T and a predictor repair on Wall.

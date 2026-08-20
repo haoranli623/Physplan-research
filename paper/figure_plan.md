@@ -42,3 +42,13 @@ Use the profile and repair plot in the main paper. Keep representative/failure s
 - Helped/unchanged/harmed improvement distribution.
 
 Do not add panels merely to increase figure count.
+
+## Figure 5 — Official full action-sequence validation (pending)
+
+Only create after the protocol is frozen and final evaluation is complete.
+
+- Left: fixed-trace prediction and metric gaps with episode-bootstrap intervals.
+- Middle: matched-query baseline versus targeted adaptive CEM regret.
+- Right: query coverage and helped/unchanged/harmed distribution, if legible.
+
+Every plotted candidate statistic must be recoverable from the saved CEM trace. Do not reuse local-slice figures as evidence for this section.
