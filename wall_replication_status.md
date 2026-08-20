@@ -1,10 +1,21 @@
 # Wall Replication Status
 
-Last updated: 2026-08-20 15:37 EDT
+Last updated: 2026-08-20 15:43 EDT
 
 ## Current stage
 
-P0-P3 are complete and Wall passed feasibility. D_wall_dev development is complete. The Wall protocol is being frozen before any diagnosis state is generated. D_wall_diagnosis and D_wall_repair remain unopened.
+P0-P3 are complete and Wall passed feasibility. D_wall_dev development and the frozen D_wall_diagnosis are complete. The diagnosis is `PREDICTION`. `wall_bottleneck_prediction.json` has been written while D_wall_repair remains unopened.
+
+## Frozen diagnosis
+
+- Diagnosis execution-code commit: `960bcd04ccf27f4eeab5893e4678db97c03155bf`.
+- D_wall_diagnosis: 80 anchors, seeds starting at `1100000`, six diagnosis-only layouts.
+- GT readout: rho `0.9428`, normalized regret `0.00359`.
+- Prediction gap: `0.5636`, CI `[0.4871, 0.6373]`.
+- Decision-metric gap: `-0.0279`, CI `[-0.0905, 0.0345]`.
+- Search gap: `0.0333`, below the frozen material threshold of `0.05`.
+- Frozen classification: **PREDICTION**.
+- Repair cache was explicitly confirmed absent before writing the prediction file.
 
 ## Frozen Push-T boundary
 
@@ -74,4 +85,4 @@ Protocol freeze commit: `71e019f17df524602c9a5db89205da161a4e372a`.
 
 Frozen protocol SHA256: `058852BEC36525F3ACB69F0E21D9F231F60A84427D5792ED3A2BE2A3E7BF0544`.
 
-Generate and evaluate D_wall_diagnosis using the committed evaluator. Do not open D_wall_repair.
+Commit `wall_bottleneck_prediction.json`. Only after that commit may D_wall_repair be generated.

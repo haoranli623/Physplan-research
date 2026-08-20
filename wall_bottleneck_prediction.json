@@ -1,0 +1,73 @@
+{
+  "task": "Wall",
+  "diagnosis_dataset": "D_wall_diagnosis",
+  "diagnosis_anchors": 80,
+  "diagnosed_bottleneck": "PREDICTION",
+  "confidence": "high_under_the_frozen_local_protocol",
+  "quantitative_evidence": {
+    "gt_readout_rho": {
+      "mean": 0.9427885765687684,
+      "ci_low": 0.9148528174728847,
+      "ci_high": 0.9621801410638731
+    },
+    "gt_readout_normalized_regret": {
+      "mean": 0.0035927288349507716,
+      "ci_low": 0.0012412463766081248,
+      "ci_high": 0.006695997309597192
+    },
+    "prediction_gap": {
+      "mean": 0.5635845994284839,
+      "ci_low": 0.48708031776489485,
+      "ci_high": 0.6372735884569628
+    },
+    "decision_metric_gap": {
+      "mean": -0.02793728071502246,
+      "ci_low": -0.09053280428217295,
+      "ci_high": 0.03450175737558103
+    },
+    "search_gap": {
+      "mean": 0.03325904154856206,
+      "ci_low": 0.013143615826047745,
+      "ci_high": 0.05944842581623805
+    },
+    "selection_gap": {
+      "mean": 0.49242207276435296,
+      "ci_low": 0.42279323141343667,
+      "ci_high": 0.5649583391974887
+    }
+  },
+  "interpretation": "The frozen GT readout ceiling is strong, and replacing true futures with baseline predictions produces the only material, dominant recoverable headroom among prediction, metric, and proposal substitutions. Selection loss is large but downstream of the prediction/metric interface and is not treated as additive evidence.",
+  "predicted_most_valuable_repair": {
+    "name": "predictor_only_standard_latent_L2_finetune",
+    "definition": "Load the predictor checkpoint trained only on 48 D_wall_dev anchors for five epochs, selected solely by standard latent L2 on 12 held-out D_wall_dev anchors. Keep the frozen DINO encoder, official latent L2 decision metric, candidate set, query indices, horizon, and simulator cost unchanged.",
+    "checkpoint": "results/wall_replication/development/predictor_repair_dev_selected.pth.tar",
+    "checkpoint_sha256": "B3C737971D246A779C146364B66D1135A582E7A5F51D9B5FD59F025214398BA9",
+    "prediction": "On unseen D_wall_repair anchors, the mean normalized regret improvement over official BF16 predictor plus latent L2 will be at least 0.05 and its state-bootstrap 95% CI lower bound will exceed zero."
+  },
+  "predicted_low_value_wrong_layer_control": {
+    "name": "frozen_task_readout_on_unmodified_BF16_predictions",
+    "definition": "Use the frozen alpha-10 action-blind readout on baseline BF16 predicted futures without changing the predictor, candidate set, or query budget.",
+    "prediction": "Its mean normalized regret improvement will be at least 0.05 smaller than the targeted predictor repair. No claim is made that it must be exactly zero."
+  },
+  "matched_budget": {
+    "candidate_reference_count": 41,
+    "planner_query_count": 11,
+    "query_indices": [0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40],
+    "same_candidates_queries_horizon_cost_and_selection_rule": true,
+    "offline_interventions_use_only_D_wall_dev": true
+  },
+  "success_rule": {
+    "targeted_min_mean_normalized_improvement": 0.05,
+    "targeted_requires_bootstrap_ci_low_above_zero": true,
+    "targeted_minus_wrong_layer_min_mean": 0.05,
+    "unchanged_tolerance_normalized_regret": 0.000001
+  },
+  "timestamp": "2026-08-20T15:42:24.1438496-04:00",
+  "protocol": "configs/wall_replication/protocol.yaml",
+  "protocol_sha256": "058852BEC36525F3ACB69F0E21D9F231F60A84427D5792ED3A2BE2A3E7BF0544",
+  "protocol_freeze_commit": "71e019f17df524602c9a5db89205da161a4e372a",
+  "diagnosis_code_commit": "960bcd04ccf27f4eeab5893e4678db97c03155bf",
+  "diagnosis_result": "results/wall_replication/diagnosis/diagnosis.json",
+  "diagnosis_result_sha256": "EBBFC46B61933CD650754E83884247D5C1CA4F24A9BAF503A59C21AC0F6DF958",
+  "repair_dataset_status_at_write": "UNOPENED"
+}

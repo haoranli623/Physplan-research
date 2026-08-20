@@ -1,0 +1,220 @@
+{
+  "frozen_protocol": "configs/wall_replication/protocol.yaml",
+  "dataset": "wall_diagnosis",
+  "anchors": 80,
+  "candidates_per_anchor": 41,
+  "diagnosis": "PREDICTION",
+  "metrics": {
+    "readout_gt": {
+      "rho": {
+        "mean": 0.9427885765687684,
+        "median": 0.9741289198606273,
+        "ci_low": 0.9152874662220178,
+        "ci_high": 0.9620001154374406,
+        "states": 80
+      },
+      "pairwise_accuracy": {
+        "mean": 0.9388079251557364,
+        "median": 0.9582235640251524,
+        "ci_low": 0.9224532292702152,
+        "ci_high": 0.9519086312024729,
+        "states": 80
+      },
+      "topk_retrieval": {
+        "mean": 1.0,
+        "median": 1.0,
+        "ci_low": 1.0,
+        "ci_high": 1.0,
+        "states": 80
+      },
+      "regret_pixels": {
+        "mean": 0.058008837550315204,
+        "median": 0.0,
+        "ci_low": 0.0198024652715317,
+        "ci_high": 0.10384766558486914,
+        "states": 80
+      },
+      "normalized_regret": {
+        "mean": 0.0035927288349507716,
+        "median": 0.0,
+        "ci_low": 0.0012096749134880669,
+        "ci_high": 0.006704264934233022,
+        "states": 80
+      }
+    },
+    "readout_pred": {
+      "rho": {
+        "mean": 0.17776638715297352,
+        "median": 0.2647212543554007,
+        "ci_low": 0.07961051101299793,
+        "ci_high": 0.270109405860188,
+        "states": 80
+      },
+      "pairwise_accuracy": {
+        "mean": 0.5674637773078468,
+        "median": 0.5984661380475758,
+        "ci_low": 0.5304290566515765,
+        "ci_high": 0.6032892470270956,
+        "states": 80
+      },
+      "topk_retrieval": {
+        "mean": 0.325,
+        "median": 0.0,
+        "ci_low": 0.225,
+        "ci_high": 0.425,
+        "states": 80
+      },
+      "regret_pixels": {
+        "mean": 14.622750499307807,
+        "median": 14.631152043240377,
+        "ci_low": 12.510864087544736,
+        "ci_high": 16.849423269604806,
+        "states": 80
+      },
+      "normalized_regret": {
+        "mean": 0.5671773282634346,
+        "median": 0.6469351302208546,
+        "ci_low": 0.4903948137768739,
+        "ci_high": 0.639217786487525,
+        "states": 80
+      }
+    },
+    "l2_gt": {
+      "rho": {
+        "mean": 0.643533661749346,
+        "median": 0.697824484242032,
+        "ci_low": 0.5755692121257816,
+        "ci_high": 0.7088311364920983,
+        "states": 80
+      },
+      "pairwise_accuracy": {
+        "mean": 0.7616550106023092,
+        "median": 0.777071413102498,
+        "ci_low": 0.7293378580152343,
+        "ci_high": 0.7936101347150002,
+        "states": 80
+      },
+      "topk_retrieval": {
+        "mean": 0.975,
+        "median": 1.0,
+        "ci_low": 0.9375,
+        "ci_high": 1.0,
+        "states": 80
+      },
+      "regret_pixels": {
+        "mean": 0.20480487859209973,
+        "median": 0.0,
+        "ci_low": 0.012688135528286753,
+        "ci_high": 0.49630824300947984,
+        "states": 80
+      },
+      "normalized_regret": {
+        "mean": 0.023046763275934874,
+        "median": 0.0,
+        "ci_low": 0.0012222854047723697,
+        "ci_high": 0.055912276611112206,
+        "states": 80
+      }
+    },
+    "l2_pred": {
+      "rho": {
+        "mean": 0.230012259882095,
+        "median": 0.2168118466898955,
+        "ci_low": 0.1296533344097578,
+        "ci_high": 0.32992013430972017,
+        "states": 80
+      },
+      "pairwise_accuracy": {
+        "mean": 0.5867390029539031,
+        "median": 0.5820467117961601,
+        "ci_low": 0.5472037004062822,
+        "ci_high": 0.6250811037066409,
+        "states": 80
+      },
+      "topk_retrieval": {
+        "mean": 0.275,
+        "median": 0.0,
+        "ci_low": 0.1875,
+        "ci_high": 0.375,
+        "states": 80
+      },
+      "regret_pixels": {
+        "mean": 13.967274205620237,
+        "median": 14.095414344626533,
+        "ci_low": 11.847603284643316,
+        "ci_high": 16.1582135999822,
+        "states": 80
+      },
+      "normalized_regret": {
+        "mean": 0.5392400475484121,
+        "median": 0.5984240048994381,
+        "ci_low": 0.4663061838239054,
+        "ci_high": 0.6139730629300038,
+        "states": 80
+      }
+    }
+  },
+  "headroom": {
+    "representation_readout": {
+      "rho": {
+        "mean": 0.9427885765687684,
+        "median": 0.9741289198606273,
+        "ci_low": 0.9148528174728847,
+        "ci_high": 0.9621801410638731,
+        "states": 80
+      },
+      "normalized_regret": {
+        "mean": 0.0035927288349507716,
+        "median": 0.0,
+        "ci_low": 0.0012412463766081248,
+        "ci_high": 0.006695997309597192,
+        "states": 80
+      }
+    },
+    "prediction_gap": {
+      "mean": 0.5635845994284839,
+      "median": 0.6469348916763227,
+      "ci_low": 0.48708031776489485,
+      "ci_high": 0.6372735884569628,
+      "states": 80
+    },
+    "metric_gap": {
+      "mean": -0.02793728071502246,
+      "median": 0.0,
+      "ci_low": -0.09053280428217295,
+      "ci_high": 0.03450175737558103,
+      "states": 80
+    },
+    "search_gap": {
+      "mean": 0.03325904154856206,
+      "median": 2.676736625647091e-07,
+      "ci_low": 0.013143615826047745,
+      "ci_high": 0.05944842581623805,
+      "states": 80
+    },
+    "selection_gap": {
+      "mean": 0.49242207276435296,
+      "median": 0.5029207090273484,
+      "ci_low": 0.42279323141343667,
+      "ci_high": 0.5649583391974887,
+      "states": 80
+    }
+  },
+  "baseline_query_planner": {
+    "query_budget": 11,
+    "normalized_total_regret": {
+      "mean": 0.525681114312915,
+      "median": 0.5616043462292103,
+      "ci_low": 0.45357631918094915,
+      "ci_high": 0.5978446258907771,
+      "states": 80
+    },
+    "pixel_total_regret": {
+      "mean": 13.898038964370693,
+      "median": 14.183879776178856,
+      "ci_low": 11.757525707688535,
+      "ci_high": 16.185889774595374,
+      "states": 80
+    }
+  }
+}
