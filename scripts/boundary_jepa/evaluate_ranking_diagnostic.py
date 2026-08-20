@@ -44,6 +44,13 @@ def normalize_curve(values: np.ndarray) -> np.ndarray:
     return (values - values.min()) / span if span > 0 else np.zeros_like(values)
 
 
+def unique_extreme(values: pd.Series, used: set[int], *, largest: bool) -> int:
+    """Choose a deterministic extreme while keeping representative panels distinct."""
+
+    candidates = values.drop(index=list(used), errors="ignore").dropna()
+    return int(candidates.idxmax() if largest else candidates.idxmin())
+
+
 def main() -> None:
     args = parse_args()
     with Path(args.config).open("r", encoding="utf-8") as handle:
@@ -252,6 +259,8 @@ def main() -> None:
     axis.plot([-1, 1], [-1, 1], "k--", linewidth=1)
     axis.set_xlim(-1, 1)
     axis.set_ylim(-1, 1)
+    axis.set_xlabel("GT-latent Spearman rho")
+    axis.set_ylabel("Predicted-latent Spearman rho")
     axis.set_title("Fresh test: per-state ranking correlation")
     fig.tight_layout()
     fig.savefig(plots_dir / "rho_gt_vs_pred.png", dpi=220, bbox_inches="tight")
@@ -269,6 +278,8 @@ def main() -> None:
         s=35,
     )
     axis.plot([0, max_regret], [0, max_regret], "k--", linewidth=1)
+    axis.set_xlabel("GT-latent selection regret")
+    axis.set_ylabel("Predicted-latent selection regret")
     axis.set_title("Fresh test: selected-action regret")
     fig.tight_layout()
     fig.savefig(plots_dir / "regret_gt_vs_pred.png", dpi=220, bbox_inches="tight")
@@ -277,21 +288,33 @@ def main() -> None:
     near_far = frame[["near_accuracy_degradation", "far_accuracy_degradation"]].melt(
         var_name="pair region", value_name="GT minus predicted pair accuracy"
     )
+    near_far["pair region"] = near_far["pair region"].map(
+        {"near_accuracy_degradation": "Boundary-near", "far_accuracy_degradation": "Boundary-far"}
+    )
     fig, axis = plt.subplots(figsize=(6, 4))
     sns.boxplot(data=near_far, x="pair region", y="GT minus predicted pair accuracy", ax=axis)
     sns.stripplot(data=near_far, x="pair region", y="GT minus predicted pair accuracy", ax=axis, alpha=0.25, size=2)
     axis.axhline(0, color="black", linewidth=1)
-    axis.tick_params(axis="x", rotation=10)
     axis.set_title("Boundary-near vs far adjacent-pair degradation")
     fig.tight_layout()
     fig.savefig(plots_dir / "boundary_near_vs_far.png", dpi=220, bbox_inches="tight")
     plt.close(fig)
 
+    used: set[int] = set()
+    both = unique_extreme(
+        pd.Series(np.minimum(frame["learned_gt_rho"], frame["learned_pred_rho"])), used, largest=True
+    )
+    used.add(both)
+    largest_gap = unique_extreme(frame["delta_rho_gt_minus_pred"], used, largest=True)
+    used.add(largest_gap)
+    pred_better = unique_extreme(frame["delta_rho_gt_minus_pred"], used, largest=False)
+    used.add(pred_better)
+    gt_failure = unique_extreme(frame["learned_gt_rho"], used, largest=False)
     deterministic_cases = {
-        "both strong": int(np.nanargmax(np.minimum(frame["learned_gt_rho"], frame["learned_pred_rho"]))),
-        "largest GT-PRED gap": int(np.nanargmax(frame["delta_rho_gt_minus_pred"])),
-        "PRED beats GT": int(np.nanargmin(frame["delta_rho_gt_minus_pred"])),
-        "GT failure": int(np.nanargmin(frame["learned_gt_rho"])),
+        "both strong": both,
+        "largest GT-PRED gap": largest_gap,
+        "PRED beats GT": pred_better,
+        "GT failure": gt_failure,
     }
     fig, axes = plt.subplots(2, 2, figsize=(12, 8), sharey=True)
     for axis, (name, state) in zip(axes.flat, deterministic_cases.items()):
@@ -321,14 +344,33 @@ def main() -> None:
 
 The original fixed latent-goal planner produced almost the same regret from true and predicted futures, so its planner/representation floor obscured predictor quality.
 
-## 2–8. Frozen diagnostic protocol
+## 2. New hypothesis
 
-- Development/test split: old 100 H6 anchors for development; {states} fresh seed-disjoint anchors for this one-shot test.
-- Candidates: {candidates} identical one-sided angular actions per cloned state, H6/30 controls, exactly one contact boundary, simulator cost range at least {cfg['candidate_set']['informative_cost_range']}.
-- Simulator cost: `1 - final_coverage`; lower is better.
-- Scorer: StandardScaler + Ridge(alpha={cfg['scorer']['alpha']}) on terminal pooled visual/proprio GT latents; action is never input.
-- The scorer was trained only on development GT latents, frozen, and applied unchanged to GT and predicted test latents.
-- Metrics: per-state Spearman, pairwise accuracy above {metric_cfg['pair_tie_tolerance']} cost tolerance, top-{metric_cfg['top_k']} retrieval, selection regret, and GT-to-predicted gaps.
+True future latents may expose local action utility even when the fixed latent-goal distance does not; the matched predicted-latent score measures information lost by prediction.
+
+## 3. Development/test split
+
+The old 100 H6 anchors were development-only. The protocol and scorer were frozen in commit `428c2db` before generating {states} new seed-disjoint test anchors.
+
+## 4. Candidate-set construction
+
+Each anchor uses {candidates} identical one-sided angular candidates, repeated for H6/30 controls. A simulator-only frozen rule requires exactly one contact boundary and cost range at least {cfg['candidate_set']['informative_cost_range']}.
+
+## 5. Simulator cost definition
+
+`J_sim = 1 - final_coverage`; lower is better. Raw trajectories, coverage, contact steps, actions, and states remain in the resumable HDF5 cache.
+
+## 6. GT latent scoring protocol
+
+StandardScaler + Ridge(alpha={cfg['scorer']['alpha']}) consumes only terminal global-mean visual latent plus terminal proprio latent. It was selected with five-fold anchor-grouped development CV and fit on development GT latents only. It never reads action.
+
+## 7. Predicted latent scoring protocol
+
+The identical frozen scorer is applied to standard JEPA-WM predicted terminal latents. It is not refit, recalibrated, or tuned for predictions.
+
+## 8. Metrics
+
+Per-state Spearman, pairwise accuracy above {metric_cfg['pair_tie_tolerance']} cost tolerance, top-{metric_cfg['top_k']} retrieval, selection regret, delta-rho, and delta-regret. Anchor is the statistical unit.
 
 ## 9. GT latent oracle ranking
 
@@ -341,6 +383,7 @@ The original fixed latent-goal planner produced almost the same regret from true
 - Mean rho {summaries['learned_pred']['rho']['mean']:.3f}, 95% CI [{summaries['learned_pred']['rho']['ci_low']:.3f}, {summaries['learned_pred']['rho']['ci_high']:.3f}], median {summaries['learned_pred']['rho']['median']:.3f}.
 - Pairwise accuracy {summaries['learned_pred']['pairwise_accuracy']['mean']:.3f}.
 - Mean regret {summaries['learned_pred']['selection_regret']['mean']:.4f}.
+- Top-{metric_cfg['top_k']} retrieval {summaries['learned_pred']['topk_retrieval']['mean']:.3f} versus {summaries['learned_gt']['topk_retrieval']['mean']:.3f} for GT.
 
 ## 11. Oracle gap
 
@@ -355,11 +398,19 @@ Boundary-specific excess pair-accuracy degradation is {boundary_gap['mean']:.3f}
 
 All confidence intervals are {metric_cfg['bootstrap_samples']}-sample state-level bootstraps. Actions and pairs are aggregated within anchor before inference.
 
-## 14–15. Representative and failure cases
+## 14. Representative cases
 
-See `plots/ranking_diagnostic/representative_rankings.png`, including both-strong, largest-gap, predicted-better counterexample, and GT-failure states selected by deterministic metric rules.
+See `plots/ranking_diagnostic/representative_rankings.png`, including four distinct both-strong, largest-gap, predicted-better counterexample, and GT-failure states selected by deterministic metric rules. No state was manually chosen.
 
-## 16–17. Scientific interpretation and final decision
+## 15. Failure cases
+
+The fixed official goal-L2 scorer fails even with true futures (mean rho {summaries['fixed_gt']['rho']['mean']:.3f}, mean regret {summaries['fixed_gt']['selection_regret']['mean']:.3f}). Individual learned-scorer failures and counterexamples remain in `results/ranking_diagnostic/test/state_metrics.csv`; none was removed.
+
+## 16. Scientific interpretation
+
+The representation contains recoverable decision information, while predicted latents retain essentially the same ranking utility. The fixed official goal-L2 score is the bottleneck that made the prior planner diagnostic weak; predictor fidelity is not the bottleneck under this local protocol.
+
+## 17. Final decision
 
 **{decision}**
 
@@ -391,15 +442,15 @@ Near-minus-far excess degradation {boundary_gap['mean']:.3f} [{boundary_gap['ci_
 
 ## WHAT THIS RULES OUT
 
-See the frozen decision checks and confidence intervals in `results/ranking_diagnostic/test/summary.json`.
+It rules out a material GT-to-predicted ranking loss and boundary-specific ranking degradation at the frozen effect-size thresholds. It does not prove the predictor is universally sufficient outside this H6 local slice.
 
 ## WHAT THIS SUPPORTS
 
-The GT-oracle, predictor-gap, and boundary-specific conclusions are reported separately; none is inferred from action-level pseudo-replication.
+Decision-useful information is recoverable from true latents, and the standard JEPA predictor preserves nearly all of it here. The earlier high planner floor came from the fixed latent-goal scoring interface.
 
 ## NEXT RESEARCH STEP
 
-Follow the decision tree in `configs/ranking_diagnostic/protocol.yaml`; do not train Boundary-JEPA unless a material predictor gap is established.
+Do not train Boundary-JEPA for this protocol. If continuing, study a better task-conditioned latent scoring/readout interface or test a prospectively chosen task where predictor degradation—not scorer mismatch—is independently demonstrated.
 """
     Path("RANKING_DIAGNOSTIC_SUMMARY.md").write_text(summary_doc, encoding="utf-8")
     print(json.dumps(summary, indent=2))

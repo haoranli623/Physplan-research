@@ -1,0 +1,36 @@
+{
+  "hash_algorithm": "SHA256",
+  "canonical_batch_size": 1,
+  "artifacts": [
+    {
+      "path": "artifacts/ranking_diagnostic/test_sweeps.h5",
+      "bytes": 4463315520,
+      "sha256": "64BF6A241EC612EC1C52B30FD00F3478B28E26BB2FA9C62157705C43B365C812"
+    },
+    {
+      "path": "artifacts/ranking_diagnostic/test_features.h5",
+      "bytes": 94824488,
+      "sha256": "A5730D162C8F5B0C9A9B0DADF2FFAAA75340526458FCC44D65D60E5BD9F48500"
+    },
+    {
+      "path": "results/ranking_diagnostic/development/frozen_gt_latent_ridge.joblib",
+      "bytes": 12317,
+      "sha256": "2E611EB94852AA588F6C38A2FED9F7472AD6953B0C35817241942A0F1ADC004C"
+    },
+    {
+      "path": "results/ranking_diagnostic/test/summary.json",
+      "bytes": 9466,
+      "sha256": "76C149403F4690AB6552DA7EC67F955B79E7CCB6D7D33F225A68D1F421B7B7BB"
+    },
+    {
+      "path": "results/ranking_diagnostic/test/state_metrics.csv",
+      "bytes": 70680,
+      "sha256": "20AE5F76C74D7A62559A4A5C42ED59D61FC611BA21D687B555A8D22D522E901F"
+    },
+    {
+      "path": "results/ranking_diagnostic/test/raw_scores.npz",
+      "bytes": 152041,
+      "sha256": "76BCCEDF8DBD3F20F1039670CA0F59F49F383644EE46D20D302C6CA165DE4B19"
+    }
+  ]
+}

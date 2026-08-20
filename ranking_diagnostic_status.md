@@ -1,10 +1,10 @@
 # Local Counterfactual Ranking Diagnostic Status
 
-Last updated: 2026-08-20 11:15 EDT
+Last updated: 2026-08-20 11:37 EDT
 
 ## Current stage
 
-Protocol ready to freeze; formal grouped development evaluation passes the GT-latent oracle gate. No fresh test state has been generated or inspected.
+Fresh held-out evaluation complete exactly once. Final frozen decision: **PREDICTOR NOT BOTTLENECK**. Only audit, presentation, and reproducibility work remains.
 
 ## Starting repository state
 
@@ -81,6 +81,36 @@ These remain provisional until the explicit protocol-freeze commit.
 - Frozen practical gates are committed in `configs/ranking_diagnostic/protocol.yaml`: GT lower-CI rho >0.5, GT lower-CI pairwise accuracy >0.7, GT upper-CI regret <0.05; material predictor gaps are delta-rho ≥0.10 or delta-regret ≥0.02 with lower CI >0; boundary specificity requires near-minus-far degradation ≥0.05 with lower CI >0.
 - Test evaluation is one shot. No threshold, feature, scorer, horizon, candidate rule, or metric may change after the freeze commit.
 
+## Freeze commit
+
+- Commit: `428c2db` (`boundary-jepa: freeze local ranking diagnostic protocol`).
+- No fresh `ranking_test` state existed before this commit.
+
+## Fresh held-out test execution
+
+- Generation seed: 24,260,820 (base + frozen 4,000,000 offset).
+- 120 accepted anchors from 241 attempts; 69 no-boundary rejections, 52 cost-range rejections, zero multi-boundary rejections.
+- Every accepted anchor satisfies the frozen single-boundary and cost-range ≥0.05 rules.
+- Twelve exact cloned replays: zero contact/state/coverage failures.
+- Feature cache: 120×41 H6 candidates in 182.39 s, 26.98 candidate rollouts/s; peak CUDA allocated/reserved 2.60/2.93 GB.
+- The frozen evaluator was invoked once after cache completion. No scorer refit or test-dependent threshold change occurred.
+
+## Frozen test result
+
+- GT latent: mean rho 0.720, 95% state-bootstrap CI [0.672, 0.763]; pairwise accuracy 0.859 [0.834, 0.883]; mean regret 0.0273 [0.0205, 0.0346]. The GT oracle gate passes.
+- Predicted latent: mean rho 0.708 [0.654, 0.758]; pairwise accuracy 0.861 [0.833, 0.887]; mean regret 0.0311 [0.0216, 0.0416].
+- Oracle gap: delta rho (GT-PRED) 0.012 [-0.034, 0.058]; delta regret (PRED-GT) 0.0038 [-0.0059, 0.0150]. Both upper bounds remain below the frozen material-gap thresholds.
+- Boundary-specific near-minus-far pair degradation: -0.055 [-0.143, 0.032]. There is no evidence that prediction selectively loses ranking fidelity near contact boundaries.
+- Fixed official goal-L2 scorer remains weak even on GT futures (mean rho -0.046, mean regret 0.121), confirming that the earlier failure was a scoring-interface floor rather than missing decision information in the representation.
+- Final decision: **PREDICTOR NOT BOTTLENECK**. This rules out Boundary-JEPA intervention training under the frozen local ranking protocol.
+
+## Post-result engineering robustness (does not replace canonical test)
+
+- The canonical batch=1 feature cache used only 2.60/2.93 GB peak allocated/reserved VRAM, so a resumable multi-anchor path with automatic OOM backoff was added after the scientific result was fixed.
+- Batch=5 completed without OOM at 12.40/13.78 GB allocated/reserved (about 84% of 16 GiB), but throughput improved only from 26.98 to 27.29 candidates/s because preprocessing/transfer dominates.
+- GT encodings were exact across batch sizes; BF16 predicted features changed slightly (mean absolute visual difference 0.00348). The secondary batch=5 result remained GT/PRED rho 0.720/0.708 and regret gap 0.0035.
+- Canonical batch=1 artifacts and their original test summary are retained. The presentation-only representative plot rerender left the scientific summary SHA256 unchanged (`76C149...B7B7BB`).
+
 ## Next automatic step
 
-Commit the frozen protocol and scorer. Only after that commit, generate the `ranking_test` split, audit it, cache features with measured GPU peak/throughput, and invoke the frozen evaluator exactly once.
+Run final tests/JSON/HDF5 audits, inspect the clean worktree diff, commit the immutable result artifacts and documentation, then hand off. No further scientific experiment is justified by this result.

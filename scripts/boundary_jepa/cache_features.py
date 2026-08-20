@@ -18,6 +18,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--source")
     parser.add_argument("--output")
     parser.add_argument("--no-bfloat16", action="store_true")
+    parser.add_argument("--anchor-batch-size", type=int, default=1)
     return parser.parse_args()
 
 
@@ -36,6 +37,7 @@ def main() -> None:
         bundle,
         np.asarray(cfg["environment"]["canonical_goal_state"], dtype=np.float32),
         use_bfloat16=not args.no_bfloat16,
+        anchor_batch_size=args.anchor_batch_size,
     )
 
 

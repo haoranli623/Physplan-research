@@ -647,6 +647,11 @@ pilot built on the official pretrained JEPA-WM. See
 [`docs/boundary_jepa_pilot.md`](docs/boundary_jepa_pilot.md) for the locked
 protocol, environment adaptation, and exact reproduction commands.
 
+The follow-up frozen local GT-versus-predicted latent ranking diagnostic is
+documented in [`docs/ranking_diagnostic.md`](docs/ranking_diagnostic.md). Its
+fresh held-out result is **PREDICTOR NOT BOTTLENECK**; no Boundary-JEPA model was
+trained.
+
 ---
 
 ## 📄 License

@@ -81,7 +81,10 @@ def cache_sweep_features(
     canonical_goal_state: np.ndarray,
     *,
     use_bfloat16: bool = True,
+    anchor_batch_size: int = 1,
 ) -> None:
+    if anchor_batch_size < 1:
+        raise ValueError("anchor_batch_size must be positive")
     model = bundle.model
     device = model.device
     with h5py.File(source_path, "r") as source:
@@ -109,65 +112,105 @@ def cache_sweep_features(
         writer = FeatureWriter(output_path, source, embed_dim=384, proprio_dim=proprio_dim)
         writer.handle.attrs["autocast_bfloat16"] = int(use_bfloat16 and device.type == "cuda")
         writer.handle.attrs["canonical_goal_state"] = canonical_goal_state.astype(np.float32)
+        writer.handle.attrs["requested_anchor_batch_size"] = int(anchor_batch_size)
         if device.type == "cuda":
             torch.cuda.reset_peak_memory_stats(device)
         started = time.perf_counter()
         try:
-            for anchor_index in range(writer.completed, source["anchor_states"].shape[0]):
-                initial_images = source["initial_images"][anchor_index][None, None]
-                initial_states = source["anchor_states"][anchor_index][None, None]
-                future_images = source["future_images"][anchor_index]
-                future_states = source["future_states"][anchor_index]
-                raw_action = torch.from_numpy(source["actions"][anchor_index]).float()
-                raw_control = raw_action[:, None, :].repeat(1, frameskip * horizon, 1)
-                action_chunks = flatten_normalized_action_chunks(
-                    raw_control, bundle.preprocessor, frameskip=frameskip
-                ).to(device)
+            current_batch_size = int(anchor_batch_size)
+            oom_backoffs = 0
+            total_anchors = source["anchor_states"].shape[0]
+            while writer.completed < total_anchors:
+                start = writer.completed
+                end = min(start + current_batch_size, total_anchors)
+                anchor_count = end - start
+                try:
+                    initial_images = source["initial_images"][start:end][:, None]
+                    initial_states = source["anchor_states"][start:end][:, None]
+                    future_images = source["future_images"][start:end].reshape(
+                        anchor_count * candidates, horizon, 224, 224, 3
+                    )
+                    future_states = source["future_states"][start:end].reshape(
+                        anchor_count * candidates, horizon, 7
+                    )
+                    raw_action = torch.from_numpy(source["actions"][start:end]).float().reshape(
+                        anchor_count * candidates, 2
+                    )
+                    raw_control = raw_action[:, None, :].repeat(1, frameskip * horizon, 1)
+                    action_chunks = flatten_normalized_action_chunks(
+                        raw_control, bundle.preprocessor, frameskip=frameskip
+                    ).to(device)
 
-                with torch.inference_mode(), amp_context:
-                    z0 = model.encode(_obs_tensordict(initial_images, initial_states).to(device))
-                    z_true = model.encode(_obs_tensordict(future_images, future_states).to(device))
-                    z0_candidates = TensorDict(
-                        {
-                            "visual": z0["visual"].expand(candidates, *z0["visual"].shape[1:]),
-                            "proprio": z0["proprio"].expand(candidates, *z0["proprio"].shape[1:]),
-                        },
-                        batch_size=[candidates, z0["visual"].shape[1]],
-                    )
-                    z_pred_unroll = model.unroll(z0_candidates, action_chunks)
-                    pred_visual = z_pred_unroll["visual"][-horizon:].transpose(0, 1)
-                    pred_proprio = z_pred_unroll["proprio"][-horizon:].transpose(0, 1)
-                    true_visual = z_true["visual"]
-                    true_proprio = z_true["proprio"]
-                    latent_mse = (pred_visual - true_visual).float().pow(2).mean(dim=(2, 3, 4, 5))
+                    with torch.inference_mode(), amp_context:
+                        z0 = model.encode(_obs_tensordict(initial_images, initial_states).to(device))
+                        z_true = model.encode(_obs_tensordict(future_images, future_states).to(device))
+                        z0_candidates = TensorDict(
+                            {
+                                "visual": z0["visual"].repeat_interleave(candidates, dim=0),
+                                "proprio": z0["proprio"].repeat_interleave(candidates, dim=0),
+                            },
+                            batch_size=[anchor_count * candidates, z0["visual"].shape[1]],
+                        )
+                        z_pred_unroll = model.unroll(z0_candidates, action_chunks)
+                        pred_visual = z_pred_unroll["visual"][-horizon:].transpose(0, 1)
+                        pred_proprio = z_pred_unroll["proprio"][-horizon:].transpose(0, 1)
+                        true_visual = z_true["visual"]
+                        true_proprio = z_true["proprio"]
+                        latent_mse = (pred_visual - true_visual).float().pow(2).mean(dim=(2, 3, 4, 5))
 
-                    target_visual = z_goal["visual"][:, -1]
-                    target_proprio = z_goal["proprio"][:, -1]
-                    pred_goal_cost = (pred_visual[:, -1] - target_visual).float().pow(2).mean(dim=(1, 2, 3, 4))
-                    pred_goal_cost += 0.1 * (
-                        (pred_proprio[:, -1] - target_proprio).float().pow(2).mean(dim=tuple(range(1, pred_proprio.ndim - 1)))
-                    )
-                    true_goal_cost = (true_visual[:, -1] - target_visual).float().pow(2).mean(dim=(1, 2, 3, 4))
-                    true_goal_cost += 0.1 * (
-                        (true_proprio[:, -1] - target_proprio).float().pow(2).mean(dim=tuple(range(1, true_proprio.ndim - 1)))
-                    )
+                        target_visual = z_goal["visual"][:, -1]
+                        target_proprio = z_goal["proprio"][:, -1]
+                        pred_goal_cost = (pred_visual[:, -1] - target_visual).float().pow(2).mean(
+                            dim=(1, 2, 3, 4)
+                        )
+                        pred_goal_cost += 0.1 * (
+                            (pred_proprio[:, -1] - target_proprio)
+                            .float()
+                            .pow(2)
+                            .mean(dim=tuple(range(1, pred_proprio.ndim - 1)))
+                        )
+                        true_goal_cost = (true_visual[:, -1] - target_visual).float().pow(2).mean(
+                            dim=(1, 2, 3, 4)
+                        )
+                        true_goal_cost += 0.1 * (
+                            (true_proprio[:, -1] - target_proprio)
+                            .float()
+                            .pow(2)
+                            .mean(dim=tuple(range(1, true_proprio.ndim - 1)))
+                        )
+                except torch.OutOfMemoryError:
+                    if current_batch_size == 1:
+                        raise
+                    oom_backoffs += 1
+                    current_batch_size = max(1, current_batch_size // 2)
+                    if device.type == "cuda":
+                        torch.cuda.empty_cache()
+                    print(f"CUDA OOM; backing off to {current_batch_size} anchors per batch", flush=True)
+                    continue
 
                 out = writer.handle
-                out["z0_visual_pool"][anchor_index] = _pool_visual(z0["visual"])[0, 0].float().cpu().numpy()
-                out["z_true_visual_pool"][anchor_index] = _pool_visual(true_visual).float().cpu().numpy()
-                out["z_pred_visual_pool"][anchor_index] = _pool_visual(pred_visual).float().cpu().numpy()
-                out["z0_proprio"][anchor_index] = _pool_proprio(z0["proprio"])[0, 0].float().cpu().numpy()
-                out["z_true_proprio"][anchor_index] = _pool_proprio(true_proprio).float().cpu().numpy()
-                out["z_pred_proprio"][anchor_index] = _pool_proprio(pred_proprio).float().cpu().numpy()
-                out["latent_mse"][anchor_index] = latent_mse.cpu().numpy()
-                out["predicted_goal_cost"][anchor_index] = pred_goal_cost.cpu().numpy()
-                out["true_latent_goal_cost"][anchor_index] = true_goal_cost.cpu().numpy()
-                out.attrs.modify("completed_anchors", anchor_index + 1)
-                out.flush()
-                print(
-                    f"[{source.attrs['split']}] encoded {anchor_index + 1}/{source['anchor_states'].shape[0]}",
-                    flush=True,
+                out["z0_visual_pool"][start:end] = _pool_visual(z0["visual"])[:, 0].float().cpu().numpy()
+                out["z_true_visual_pool"][start:end] = (
+                    _pool_visual(true_visual).reshape(anchor_count, candidates, horizon, -1).float().cpu().numpy()
                 )
+                out["z_pred_visual_pool"][start:end] = (
+                    _pool_visual(pred_visual).reshape(anchor_count, candidates, horizon, -1).float().cpu().numpy()
+                )
+                out["z0_proprio"][start:end] = _pool_proprio(z0["proprio"])[:, 0].float().cpu().numpy()
+                out["z_true_proprio"][start:end] = (
+                    _pool_proprio(true_proprio).reshape(anchor_count, candidates, horizon, -1).float().cpu().numpy()
+                )
+                out["z_pred_proprio"][start:end] = (
+                    _pool_proprio(pred_proprio).reshape(anchor_count, candidates, horizon, -1).float().cpu().numpy()
+                )
+                out["latent_mse"][start:end] = latent_mse.reshape(anchor_count, candidates, horizon).cpu().numpy()
+                out["predicted_goal_cost"][start:end] = pred_goal_cost.reshape(anchor_count, candidates).cpu().numpy()
+                out["true_latent_goal_cost"][start:end] = true_goal_cost.reshape(anchor_count, candidates).cpu().numpy()
+                out.attrs.modify("completed_anchors", end)
+                out.attrs["effective_anchor_batch_size"] = int(current_batch_size)
+                out.attrs["oom_backoffs"] = int(oom_backoffs)
+                out.flush()
+                print(f"[{source.attrs['split']}] encoded {end}/{total_anchors}", flush=True)
         finally:
             if device.type == "cuda":
                 torch.cuda.synchronize(device)

@@ -1,0 +1,30 @@
+{
+  "freeze_commit": "428c2db",
+  "development_states": 100,
+  "test_states": 120,
+  "exact_state_overlap": 0,
+  "unique_test_states": 120,
+  "test_split": "ranking_test",
+  "test_seed": 24260820,
+  "generation": {
+    "attempted_anchors": 241,
+    "accepted_anchors": 120,
+    "rejected_no_boundary": 69,
+    "rejected_multi_boundary": 0,
+    "rejected_uninformative_cost": 52,
+    "rejected_workspace": 0
+  },
+  "test_cost_range": {
+    "frozen_minimum": 0.05,
+    "observed_min": 0.050577640533447266,
+    "observed_median": 0.23872032761573792,
+    "observed_max": 0.6302048563957214,
+    "all_finite": true
+  },
+  "replay_checks": 12,
+  "replay_failures": 0,
+  "all_anchors_have_exactly_one_contact_boundary": true,
+  "scorer_sha256": "2E611EB94852AA588F6C38A2FED9F7472AD6953B0C35817241942A0F1ADC004C",
+  "test_sweeps_sha256": "64BF6A241EC612EC1C52B30FD00F3478B28E26BB2FA9C62157705C43B365C812",
+  "test_features_sha256": "A5730D162C8F5B0C9A9B0DADF2FFAAA75340526458FCC44D65D60E5BD9F48500"
+}
