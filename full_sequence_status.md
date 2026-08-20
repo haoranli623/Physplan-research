@@ -28,3 +28,13 @@
 - Two targeted integration checks were deliberately mixed: raw cost improvements +0.0265 and -0.1028. No scorer or protocol change was made in response.
 - Final set fixed at 30 fresh episodes, seed range 20360830–20360859. No outcome filtering or replacement.
 - Current stage: commit `configs/full_sequence/protocol.yaml` before any final state is generated.
+
+## 2026-08-20 — frozen final run in progress
+
+- Final protocol was committed before final generation as `3cbd3c50c472f1e3bcaad6e50c3b2835e007094c`.
+- The immutable scientific-artifact audit passed 54/54 checks before launch.
+- The final runner started at 2026-08-20 19:00:44 EDT with seeds 20360830–20360859 and no filtering, retry, or replacement.
+- As of 2026-08-20 19:35 EDT, 2/30 episode artifacts have been atomically saved; episode 2 is running.
+- Only process health, artifact count/schema, GPU utilization, and stderr are being monitored. Final effect metrics remain uninspected until all 30 episodes are complete.
+- Observed throughput is approximately 17 minutes per complete episode. No protocol, model, scorer, threshold, or statistic has changed after launch.
+- Next automatic step: finish all 30 episodes, run the frozen analysis once, then generate plots and update the paper without retuning.
