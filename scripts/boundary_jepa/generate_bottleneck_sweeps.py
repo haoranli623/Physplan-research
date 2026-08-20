@@ -23,7 +23,9 @@ def main() -> None:
         cfg = yaml.safe_load(handle)
     candidate = cfg["candidate_set"]
     env = cfg["environment"]
-    split = cfg["split"]
+    split = cfg.get("split", cfg.get("test"))
+    if split is None:
+        raise ValueError("configuration must contain a split or test section")
     spec = SweepSpec(
         samples=int(candidate["samples"]),
         angular_half_width=float(candidate["angular_half_width_radians"]),

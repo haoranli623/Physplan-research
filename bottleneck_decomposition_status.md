@@ -89,6 +89,11 @@ P0-P3 are complete. The implementation and fresh development experiment are comp
 - Targeted repair is prospectively successful only if mean search-regret improvement is at least 0.03 with bootstrap lower CI above zero. Actionability additionally requires at least a 2x improvement over the wrong-layer control; a wrong-layer effect of 0.02 or more is considered material.
 - No final-test cache may exist before the freeze commit.
 
+## Post-freeze execution notes
+
+- Freeze commit: `6a49bdd802ccc8275a1a86fa7286a4b9c26362e0`.
+- The first final-generation invocation failed before opening/creating the test cache because the reusable generator expected a development `split` key while the frozen protocol names the identical section `test`. This is a configuration-layout plumbing bug, not a scientific definition. The generator was changed to accept either key before retry; no protocol field or state was changed.
+
 ## Integrity boundary
 
 All choices above are provisional until development is complete. The final protocol will be frozen and committed before any final-test state is generated. Diagnosis will be committed before repaired-search results are observed.
