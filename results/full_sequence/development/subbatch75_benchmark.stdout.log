@@ -1,0 +1,118 @@
+INFO:dinov2:using MLP layer as FFN
+INFO:root:Encoder: DinoEncoder(
+  (base_model): DinoVisionTransformer(
+    (patch_embed): PatchEmbed(
+      (proj): Conv2d(3, 384, kernel_size=(14, 14), stride=(14, 14))
+      (norm): Identity()
+    )
+    (blocks): ModuleList(
+      (0-11): 12 x NestedTensorBlock(
+        (norm1): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+        (attn): MemEffAttention(
+          (qkv): Linear(in_features=384, out_features=1152, bias=True)
+          (proj): Linear(in_features=384, out_features=384, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (ls1): LayerScale()
+        (drop_path1): Identity()
+        (norm2): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+        (mlp): Mlp(
+          (fc1): Linear(in_features=384, out_features=1536, bias=True)
+          (act): GELU(approximate='none')
+          (fc2): Linear(in_features=1536, out_features=384, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+        (ls2): LayerScale()
+        (drop_path2): Identity()
+      )
+    )
+    (norm): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+    (head): Identity()
+  )
+)
+INFO:root:🧠 Encoder: DinoEncoder (22,056,576 params, frozen=True)
+INFO:app.plan_common.models.AdaLN_vit:🔧 Initialized 6 AdaLN blocks (scale_factor=10)
+INFO:root:Predictor: VisionTransformerAdaLN(
+  (predictor_embed): Linear(in_features=384, out_features=384, bias=True)
+  (action_encoder): Linear(in_features=10, out_features=400, bias=True)
+  (predictor_blocks): ModuleList(
+    (0-5): 6 x FWAdaLNBlock(
+      (norm1): LayerNorm((400,), eps=1e-06, elementwise_affine=True)
+      (attn): RoPEAttention(
+        (qkv): Linear(in_features=400, out_features=1200, bias=True)
+        (attn_drop): Dropout(p=0.0, inplace=False)
+        (proj): Linear(in_features=400, out_features=400, bias=True)
+        (proj_drop): Dropout(p=0.0, inplace=False)
+      )
+      (drop_path): Identity()
+      (norm2): LayerNorm((400,), eps=1e-06, elementwise_affine=True)
+      (mlp): MLP(
+        (fc1): Linear(in_features=400, out_features=1600, bias=True)
+        (act): GELU(approximate='none')
+        (fc2): Linear(in_features=1600, out_features=400, bias=True)
+        (drop): Dropout(p=0.0, inplace=False)
+      )
+      (adaLN_modulation): Sequential(
+        (0): SiLU()
+        (1): Linear(in_features=400, out_features=2400, bias=True)
+      )
+    )
+  )
+  (predictor_norm): LayerNorm((400,), eps=1e-06, elementwise_affine=True)
+  (predictor_proj): Linear(in_features=384, out_features=384, bias=True)
+)
+INFO:root:🔮 Predictor: VisionTransformerAdaLN (17,626,480 params)
+INFO:root:Loading checkpoint from local path: D:\projects\physplan\artifacts\checkpoints\jepa_wm_pusht.pth.tar
+INFO:root:loaded pretrained predictor from epoch 50 with msg: <All keys matched successfully>
+INFO:root:loaded pretrained proprio encoder from epoch 50 with msg: <All keys matched successfully>
+INFO:root:📉 Loss weights: L2=1.0
+{
+  "official_config": {
+    "horizon": 6,
+    "iterations": 30,
+    "samples": 300,
+    "elites": 10
+  },
+  "benchmark_config": {
+    "checkpoint": "artifacts/checkpoints/jepa_wm_pusht.pth.tar",
+    "output": "results/full_sequence/development/subbatch75_benchmark.json",
+    "iterations": 30,
+    "samples": 300,
+    "elites": 10,
+    "sim_candidates": 9001,
+    "seed": 20260822,
+    "model_query_batch_size": 75
+  },
+  "model_action_dim": 10,
+  "raw_control_steps": 30,
+  "state": [
+    264.3391731272209,
+    119.08265697517851,
+    266.5455703726025,
+    206.91268899537386,
+    1.5959721316812399,
+    0.0,
+    0.0
+  ],
+  "checkpoint": "D:\\projects\\physplan\\artifacts\\checkpoints\\jepa_wm_pusht.pth.tar",
+  "load_seconds": 1.231093099922873,
+  "cem_seconds": 302.9885448999703,
+  "cem_candidates_per_second": 29.70409327841517,
+  "sim_seconds": 270.88222369994037,
+  "sim_sequences_per_second": 33.22846319354835,
+  "encode_seconds": 22.31114089989569,
+  "encode_endpoints_per_second": 403.4307362579599,
+  "score_range": [
+    0.43039020895957947,
+    1.8973965644836426
+  ],
+  "sim_cost_range": [
+    0.11692339181900024,
+    1.0
+  ],
+  "gt_feature_shape": [
+    9001,
+    400
+  ],
+  "cuda_peak_allocated_bytes": 4534494720
+}

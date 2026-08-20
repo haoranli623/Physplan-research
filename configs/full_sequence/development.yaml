@@ -1,0 +1,39 @@
+experiment: pusht_official_h6_full_sequence_development
+stage: development_only
+seed: 20260830
+episodes: 5
+targeted_validation_episodes: 2
+checkpoint: artifacts/checkpoints/jepa_wm_pusht.pth.tar
+device: cuda:0
+initial_states:
+  generator: fresh_actionable_near_contact_v1
+  block_xy_range: [175.0, 337.0]
+  agent_radius_range: [75.0, 125.0]
+  canonical_goal_pose: [256.0, 256.0, 0.7853981633974483]
+model:
+  official_config: configs/evals/simu_env_planning/pt/jepa-wm/pt_L2_cem_sourcedset_H6_nas6_ctxt2_r224_alpha0.1_ep96_decode.yaml
+  horizon: 6
+  frameskip: 5
+  raw_action_dim: 2
+  model_action_dim: 10
+  inference_dtype: float32
+  model_query_batch_size: 75
+planner:
+  implementation: traced_exact_official_cem_update
+  iterations: 30
+  samples: 300
+  elites: 10
+  var_scale: 1.0
+  momentum_mean: 0.0
+  momentum_std: 0.0
+  terminal_proprio_alpha: 0.1
+readout:
+  family: standard_scaler_ridge
+  input: terminal_global_mean_visual_plus_terminal_proprio
+  reads_action: false
+  alphas: [0.1, 1.0, 10.0, 100.0, 1000.0]
+  selection: grouped_episode_cv_mse
+outputs:
+  directory: results/full_sequence/development
+  episode_directory: artifacts/full_sequence/development
+  scorer: results/full_sequence/development/frozen_full_sequence_ridge.joblib

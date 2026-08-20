@@ -214,6 +214,58 @@ def make_model_scorers(
     return l2, aligned, predict
 
 
+class FeatureCapturingScorer:
+    """Score predicted terminal latents while retaining their pooled features."""
+
+    def __init__(
+        self,
+        bundle: BaselineBundle,
+        z_goal: TensorDict,
+        *,
+        readout: TorchReadout | None = None,
+        alpha: float = 0.1,
+        model_query_batch_size: int | None = None,
+    ) -> None:
+        self.model = bundle.model
+        self.z_goal = z_goal
+        self.readout = readout
+        self.alpha = float(alpha)
+        self.model_query_batch_size = model_query_batch_size
+        self.features: list[np.ndarray] = []
+        self.l2_scores: list[np.ndarray] = []
+        self.returned_scores: list[np.ndarray] = []
+
+    @torch.inference_mode()
+    def __call__(self, z_init: TensorDict, actions: torch.Tensor) -> torch.Tensor:
+        query_batch = self.model_query_batch_size or actions.shape[1]
+        feature_chunks, l2_chunks = [], []
+        for start in range(0, actions.shape[1], query_batch):
+            pred = self.model.unroll(z_init, act_suffix=actions[:, start : start + query_batch])
+            feature_chunks.append(pooled_terminal(pred))
+            visual = (pred["visual"][-1] - self.z_goal["visual"][:, -1]).float().pow(2)
+            proprio = (pred["proprio"][-1] - self.z_goal["proprio"][:, -1]).float().pow(2)
+            l2_chunks.append(
+                visual.mean(dim=tuple(range(1, visual.ndim)))
+                + self.alpha * proprio.mean(dim=tuple(range(1, proprio.ndim)))
+            )
+        features = torch.cat(feature_chunks, dim=0)
+        l2 = torch.cat(l2_chunks, dim=0)
+        self.features.append(features.cpu().numpy())
+        self.l2_scores.append(l2.cpu().numpy())
+        returned = l2 if self.readout is None else self.readout(features)
+        self.returned_scores.append(returned.cpu().numpy())
+        return returned
+
+    def stacked_features(self) -> np.ndarray:
+        return np.concatenate(self.features, axis=0)
+
+    def stacked_l2_scores(self) -> np.ndarray:
+        return np.concatenate(self.l2_scores, axis=0)
+
+    def stacked_returned_scores(self) -> np.ndarray:
+        return np.concatenate(self.returned_scores, axis=0)
+
+
 def sample_actionable_state(seed: int) -> np.ndarray:
     """Fresh near-contact state generator fixed independently of outcomes."""
 
@@ -251,7 +303,7 @@ def denormalize_sequences(
 class SimulationBatch:
     costs: np.ndarray
     final_states: np.ndarray
-    final_images: np.ndarray
+    final_images: np.ndarray | None
     contact_any: np.ndarray
     runtime_seconds: float
 
@@ -262,6 +314,7 @@ def simulate_sequences(
     *,
     seed: int,
     goal_pose: np.ndarray = CANONICAL_GOAL_STATE[2:5],
+    collect_final_images: bool = True,
 ) -> SimulationBatch:
     """Replay sequences from one cloned state while reusing one environment."""
 
@@ -273,25 +326,26 @@ def simulate_sequences(
     n = len(sequences)
     costs = np.empty(n, dtype=np.float32)
     states = np.empty((n, 7), dtype=np.float32)
-    images = np.empty((n, 224, 224, 3), dtype=np.uint8)
+    images = np.empty((n, 224, 224, 3), dtype=np.uint8) if collect_final_images else None
     contacts = np.empty(n, dtype=np.int8)
     started = time.perf_counter()
     try:
         for i, sequence in enumerate(sequences):
             env.seed(seed)
             env.reset_to_state = np.asarray(state, dtype=np.float64).copy()
-            env.reset()
-            env.set_task_goal(np.asarray(goal_pose, dtype=np.float64))
             original_render = env._render_frame
             env._render_frame = lambda mode: None
             any_contact = False
             try:
+                env.reset()
+                env.set_task_goal(np.asarray(goal_pose, dtype=np.float64))
                 for action in sequence:
                     _, _, _, info = env.step(action)
                     any_contact |= bool(info["n_contacts"] > 0)
             finally:
                 env._render_frame = original_render
-            images[i] = env.render(mode="rgb_array")
+            if images is not None:
+                images[i] = env.render(mode="rgb_array")
             states[i] = info["state"]
             costs[i] = 1.0 - float(info["final_coverage"])
             contacts[i] = int(any_contact)

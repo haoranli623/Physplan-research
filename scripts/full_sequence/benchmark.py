@@ -12,12 +12,12 @@ import torch
 
 from boundary_jepa.baseline import load_official_pusht_jepa
 from boundary_jepa.full_sequence import (
+    FeatureCapturingScorer,
     TracedCEMPlanner,
     denormalize_sequences,
     encode_endpoint_batch,
     encode_goal,
     encode_single_state,
-    make_model_scorers,
     sample_actionable_state,
     simulate_sequences,
 )
@@ -32,6 +32,7 @@ def main() -> None:
     parser.add_argument("--elites", type=int, default=8)
     parser.add_argument("--sim-candidates", type=int, default=32)
     parser.add_argument("--seed", type=int, default=20260821)
+    parser.add_argument("--model-query-batch-size", type=int)
     args = parser.parse_args()
 
     started = time.perf_counter()
@@ -40,7 +41,9 @@ def main() -> None:
     state = sample_actionable_state(args.seed)
     z0 = encode_single_state(bundle, state)
     z_goal = encode_goal(bundle)
-    l2, _, _ = make_model_scorers(bundle, z_goal)
+    l2 = FeatureCapturingScorer(
+        bundle, z_goal, model_query_batch_size=args.model_query_batch_size
+    )
     planner = TracedCEMPlanner(
         iterations=args.iterations,
         num_samples=args.samples,

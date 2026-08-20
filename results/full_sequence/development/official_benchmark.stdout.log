@@ -1,0 +1,68 @@
+INFO:dinov2:using MLP layer as FFN
+INFO:root:Encoder: DinoEncoder(
+  (base_model): DinoVisionTransformer(
+    (patch_embed): PatchEmbed(
+      (proj): Conv2d(3, 384, kernel_size=(14, 14), stride=(14, 14))
+      (norm): Identity()
+    )
+    (blocks): ModuleList(
+      (0-11): 12 x NestedTensorBlock(
+        (norm1): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+        (attn): MemEffAttention(
+          (qkv): Linear(in_features=384, out_features=1152, bias=True)
+          (proj): Linear(in_features=384, out_features=384, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (ls1): LayerScale()
+        (drop_path1): Identity()
+        (norm2): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+        (mlp): Mlp(
+          (fc1): Linear(in_features=384, out_features=1536, bias=True)
+          (act): GELU(approximate='none')
+          (fc2): Linear(in_features=1536, out_features=384, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+        (ls2): LayerScale()
+        (drop_path2): Identity()
+      )
+    )
+    (norm): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+    (head): Identity()
+  )
+)
+INFO:root:🧠 Encoder: DinoEncoder (22,056,576 params, frozen=True)
+INFO:app.plan_common.models.AdaLN_vit:🔧 Initialized 6 AdaLN blocks (scale_factor=10)
+INFO:root:Predictor: VisionTransformerAdaLN(
+  (predictor_embed): Linear(in_features=384, out_features=384, bias=True)
+  (action_encoder): Linear(in_features=10, out_features=400, bias=True)
+  (predictor_blocks): ModuleList(
+    (0-5): 6 x FWAdaLNBlock(
+      (norm1): LayerNorm((400,), eps=1e-06, elementwise_affine=True)
+      (attn): RoPEAttention(
+        (qkv): Linear(in_features=400, out_features=1200, bias=True)
+        (attn_drop): Dropout(p=0.0, inplace=False)
+        (proj): Linear(in_features=400, out_features=400, bias=True)
+        (proj_drop): Dropout(p=0.0, inplace=False)
+      )
+      (drop_path): Identity()
+      (norm2): LayerNorm((400,), eps=1e-06, elementwise_affine=True)
+      (mlp): MLP(
+        (fc1): Linear(in_features=400, out_features=1600, bias=True)
+        (act): GELU(approximate='none')
+        (fc2): Linear(in_features=1600, out_features=400, bias=True)
+        (drop): Dropout(p=0.0, inplace=False)
+      )
+      (adaLN_modulation): Sequential(
+        (0): SiLU()
+        (1): Linear(in_features=400, out_features=2400, bias=True)
+      )
+    )
+  )
+  (predictor_norm): LayerNorm((400,), eps=1e-06, elementwise_affine=True)
+  (predictor_proj): Linear(in_features=384, out_features=384, bias=True)
+)
+INFO:root:🔮 Predictor: VisionTransformerAdaLN (17,626,480 params)
+INFO:root:Loading checkpoint from local path: D:\projects\physplan\artifacts\checkpoints\jepa_wm_pusht.pth.tar
+INFO:root:loaded pretrained predictor from epoch 50 with msg: <All keys matched successfully>
+INFO:root:loaded pretrained proprio encoder from epoch 50 with msg: <All keys matched successfully>
+INFO:root:📉 Loss weights: L2=1.0

@@ -1,0 +1,126 @@
+{
+  "development_only": true,
+  "episodes": 2,
+  "candidates_per_episode": 33,
+  "selected_alpha": 1.0,
+  "alpha_cv": {
+    "0.1": {
+      "fold_mse": [
+        0.013724729418754578,
+        0.048669133335351944
+      ],
+      "mean_mse": 0.03119693137705326
+    },
+    "1.0": {
+      "fold_mse": [
+        0.013713282532989979,
+        0.04862503334879875
+      ],
+      "mean_mse": 0.031169157940894365
+    }
+  },
+  "scorer_sha256": "18B97A8CA9A00D150E34C7D98020F1A535D93959856914523F00B6A425CB2922",
+  "episode_metrics": [
+    {
+      "episode": 0,
+      "cost_range": 0.35623276233673096,
+      "gt_rho": 0.9995821878302089,
+      "pred_rho": 0.7701178267048324,
+      "gt_regret": 0.0,
+      "pred_regret": 0.0,
+      "l2_regret": 0.9587246775627136
+    },
+    {
+      "episode": 1,
+      "cost_range": 0.02741295099258423,
+      "gt_rho": 0.5664411840370208,
+      "pred_rho": 0.42955123122807404,
+      "gt_regret": 0.0,
+      "pred_regret": 0.0,
+      "l2_regret": 0.0
+    }
+  ],
+  "mean_gt_rho": 0.7830116859336149,
+  "mean_pred_rho": 0.5998345289664533,
+  "mean_gt_regret": 0.0,
+  "mean_pred_regret": 0.0,
+  "mean_l2_regret": 0.4793623387813568,
+  "targeted_integration_metrics": [
+    {
+      "episode": 0,
+      "baseline_selected_raw_cost": 0.7265551090240479,
+      "targeted_selected_raw_cost": 0.5269649028778076,
+      "targeted_oracle_raw_cost": 0.4121418595314026,
+      "raw_cost_improvement": 0.19959020614624023
+    }
+  ],
+  "timings": [
+    {
+      "episode": 0,
+      "seed": 20260825,
+      "cem_seconds": 1.720607400056906,
+      "sim_seconds": 0.9801821999717504,
+      "encode_seconds": 0.11041610001120716,
+      "candidates": 33
+    },
+    {
+      "episode": 1,
+      "seed": 20260826,
+      "cem_seconds": 1.4954199000494555,
+      "sim_seconds": 0.8222845999989659,
+      "encode_seconds": 0.07882429996971041,
+      "candidates": 33
+    }
+  ],
+  "config": {
+    "experiment": "pusht_full_sequence_pipeline_smoke",
+    "stage": "development_only",
+    "seed": 20260825,
+    "episodes": 2,
+    "targeted_validation_episodes": 1,
+    "checkpoint": "artifacts/checkpoints/jepa_wm_pusht.pth.tar",
+    "device": "cuda:0",
+    "initial_states": {
+      "generator": "fresh_actionable_near_contact_v1",
+      "canonical_goal_pose": [
+        256.0,
+        256.0,
+        0.7853981633974483
+      ]
+    },
+    "model": {
+      "official_config": "configs/evals/simu_env_planning/pt/jepa-wm/pt_L2_cem_sourcedset_H6_nas6_ctxt2_r224_alpha0.1_ep96_decode.yaml",
+      "horizon": 6,
+      "frameskip": 5,
+      "raw_action_dim": 2,
+      "model_action_dim": 10,
+      "inference_dtype": "float32",
+      "model_query_batch_size": 8
+    },
+    "planner": {
+      "implementation": "traced_exact_official_cem_update",
+      "iterations": 2,
+      "samples": 16,
+      "elites": 4,
+      "var_scale": 1.0,
+      "momentum_mean": 0.0,
+      "momentum_std": 0.0,
+      "terminal_proprio_alpha": 0.1
+    },
+    "readout": {
+      "family": "standard_scaler_ridge",
+      "input": "terminal_global_mean_visual_plus_terminal_proprio",
+      "reads_action": false,
+      "alphas": [
+        0.1,
+        1.0
+      ],
+      "selection": "grouped_episode_cv_mse"
+    },
+    "outputs": {
+      "directory": "results/full_sequence/smoke",
+      "episode_directory": "artifacts/full_sequence/smoke",
+      "scorer": "results/full_sequence/smoke/frozen_smoke_ridge.joblib"
+    }
+  }
+}
