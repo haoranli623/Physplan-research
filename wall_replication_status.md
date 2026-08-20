@@ -70,4 +70,8 @@ P0-P3 are complete and Wall passed feasibility. D_wall_dev development is comple
 
 ## Next action
 
-Run unit tests, record the protocol-freeze commit, and only then generate D_wall_diagnosis. Do not open D_wall_repair.
+Protocol freeze commit: `71e019f17df524602c9a5db89205da161a4e372a`.
+
+Frozen protocol SHA256: `058852BEC36525F3ACB69F0E21D9F231F60A84427D5792ED3A2BE2A3E7BF0544`.
+
+Generate and evaluate D_wall_diagnosis using the committed evaluator. Do not open D_wall_repair.

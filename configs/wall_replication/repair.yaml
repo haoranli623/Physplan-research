@@ -1,0 +1,27 @@
+experiment: wall_frozen_repair_validation
+protocol_version: 1
+protocol: configs/wall_replication/protocol.yaml
+seed: 20260820
+device: cuda:0
+checkpoint: artifacts/checkpoints/jepa_wm_wall.pth.tar
+environment:
+  name: wall
+  wall_x: 32
+  door_y: 30
+  frameskip: 5
+  latent_horizon: 6
+candidate_set:
+  geometry: two_segment_waypoint_y_grid
+  samples: 41
+  waypoint_y_min: 8.0
+  waypoint_y_max: 56.0
+  simulator_cost: terminal_euclidean_goal_distance_pixels
+split:
+  name: wall_repair
+  feasibility_only_seed_start: 1200000
+  anchors: 80
+  layouts: [[26, 30], [29, 18], [29, 48], [32, 36], [35, 24], [38, 42]]
+outputs:
+  cache: artifacts/wall_replication/repair_features.npz
+  result: results/wall_replication/repair/repair.json
+
