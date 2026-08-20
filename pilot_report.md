@@ -66,12 +66,27 @@ The four boundary examples are selected deterministically to cover low/high comb
 
 See `results/pilot/state_metrics.csv`, including missing/multiple predicted crossings and all selected/oracle actions. No states were silently removed.
 
+The secondary decomposition (`results/pilot/diagnostic_summary.json`) found:
+
+- The GT-latent probe has exactly one directional crossing on only 42/100 states; the predicted-latent probe has one on 80/100, and both are clean on 38/100. High action-level probe accuracy therefore does not guarantee a monotone boundary curve.
+- Mean end-to-end boundary error is 0.243, while the GT-probe floor is already 0.174. The median excess over the probe floor is only 0.014.
+- Selecting with **true** future latents still gives mean simulator regret 0.101, versus 0.108 when selecting with predicted latents. Predictor error adds only 0.007 mean task cost under this planner; the dominant limitation is the latent-goal objective/candidate/task alignment.
+- Candidate ranking by true-latent goal cost has mean statewise Spearman -0.108 with simulator cost (89 non-constant states). This is a planner/representation floor, not evidence for or against boundary preservation.
+
+### Pre-recorded horizon diagnostic
+
+The official Push-T planning configuration uses six latent steps, while the locked short-contact pilot used two. To test whether the planner floor was merely a short-horizon artifact, the exact same 100 anchors and 41 actions were extended from 10 to 30 simulator controls. All 100 sweeps retained exactly one simulator contact crossing and 12 replay checks had zero failures.
+
+At six latent steps, predicted-latent planner regret is 0.108 and true-latent planner-floor regret is 0.096; predictor incremental task cost is 0.013. Boundary error versus the longer-horizon regret remains weak (Spearman 0.084, 95% bootstrap CI [-0.124, 0.266]). Thus the horizon diagnostic does not rescue Q3. It is secondary and does not replace the primary H2 result or probe.
+
 ## 16. Decision
 
 **INCONCLUSIVE**
 
 Q1 probe observability: True. Q2 low-error boundary misalignment: False. Q3 stronger boundary/regret association (point/strong): False/False.
 
+Operationally, this is a **NO-GO for A/B/C/D training under the current action slice and planning diagnostic**. That statement does not relabel the predeclared pilot decision; it follows the protocol instruction not to burn compute on interventions when the required phenomenon has not been established.
+
 ## 17. Exact recommended next step
 
-If GO/WEAK GO, generate matched random and boundary-targeted counterfactual training caches and compare standard loss against the predeclared relative loss with identical initialization, steps, data count, and planner. If INCONCLUSIVE/NO-GO, inspect the saved probe-floor versus predictor-gap decomposition before any intervention training.
+Do not train Boundary-JEPA yet. Prospectively define and validate a new boundary-sensitive local planning setup on fresh development states, with this gate: **the true-future-latent selector must first achieve materially lower regret than the predicted-latent selector and rank simulator outcomes sensibly on the same candidates**. Only then freeze that planner/candidate protocol and rerun Q2/Q3 on new held-out states. Do not tune the existing 100 evaluation states or retroactively replace their primary result.

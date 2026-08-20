@@ -1,0 +1,153 @@
+{
+  "status": "SECONDARY DIAGNOSTIC; primary pilot remains INCONCLUSIVE",
+  "states": 100,
+  "protocol": {
+    "latent_horizon": 2,
+    "control_steps": 10,
+    "same_anchor_action_extension": false,
+    "boundary_metrics_source": "results\\pilot\\state_metrics.csv"
+  },
+  "model_planner_regret": {
+    "count": 100,
+    "mean": 0.10799957156181335,
+    "median": 0.05604013800621033,
+    "q25": 0.005950495600700378,
+    "q75": 0.17921236157417297,
+    "max": 0.4664461612701416
+  },
+  "true_latent_planner_floor_regret": {
+    "count": 100,
+    "mean": 0.10077491700649262,
+    "median": 0.05582621693611145,
+    "q25": 0.0034045428037643433,
+    "q75": 0.17070282995700836,
+    "max": 0.4664461612701416
+  },
+  "predictor_incremental_task_cost": {
+    "count": 100,
+    "mean": 0.0072246545553207395,
+    "median": 0.0,
+    "q25": 0.0,
+    "q75": 0.011266946792602539,
+    "max": 0.31757545471191406
+  },
+  "selection_agreement": {
+    "model_equals_true_latent": 0.15,
+    "model_equals_sim_oracle": 0.01,
+    "true_latent_equals_sim_oracle": 0.01
+  },
+  "statewise_candidate_rank_correlations": {
+    "predicted_vs_true_latent_goal_cost": {
+      "count": 100,
+      "mean": 0.6631620209059235,
+      "median": 0.7480836236933799,
+      "q25": 0.5836672473867597,
+      "q75": 0.8563588850174217,
+      "max": 0.9517421602787459
+    },
+    "true_latent_goal_cost_vs_sim_cost": {
+      "count": 89,
+      "mean": -0.10829585944119204,
+      "median": -0.1582915947039284,
+      "q25": -0.5880077453344561,
+      "q75": 0.2984442029598861,
+      "max": 0.8844382625078271
+    },
+    "predicted_goal_cost_vs_sim_cost": {
+      "count": 89,
+      "mean": -0.09545501476386259,
+      "median": -0.18927414907705967,
+      "q25": -0.6210855645103843,
+      "q75": 0.38994826946459626,
+      "max": 0.9130310210393202
+    }
+  },
+  "boundary_decomposition": {
+    "end_to_end": {
+      "count": 100,
+      "mean": 0.24305240589243632,
+      "median": 0.1006624327285486,
+      "q25": 0.04501082965362128,
+      "q75": 0.21338488972251995,
+      "max": 1.0
+    },
+    "gt_probe_floor": {
+      "count": 100,
+      "mean": 0.17374620441545294,
+      "median": 0.08110838595736004,
+      "q25": 0.03041445720038595,
+      "q75": 0.19061654976031336,
+      "max": 1.0
+    },
+    "predictor_vs_gt_probe": {
+      "count": 92,
+      "mean": 0.14555616191253576,
+      "median": 0.05852139137370345,
+      "q25": 0.03190933242188317,
+      "q75": 0.11473784797389967,
+      "max": 1.0
+    },
+    "end_to_end_minus_probe_floor": {
+      "count": 100,
+      "mean": 0.06930620147698335,
+      "median": 0.014147769931255808,
+      "q25": -0.028387544751238697,
+      "q75": 0.06001077096760938,
+      "max": 0.9952654203337491
+    },
+    "gt_probe_crossing_counts": {
+      "0": 8,
+      "1": 42,
+      "2": 2,
+      "3": 33,
+      "4": 1,
+      "5": 6,
+      "6": 1,
+      "7": 3,
+      "8": 1,
+      "9": 2,
+      "12": 1
+    },
+    "pred_probe_crossing_counts": {
+      "0": 14,
+      "1": 80,
+      "2": 3,
+      "3": 2,
+      "5": 1
+    },
+    "clean_single_crossing_states": 38
+  },
+  "metric_vs_model_regret_bootstrap": {
+    "probe_floor_boundary_error": {
+      "rho": 0.05002418868587177,
+      "ci_low": -0.13557976856591591,
+      "ci_high": 0.2406136521976299,
+      "states": 100
+    },
+    "wm_boundary_error_vs_probe_gt": {
+      "rho": 0.14156096055245304,
+      "ci_low": -0.06616420619678896,
+      "ci_high": 0.33194279042277,
+      "states": 92
+    },
+    "boundary_error": {
+      "rho": 0.08878747767362641,
+      "ci_low": -0.1065694759442391,
+      "ci_high": 0.27515412461410854,
+      "states": 100
+    },
+    "latent_error": {
+      "rho": 0.21012803746634376,
+      "ci_low": 0.0010955644350347795,
+      "ci_high": 0.4040033008440308,
+      "states": 100
+    },
+    "near_boundary_latent_error": {
+      "rho": 0.10540087806267248,
+      "ci_low": -0.0939779818965997,
+      "ci_high": 0.30942814475046554,
+      "states": 100
+    }
+  },
+  "interpretation": "The true-future-latent planner floor is close to the predictor planner regret, so the locked regret is predominantly limited by goal-representation/objective/candidate alignment. This diagnosis does not change the primary planner or rescue Q3. Multiple GT-probe crossings also show that action-level probe quality does not always yield a clean directional boundary."
+}

@@ -87,6 +87,39 @@ Freeze the probe and analyze the held-out pilot:
 & $py -m scripts.boundary_jepa.analyze_pilot
 ```
 
+Run the protocol-preserving failure decomposition:
+
+```powershell
+& $py -m scripts.boundary_jepa.diagnose_pilot
+```
+
+The overnight run also tested the official six-latent-step planning horizon on
+the exact same held-out states and candidate actions. This is a secondary
+diagnostic; it does not replace the locked two-step contact pilot:
+
+```powershell
+& $py -m scripts.boundary_jepa.extend_sweep_horizon `
+  --config configs\boundary_jepa\diagnostic_h6.yaml
+& $py -m scripts.boundary_jepa.audit_labels `
+  --sweeps artifacts\pilot_cache\evaluation_sweeps_h6_diagnostic.h5 `
+  --output results\pilot\h6_label_audit.json `
+  --plot plots\pilot\h6_label_audit.png
+& $py -m scripts.boundary_jepa.cache_features `
+  --config configs\boundary_jepa\diagnostic_h6.yaml `
+  --source artifacts\pilot_cache\evaluation_sweeps_h6_diagnostic.h5 `
+  --output artifacts\pilot_cache\evaluation_features_h6_diagnostic.h5
+& $py -m scripts.boundary_jepa.diagnose_pilot `
+  --sweeps artifacts\pilot_cache\evaluation_sweeps_h6_diagnostic.h5 `
+  --features artifacts\pilot_cache\evaluation_features_h6_diagnostic.h5 `
+  --state-metrics results\pilot\state_metrics.csv `
+  --output-dir results\pilot\h6 `
+  --plots-dir plots\pilot\h6
+```
+
+The H6 cache is resumable per anchor. The expected finding from the saved run is
+that the true-future-latent selector retains almost the same simulator regret as
+the predictor selector; see `results/pilot/h6/diagnostic_summary.json`.
+
 Expensive HDF5/RGB caches and public weights are intentionally ignored by Git but
 remain under `artifacts/`. Machine-readable metrics live under `results/pilot/`,
 figures under `plots/pilot/`, and the generated scientific report is

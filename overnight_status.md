@@ -1,10 +1,10 @@
 # Boundary-JEPA Overnight Status
 
-Last updated: 2026-08-20 04:18 EDT
+Last updated: 2026-08-20 03:16 EDT
 
 ## Current stage
 
-P2 diagnostic — the locked 100-anchor pilot is complete and classified INCONCLUSIVE; intervention training is paused while the planner/representation floor and boundary decomposition are audited.
+Handoff complete — the locked 100-anchor pilot is INCONCLUSIVE, all protocol-preserving diagnostics are complete, and intervention training is intentionally not authorized by the evidence.
 
 ## Initial state
 
@@ -63,7 +63,7 @@ P2 diagnostic — the locked 100-anchor pilot is complete and classified INCONCL
 
 ## Experiment currently running
 
-- Protocol-preserving diagnosis of why Q2/Q3 failed. No A/B/C/D intervention run has been launched.
+- None. No A/B/C/D intervention run was launched because the feasibility gate did not pass. No Python/GPU research process is intentionally left running.
 
 ## Failures/debugging notes
 
@@ -73,8 +73,9 @@ P2 diagnostic — the locked 100-anchor pilot is complete and classified INCONCL
 - Gym emits its expected NumPy-2 compatibility warning, but deterministic simulator tests and generation succeed on the exercised API.
 - **02:46 audit failure:** 10/12 saved-cache replays reproduced contact labels and coverage but not future state to `1e-6`. Root cause: the generator executed float64 anchor/action values but stored them as float32; small truncation is amplified during impact. This was detected before any probe was trained or result interpreted. Pre-fix audit artifacts are retained. The schema is changed to float64 anchor/actions and both splits will be regenerated from scratch.
 - **02:53 resume failure:** stopping the old probe-train generator interrupted an HDF5 LZF block write; the file raised `filter returned failure during read` on resume. It is quarantined, not repaired or silently reused. Evaluation resume is healthy. Probe-train restarts from the original split seed with the validated fast-render path.
-- **04:12 pilot result:** the trajectory probe establishes observability, but end-to-end boundary error has Spearman rho 0.089 with local regret versus 0.210 for pointwise latent error. The paired bootstrap difference is -0.121 with 95% CI [-0.376, 0.116]. This does not support the central planning-utility claim.
-- **04:16 planner-floor diagnostic:** choosing with true future latents still has mean simulator regret 0.101 versus 0.108 for predicted latents; the predictor adds only 0.007 mean cost. Thus the current local regret is dominated by latent-goal/candidate/task mismatch, not predictor error. This diagnosis is being saved formally rather than used to redefine the primary metric.
+- **03:00 pilot result:** the trajectory probe establishes observability, but end-to-end boundary error has Spearman rho 0.089 with local regret versus 0.210 for pointwise latent error. The paired bootstrap difference is -0.121 with 95% CI [-0.376, 0.116]. This does not support the central planning-utility claim.
+- **03:04 planner-floor diagnostic:** choosing with true future latents still has mean simulator regret 0.101 versus 0.108 for predicted latents; the predictor adds only 0.007 mean cost. Thus the current local regret is dominated by latent-goal/candidate/task mismatch, not predictor error. This diagnosis is saved formally rather than used to redefine the primary metric.
+- **03:11 H6 falsification:** the same 100×41 anchors/actions were extended from 10 to 30 controls, matching the official six-latent-step planner horizon. All sweeps retained one contact boundary and 12 replay checks passed. Predicted/true-latent planner regrets remain 0.108/0.096 and boundary-error association remains weak (rho 0.084, CI [-0.124, 0.266]). Horizon does not rescue Q3.
 
 ## Important decisions
 
@@ -92,4 +93,4 @@ P2 diagnostic — the locked 100-anchor pilot is complete and classified INCONCL
 
 ## Next automatic step
 
-Save the three-layer boundary and planner-floor decomposition, verify the official horizon/cost implementation, then run a same-anchor six-step diagnostic if the implementation audit passes. Do not launch A/B/C/D unless the original pilot evidence becomes a credible GO for reasons that do not alter its definitions.
+Handoff to the user. The next scientifically valid step is a prospectively specified planning-diagnostic pilot on fresh development states; the existing 100 evaluation states must not be tuned or relabeled.

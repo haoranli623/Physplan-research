@@ -39,7 +39,9 @@ def main() -> None:
         split_seed = int(h5.attrs["seed"])
 
         crossing_counts = np.asarray([len(crossing_indices(row)) for row in labels])
-        crossing_locations = np.asarray([crossing_indices(row)[0] for row in labels])
+        crossing_locations = np.asarray(
+            [crossing_indices(row)[0] for row in labels if len(crossing_indices(row))], dtype=np.int64
+        )
         rng = np.random.default_rng(20260820)
         replay_pairs = np.column_stack(
             [
@@ -73,7 +75,7 @@ def main() -> None:
             axes[0, column].axis("off")
             axes[1, column].axis("off")
         axes[0, 0].set_ylabel("latent step 1")
-        axes[1, 0].set_ylabel("latent step 2")
+        axes[1, 0].set_ylabel(f"latent step {horizon}")
         fig.tight_layout()
         plot_path = Path(args.plot)
         plot_path.parent.mkdir(parents=True, exist_ok=True)
@@ -87,14 +89,14 @@ def main() -> None:
         "all_anchors_have_exactly_one_crossing": bool(np.all(crossing_counts == 1)),
         "first_action_contact_fraction": float(labels[:, 0].mean()),
         "last_action_contact_fraction": float(labels[:, -1].mean()),
-        "crossing_index_min": int(crossing_locations.min()),
-        "crossing_index_median": float(np.median(crossing_locations)),
-        "crossing_index_max": int(crossing_locations.max()),
+        "crossing_index_min": int(crossing_locations.min()) if crossing_locations.size else None,
+        "crossing_index_median": float(np.median(crossing_locations)) if crossing_locations.size else None,
+        "crossing_index_max": int(crossing_locations.max()) if crossing_locations.size else None,
         "contact_step_fraction": float(contacts.mean()),
         "replay_checks": int(args.replays),
         "replay_failure_count": len(replay_failures),
         "replay_failures": replay_failures,
-        "primary_label": "any simulator collision point during ten control steps",
+        "primary_label": f"any simulator collision point during {frameskip * horizon} control steps",
         "task_outcome_used_in_label": False,
     }
     output = Path(args.output)

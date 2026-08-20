@@ -1,0 +1,41 @@
+{
+  "generated_at": "2026-08-20T03:13:00-04:00",
+  "hash_algorithm": "SHA256",
+  "artifacts": [
+    {
+      "path": "artifacts/checkpoints/jepa_wm_pusht.pth.tar",
+      "bytes": 211639615,
+      "sha256": "9BECA3EAFE0739C3B3ADB5D734FA435CCBDA0FEA8A65D53D4CCCEC176AAAA0EB"
+    },
+    {
+      "path": "artifacts/pilot_cache/probe_train_sweeps.h5",
+      "bytes": 3000525840,
+      "sha256": "5CC9C15F1387A0FEB96FB5D54F91868FD5615633091B32E0DD5D0E541A27102C"
+    },
+    {
+      "path": "artifacts/pilot_cache/evaluation_sweeps.h5",
+      "bytes": 1250232608,
+      "sha256": "8B08541FBE94FFD3C43BD42578C1C072FD44C1E9A5BD91C2D585B2758508B76F"
+    },
+    {
+      "path": "artifacts/pilot_cache/probe_train_features.h5",
+      "bytes": 63528488,
+      "sha256": "F25F166C9AD26DD2AB506F59F480AEF481E38418203882D54175FD8260DA0228"
+    },
+    {
+      "path": "artifacts/pilot_cache/evaluation_features.h5",
+      "bytes": 26476648,
+      "sha256": "945EC07035CC74E4DDAA102EB5690FC5BC043707E53924E6BB9E25E0E9E5031B"
+    },
+    {
+      "path": "artifacts/pilot_cache/evaluation_sweeps_h6_diagnostic.h5",
+      "bytes": 3719433112,
+      "sha256": "DF6F9FE8BD6D7D3F50C2B6CF291D894C365008845B39691199319F3DDD43FEE8"
+    },
+    {
+      "path": "artifacts/pilot_cache/evaluation_features_h6_diagnostic.h5",
+      "bytes": 79022248,
+      "sha256": "01C93451A52B2DBB073094794A453E170B77D8911B5EDB607EB8D6041B9EE0D7"
+    }
+  ]
+}

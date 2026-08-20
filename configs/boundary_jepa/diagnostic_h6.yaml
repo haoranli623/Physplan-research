@@ -1,0 +1,19 @@
+experiment: boundary_jepa_pusht_same_anchor_h6_diagnostic
+seed: 20260820
+device: cuda:0
+checkpoint: artifacts/checkpoints/jepa_wm_pusht.pth.tar
+source_sweeps: artifacts/pilot_cache/evaluation_sweeps.h5
+output_sweeps: artifacts/pilot_cache/evaluation_sweeps_h6_diagnostic.h5
+output_features: artifacts/pilot_cache/evaluation_features_h6_diagnostic.h5
+environment:
+  name: pusht
+  shape: T
+  frameskip: 5
+  latent_horizon: 6
+  canonical_goal_state: [256.0, 356.0, 256.0, 256.0, 0.7853981634, 0.0, 0.0]
+diagnostic:
+  # Same 100 states and 41 constant-action candidates as the locked H2 pilot.
+  # This matches the official Push-T planning horizon but does not replace the
+  # primary boundary/probe evaluation.
+  reuse_exact_anchor_states_and_actions: true
+
