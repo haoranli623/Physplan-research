@@ -61,3 +61,10 @@
 - The final runner remained alive and stderr showed no OOM or new error, but targeted-CEM wall-clock throughput slowed materially.
 - Scientific computation is unchanged: the runner still uses the frozen candidates, query sub-batch 75, scorer, checkpoint, seeds, and budgets. If resource contention causes failure, the exact frozen command will be resumed from completed episode pairs without replacement.
 - No final effect metric was inspected while diagnosing this resource event.
+
+## 2026-08-20 — frozen final run checkpoint 10/30
+
+- At 2026-08-20 22:22 EDT, 10/30 complete JSON/NPZ pairs were present and episode 10 had started automatically.
+- External GPU contention had ended; device memory returned to roughly 6.6 GB, temperature was 72°C, and thermal slowdown was inactive.
+- Runner stderr still contained only the launch-time dependency warnings. No final effect metric was inspected.
+- Monitoring frequency was reduced at the user's request; the next routine checkpoint is 20/30, with immediate attention only if the runner exits or reports an error.
