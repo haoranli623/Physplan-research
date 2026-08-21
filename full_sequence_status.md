@@ -45,3 +45,11 @@
 - Engineering-only correction: analysis now requires both JSON and NPZ files and verifies the frozen episode/seed identity before computing statistics.
 - Engineering-only correction: the phase manifest now includes raw final JSON/NPZ artifacts instead of hashing only configs, reports, results, and plots.
 - The metric definitions, bootstrap, thresholds, interpretation rules, model, scorer, seeds, and candidate budget were not changed.
+
+## 2026-08-20 — frozen final run checkpoint 5/30
+
+- At 2026-08-20 20:27 EDT, 5/30 complete JSON/NPZ pairs were present and episode 5 had started automatically.
+- All five completed episodes use the frozen contiguous seed order; no episode was retried, filtered, skipped, or replaced.
+- The runner remained healthy with no stderr growth beyond the launch-time dependency warnings.
+- CEM phases sustained approximately 99–100% GPU utilization. Observed peak temperature was 86°C with NVIDIA software thermal slowdown reported inactive, followed by rapid cooldown during simulator replay.
+- Final metrics remain uninspected. The protocol and all scientific definitions remain frozen.
