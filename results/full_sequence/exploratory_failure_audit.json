@@ -1,0 +1,31 @@
+{
+  "status": "POST-HOC EXPLORATORY; NOT PART OF THE FROZEN DECISION RULE",
+  "episodes": 30,
+  "correlations": {
+    "metric_gap_vs_repair": {
+      "rho": 0.791509714309051,
+      "ci_low": 0.49303170586204,
+      "ci_high": 0.9547303588779127,
+      "bootstrap_samples": 5000,
+      "finite_draws": 5000,
+      "seed": 20260902
+    },
+    "prediction_gap_vs_repair": {
+      "rho": -0.05144591331007675,
+      "ci_low": -0.4054526929770355,
+      "ci_high": 0.31173812243447563,
+      "bootstrap_samples": 5000,
+      "finite_draws": 5000,
+      "seed": 20260903
+    },
+    "metric_minus_prediction_vs_repair": {
+      "rho": 0.30475048922505116,
+      "ci_low": -0.12746279124683166,
+      "ci_high": 0.6412909485792688,
+      "bootstrap_samples": 5000,
+      "finite_draws": 5000,
+      "seed": 20260904
+    }
+  },
+  "interpretation_warning": "Correlations are descriptive, share quantities with the repair evaluation, and do not establish causality or a deployable state-wise selector."
+}

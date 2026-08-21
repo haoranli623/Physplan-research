@@ -1,10 +1,10 @@
 # Boundary-JEPA Overnight Status
 
-Last updated: 2026-08-20 03:16 EDT
+Last updated: 2026-08-21 04:40 EDT
 
 ## Current stage
 
-Handoff complete — the locked 100-anchor pilot is INCONCLUSIVE, all protocol-preserving diagnostics are complete, and intervention training is intentionally not authorized by the evidence.
+Final full-sequence handoff complete — the original Boundary-JEPA pilot remains INCONCLUSIVE; local bottleneck studies are complete; the frozen 30-episode official-H6 Push-T test is complete and changes the diagnosis to prediction-important.
 
 ## Initial state
 
@@ -93,4 +93,19 @@ Handoff complete — the locked 100-anchor pilot is INCONCLUSIVE, all protocol-p
 
 ## Next automatic step
 
-Handoff to the user. The next scientifically valid step is a prospectively specified planning-diagnostic pilot on fresh development states; the existing 100 evaluation states must not be tuned or relabeled.
+Handoff to the user. The next scientific experiment must be prospectively specified on fresh states; the existing Push-T, Wall, and H6 evaluations must not be tuned or relabeled.
+
+## 2026-08-21 full-sequence completion
+
+- Froze the official-H6 protocol in commit `3cbd3c50c472f1e3bcaad6e50c3b2835e007094c` before final generation.
+- Completed 30/30 paired episode artifacts for seeds 20360830–20360859 with no outcome filtering, retry, skip, or replacement.
+- Frozen analysis decision: **PREDICTION BECOMES IMPORTANT**.
+- Prediction gap: 0.1608, 95% bootstrap CI [0.0565, 0.2725].
+- Metric gap: 0.0950, CI [0.0026, 0.1978].
+- Baseline/targeted regret: 0.4974 / 0.4131; paired repair 0.0843, CI [-0.00008, 0.1684].
+- Repair helped/unchanged/harmed: 16/9/5.
+- Preserved counterexample episode 20: the targeted scorer selects well within its own trace but degrades adaptive coverage, producing repair -0.5956.
+- Added a clearly labeled post-hoc statewise failure audit; it is not used for the frozen decision.
+- Updated the workshop draft, evidence ledger, tables, figures, limitations, full report, and current-status synthesis without changing frozen data or criteria.
+- Final episode audit passed 30/30, relevant tests passed 18/18, and the Push-T/Wall immutable scientific audit passed 53/53 after excluding four explicitly authorized paper-source updates.
+- The full-sequence phase manifest contains 116 files and passed independent size/SHA-256 verification.

@@ -4,22 +4,22 @@
 
 Controlled Bottleneck Attribution for World-Model Planning
 
-## Abstract placeholder
+## Abstract
 
 - Problem: planning failure is often attributed to world-model prediction without isolating downstream interfaces.
 - Method: controlled oracle substitutions estimate representation/readout, prediction, decision-metric, proposal, and within-search headroom.
 - Push-T result: prediction headroom is small; metric headroom is large; diagnosis was committed before a matched repair.
 - Push-T intervention: metric repair substantially outperforms an inference-precision control.
 - Wall independent diagnosis/repair result: prediction gap 0.564; predictor repair improves normalized regret by 0.389 on unseen states, while the wrong-layer metric repair is near zero.
-- Full action-sequence validation: **future placeholder; not part of the current Wall phase**.
+- Official H6 action-sequence validation: prediction gap 0.161 exceeds metric gap 0.095; metric repair mean gain 0.084 but CI crosses zero.
 
 ## 1. Introduction
 
 - Latent world-model planners fail through several coupled interfaces.
 - Prediction loss alone does not identify the component worth repairing.
 - Principle: diagnose before retraining the world model.
-- Conservative current claim is limited to the frozen local Push-T protocol.
-- Contributions should be framed as attribution protocol, prospective repair selection, and—if Wall succeeds—independent validation.
+- Conservative claim spans three frozen regimes but one model family and two simulated tasks.
+- Contributions: attribution protocol, prospective repair selection, independent Wall validation, and a negative full-sequence transfer result.
 
 ## 2. Controlled Bottleneck Attribution
 
@@ -80,7 +80,11 @@ Diagnosis and repair share the same final state set, despite correct temporal pr
 
 ## 5. Full-Sequence Planning
 
-Placeholder only. Do not add experiments during the Wall phase.
+- Thirty frozen final states, official H6 30×300 CEM, 9000 queries per planner.
+- Fixed-trace prediction gap 0.1608 [0.0565, 0.2725]; metric gap 0.0950 [0.0026, 0.1978].
+- Frozen label `PREDICTION BECOMES IMPORTANT`.
+- Metric repair regret 0.4974 → 0.4131; improvement 0.0843 [-0.00008, 0.1684], 16/9/5 helped/unchanged/harmed.
+- Key mechanism boundary: better within-trace selection can worsen adaptive proposal coverage; episode 20 is retained.
 
 ## 6. Related Work
 
@@ -92,11 +96,12 @@ Placeholder only. Do not add experiments during the Wall phase.
 ## 7. Limitations
 
 - Two controlled tasks, but only one independently separated repair set.
-- Controlled local candidate geometry rather than official full sequence search.
+- Local studies use controlled geometry; official full-sequence evidence has only 30 states and adapted initial-state sourcing.
 - Readout ceiling combines representation and readout capacity.
 - Headroom interactions prevent additive causal attribution.
 - Precision control is not generic predictor improvement.
+- Full-sequence adaptive traces are not candidate matched and their union is not a global oracle.
 
 ## 8. Conclusion
 
-Diagnose the limiting interface before spending compute on the wrong component. Push-T and Wall expose different regimes, and the committed Wall diagnosis selected the effective repair on unseen states.
+Diagnose the limiting interface before spending compute on the wrong component. Local Push-T, Wall, and official H6 Push-T expose different regimes, and the full planner shows why successful local repairs must be re-diagnosed rather than extrapolated.

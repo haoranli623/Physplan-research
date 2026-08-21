@@ -1,128 +1,80 @@
-# Boundary-JEPA Overnight Summary
+# Boundary-JEPA / Planning Diagnosis Final Summary
 
 ## WHAT WORKS
 
-The official Push-T JEPA-WM checkpoint, simulator cloning, exact counterfactual replay, frozen feature cache, action-blind trajectory probe, boundary extraction, matched-candidate regret, state-level bootstrap, and publication-style plotting all run end to end on this machine. Seven focused tests pass.
+The repository now runs an auditable chain from cloned-state diagnostics through frozen bottleneck decomposition and official-horizon full-sequence CEM evaluation. The local Push-T and Wall experiments show that oracle decomposition can prospectively select the useful repair layer. The official H6 experiment is complete on 30 fresh Push-T episodes with every queried candidate retained.
 
 ## WHAT FAILED
 
-The locked pilot did not establish the proposed decision-critical failure mode. Q2 and Q3 failed. An early float32 cache also failed exact state replay and was quarantined before probe training; the final float64 caches have zero replay failures.
+The original contact-boundary pilot did not establish that boundary error explains planning regret better than pointwise latent error. More importantly, the local Push-T conclusion does not replicate unchanged under official H6 planning: prediction headroom becomes larger than metric headroom. The matched scorer repair helps on average, but its 95% bootstrap interval includes zero and it harms 5/30 episodes.
 
 ## WHAT THE DATA CURRENTLY SUPPORTS
 
-Contact mode is stably recoverable from held-out true latent transitions: balanced accuracy 0.847, macro-F1 0.847, AUROC 0.933, and ECE 0.017. Transition information matters: the current-state-only control is at chance.
+- Local Push-T is metric-limited: prediction gap 0.0071, metric gap 0.0851; the preregistered metric repair improves regret by 0.0815, while the FP32 predictor control improves it by only 0.0017.
+- Wall is prediction-limited: prediction gap 0.5636 and metric gap -0.0279; the prediction repair improves regret by 0.3891, while the wrong-layer metric repair changes it by 0.0069.
+- Official H6 Push-T changes regime: prediction gap 0.1608 [0.0565, 0.2725], metric gap 0.0950 [0.0026, 0.1978]. Diagnosing the actual planner setting matters.
 
 ## WHAT THE DATA DOES NOT SUPPORT
 
-On the predeclared 100-state, 41-action local slice, boundary fidelity is not more associated with planning regret than pointwise latent error. The data do not justify Boundary-JEPA intervention training, an L_rel benefit claim, or any A/B/C/D comparison.
+The evidence does not support a universal “JEPA planning is metric-bottlenecked” claim, a general Boundary-JEPA loss claim, or a claim that the H6 scorer repair is statistically established. The paired H6 repair is 0.0843 with CI [-0.00008, 0.1684]. Headroom contrasts are diagnostic, not additive causal components.
 
 ## BEST RESULT
 
-The action-blind frozen trajectory probe answers Q1 cleanly while respecting state-disjoint fitting/calibration/evaluation and never reading action.
+The strongest result is the controlled local diagnosis-to-repair loop across two distinct regimes: the decomposition selected metric repair on Push-T and prediction repair on Wall, and each targeted repair substantially beat its preregistered wrong-layer control.
 
 ## BIGGEST RISK
 
-The locked planner diagnostic has a large representation/objective floor: selecting with true future latents has mean simulator regret 0.101 versus 0.108 with predicted latents. The official-horizon H6 falsification gives 0.096 versus 0.108. Consequently, the current regret mostly cannot isolate predictor quality.
+Adaptive CEM couples scoring and candidate coverage. In H6 episode 20, the targeted scorer had zero within-trace selection gap but drove search into a worse region, producing regret 1.0 and repair improvement -0.5956. This prevents interpreting fixed-trace scorer quality as guaranteed end-to-end improvement.
 
 ## NEXT EXPERIMENT
 
-On fresh development states, prospectively construct a boundary-sensitive local candidate/planning setup and require the true-future-latent selector to rank simulator outcomes sensibly and materially outperform the predicted-latent selector. Freeze that protocol before evaluating new held-out states. Do not tune or relabel the existing 100 evaluation anchors.
+Pre-register a planner-aware diagnostic that separates prediction, scoring, and adaptive search coverage on fresh episodes, then test whether its state-level diagnosis prospectively routes to predictor, scorer, or search repair. Do not retune the completed Push-T, Wall, or H6 test sets.
 
-## Executive scientific result
+## Final H6 protocol and result
 
-Decision: **INCONCLUSIVE**, and operationally **NO-GO for A/B/C/D under the current protocol**.
-
-- Evaluation: 100 cloned held-out anchors × 41 actions = 4,100 rollouts.
-- Probe fitting/calibration: 240 disjoint anchors × 41 actions = 9,840 rollouts, split 180/60 by anchor.
-- Pointwise latent MSE: mean 0.1459, median 0.1414.
-- End-to-end normalized boundary error: mean 0.243, median 0.101.
-- GT-probe boundary floor: mean 0.174, median 0.081.
-- Planning regret: mean 0.1080, median 0.0560.
-- Latent error vs regret: Spearman 0.210, 95% state-bootstrap CI [0.007, 0.390].
-- Boundary error vs regret: Spearman 0.089, CI [-0.107, 0.280].
-- Difference, boundary minus latent: -0.121, CI [-0.376, 0.116].
-- Low-latent/high-boundary state fraction: 0.07.
-
-No action sample was treated as an independent statistical unit, no bad state was dropped, and no primary definition was changed after seeing results.
-
-## Diagnostic result
-
-The decomposition separates simulator boundary, frozen probe on true latents, and frozen probe on predicted latents:
-
-- Only 42/100 GT-probe maps have exactly one crossing; 80/100 predicted-probe maps do; 38/100 are single-crossing in both.
-- Median end-to-end boundary error exceeds the GT-probe floor by only 0.014.
-- Predictor-versus-GT-probe boundary error has rho 0.142 with H2 regret, CI [-0.066, 0.332].
-- A same-anchor, same-action extension to the official six-latent-step horizon retained one simulator boundary in all 100 states and passed 12/12 replay checks.
-- At H6, boundary error versus regret remains weak: rho 0.084, CI [-0.124, 0.266].
-
-These diagnostics do not rescue the primary result. They identify two limitations: non-monotone probe probability curves and a planner/representation floor that dominates predictor error.
-
-## Repository state and commits
-
-- Branch: `boundary-jepa-overnight`
-- Upstream starting commit: `13cf1d9c7e476f53c17714d2e0f1dc239a883ce0`
-- `18642e3` — bootstrap official Push-T feasibility pilot
-- `875d709` — enforce exact float64 sweep replay
-- `56cd9ed` — accelerate endpoint-only sweep rendering
-- `5eda1cd` — complete locked feasibility pilot
-- `bbc18c8` — diagnose inconclusive pilot and finalize handoff
-- Final summary-metadata-only commit: see `git log -1` after handoff.
+- Frozen protocol commit: `3cbd3c50c472f1e3bcaad6e50c3b2835e007094c`.
+- Official setup: horizon 6, 30 CEM iterations, 300 candidates, 10 elites, 9,000 model queries per planner.
+- Final data: 30 episodes, seeds 20360830–20360859, no filtering, retry, skip, or replacement.
+- Baseline regret: 0.4974 [0.3614, 0.6332].
+- Targeted-scorer regret: 0.4131 [0.2988, 0.5366].
+- Repair counts: helped 16, unchanged 9, harmed 5.
+- Frozen decision: **PREDICTION BECOMES IMPORTANT**.
 
 ## Reproduction
 
-The complete PowerShell sequence and environment notes are in `docs/boundary_jepa_pilot.md`. Core commands after installing dependencies and placing the public checkpoint are:
+Use `D:\anaconda\envs\torch-gpu\python.exe` and set `KMP_DUPLICATE_LIB_OK=TRUE` on this machine. Full instructions are in `docs/full_sequence.md`.
 
 ```powershell
-$env:SDL_VIDEODRIVER='dummy'
-$env:TORCH_HOME='D:\projects\physplan\artifacts\torch_cache'
-$env:WANDB_MODE='disabled'
+$env:KMP_DUPLICATE_LIB_OK='TRUE'
 $py='D:\anaconda\envs\torch-gpu\python.exe'
-
-& $py -m scripts.boundary_jepa.validate_baseline
-& $py -m pytest tests\boundary_jepa -q
-& $py -m scripts.boundary_jepa.generate_sweeps --split probe_train
-& $py -m scripts.boundary_jepa.generate_sweeps --split evaluation
-& $py -m scripts.boundary_jepa.audit_labels
-& $py -m scripts.boundary_jepa.cache_features --source artifacts\pilot_cache\probe_train_sweeps.h5 --output artifacts\pilot_cache\probe_train_features.h5
-& $py -m scripts.boundary_jepa.cache_features --source artifacts\pilot_cache\evaluation_sweeps.h5 --output artifacts\pilot_cache\evaluation_features.h5
-& $py -m scripts.boundary_jepa.train_probe
-& $py -m scripts.boundary_jepa.analyze_pilot
-& $py -m scripts.boundary_jepa.diagnose_pilot
+& $py -m scripts.full_sequence.run_final --config configs/full_sequence/protocol.yaml
+& $py -m scripts.full_sequence.analyze --config configs/full_sequence/protocol.yaml
+& $py -m scripts.full_sequence.plot_results
+& $py -m scripts.full_sequence.audit_failure_cases
+& $py -m scripts.full_sequence.verify_final_artifacts
 ```
 
-The H6 commands are documented separately in the reproduction guide. Expensive caches are resumable and ignored by Git.
+The final generation command is resumable and skips only already complete paired episode files.
 
 ## Artifacts
 
-- Official checkpoint: `artifacts/checkpoints/jepa_wm_pusht.pth.tar`
-- Raw H2 sweep caches: `artifacts/pilot_cache/probe_train_sweeps.h5`, `evaluation_sweeps.h5`
-- Frozen H2 features: `artifacts/pilot_cache/probe_train_features.h5`, `evaluation_features.h5`
-- H6 diagnostic caches: `artifacts/pilot_cache/evaluation_sweeps_h6_diagnostic.h5`, `evaluation_features_h6_diagnostic.h5`
-- Checksums and byte sizes: `results/artifact_manifest.json`
-- Primary raw metrics: `results/pilot/state_metrics.csv`, `pilot_summary.json`, `planning_records.npz`
-- Diagnostic raw metrics: `results/pilot/state_diagnostics.csv`, `diagnostic_summary.json`, `results/pilot/h6/`
-- Frozen probes: `results/pilot/frozen_*_probe.joblib`
-- Plots: `plots/pilot/`
-- Scientific report: `pilot_report.md`
+- Raw H6 episodes: `artifacts/full_sequence/final/episode_000..029.{json,npz}` (~1.3 GB).
+- Frozen checkpoint: `artifacts/checkpoints/jepa_wm_pusht.pth.tar`, SHA-256 `9BECA3EAFE0739C3B3ADB5D734FA435CCBDA0FEA8A65D53D4CCCEC176AAAA0EB`.
+- Frozen readout: `results/full_sequence/development/frozen_full_sequence_ridge.joblib`, SHA-256 `EDCFED77C89A0625C638FF45A6AC8A8BE9323AE946C5653DAEB6CDC4945EEACC`.
+- Machine-readable results: `results/full_sequence/`.
+- Figures: `plots/full_sequence/`.
+- Current scientific status: `PROJECT_CURRENT_STATUS.md`.
+- Workshop draft: `paper/draft.md`.
+- Full artifact hashes: `results/full_sequence/artifact_manifest.json`.
 
-No Boundary-JEPA training checkpoints exist because the pilot did not pass the intervention gate. The downloaded official epoch-50 checkpoint is the only model checkpoint.
+## Commits and unfinished work
 
-## Unfinished jobs and remaining compute
+Key phase commits include `a6bd69f`, `cdebab3`, frozen protocol `3cbd3c5`, integrity guard `6b6ffc3`, serialization-only fix `87b4257`, and paper-first snapshot `33df969`. The final result/report commit is recorded by `git log` after completion.
 
-No process is intentionally left running, and no A/B/C/D job is queued. This is a scientific stop, not a compute failure: using the GPU for intervention training after Q2/Q3 failed would violate the locked protocol.
+No research job is intentionally left running. No model retraining is justified by the frozen H6 result without a new preregistered experiment. Re-running all 30 final episodes would take roughly eight GPU-hours on this machine; analysis, plots, and verification take minutes.
 
-Estimated compute for the recommended next step, after prospectively fixing the diagnostic on development states:
+## Integrity
 
-- 100-state simulator sweep at the current density: about 3 minutes for an H6 same-anchor extension, plus anchor-search overhead if states are resampled.
-- Frozen GPU feature caching: about 2.5 minutes for 100×41×6 on this RTX 3080.
-- Probe/analysis/plots: under 1 minute once features exist.
-- Matched A/B/C/D training: not estimated or authorized until the feasibility gate passes; no positive result should be assumed.
+Physical labels and task cost remain separate. The action-blind readouts never receive action. Episode initial state is the independent unit. Bad episodes and negative repairs remain in the dataset. The final protocol was committed before final generation, and all final claims derive from saved raw artifacts.
 
-## Integrity notes
-
-- The invalid float32 artifacts are retained under `artifacts/invalid_float32_cache_20260820` with pre-fix audit outputs.
-- Final anchors/actions are float64 because contact dynamics amplify truncation at impact.
-- Physical contact labels and task costs remain separate.
-- Probe training/calibration/evaluation splits are disjoint by anchor seed.
-- All model/oracle comparisons use the exact same saved action sets.
-- The primary pilot remains INCONCLUSIVE after diagnostics; H6 is labeled secondary.
+The original 100-anchor Boundary-JEPA pilot remains preserved as an **INCONCLUSIVE / NO-GO for A/B/C/D under that protocol** result. Its report and raw outputs were not redefined to match later findings.

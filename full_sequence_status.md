@@ -82,3 +82,17 @@
 - The first frozen-analysis invocation completed data loading/statistic construction but failed before writing or printing `summary.json` because YAML parsed `frozen_utc_date` as a Python `date`, which the standard JSON encoder cannot serialize.
 - No result was inspected from the partially written CSV. The engineering-only fix adds `default=str` to summary JSON serialization; no metric, data row, bootstrap seed/sample count, threshold, or interpretation rule changed.
 - Next step: rerun the identical frozen analysis command once, then inspect the resulting summary.
+
+## 2026-08-21 — frozen analysis complete
+
+- The identical frozen analysis command completed after the serialization-only repair.
+- Frozen decision: `PREDICTION BECOMES IMPORTANT`.
+- Prediction gap 0.1608 [0.0565, 0.2725]; metric gap 0.0950 [0.0026, 0.1978].
+- Matched-budget metric repair changed regret 0.4974 → 0.4131; improvement 0.0843 [-0.00008, 0.1684], with 16/9/5 helped/unchanged/harmed.
+- Strong metric-repair validation failed because the lower confidence bound crosses zero. No threshold, scorer, state, or protocol was changed after seeing this result.
+- A separately labeled post-hoc failure audit was added for interpretation only. It retains episode 20 (repair -0.5956) and reports exploratory metric-gap/repair Spearman 0.792 [0.493, 0.955]. It is excluded from the frozen decision.
+- Reports, workshop sources, plots, and machine-readable tables were updated without retuning.
+- The final 30-episode schema/finite-value audit passed 30/30. Relevant tests passed 18/18.
+- Frozen Push-T/Wall scientific artifacts passed the phase-end immutable audit; four explicitly authorized paper-source entries were excluded because this phase required updating them.
+- The full-sequence manifest contains 116 files and passed independent size/SHA-256 verification.
+- Current stage: complete; commit and hand off. No research job remains running.

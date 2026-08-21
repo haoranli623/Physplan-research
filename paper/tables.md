@@ -29,10 +29,16 @@ Notes: Push-T's control is FP32 predictor inference with the unchanged latent-L2
 | Wall | Helped / unchanged / harmed states | 62 / 7 / 11 | Aggregate gain is heterogeneous; no silent seed/state removal |
 | Wall | Retained failure, anchor 31 regret | 0.215 → 0.991 | Lower MSE does not guarantee lower planning regret |
 
-## Table 4 — Full action-sequence placeholder
+## Table 4 — Official full action-sequence validation
 
-Do not populate until `configs/full_sequence/protocol.yaml` has been committed and final evaluation has completed.
+| Protocol | Episodes | Queries/planner/episode | GT-readout regret | Pred-readout regret | Pred-L2 regret | Prediction gap | Metric gap | Frozen decision |
+|---|---:|---:|---:|---:|---:|---:|---:|---|
+| Official Push-T H6 CEM | 30 | 9000 | 0.1724 | 0.3332 | 0.4282 | **0.1608 [0.0565, 0.2725]** | 0.0950 [0.0026, 0.1978] | Prediction becomes important |
 
-| Protocol | Episodes | Queries/episode | Prediction gap | Metric gap | Targeted repair | Wrong-layer control | Decision |
-|---|---:|---:|---:|---:|---:|---:|---|
-| Official Push-T H6 CEM | pending | pending | pending | pending | pending | pending | pending |
+## Table 5 — Official H6 matched-budget metric repair
+
+| Baseline regret | Targeted regret | Improvement | Helped / unchanged / harmed | Baseline / targeted selection gap (raw) | Baseline / targeted coverage gap (raw) |
+|---:|---:|---:|---:|---:|---:|
+| 0.4974 [0.3614, 0.6332] | 0.4131 [0.2988, 0.5366] | 0.0843 **[-0.00008, 0.1684]** | 16 / 9 / 5 | 0.1834 / 0.0983 | 0.0297 / 0.0671 |
+
+Notes: the repair interval crosses zero and does not meet the frozen strong-validation rule. Adaptive baseline and targeted traces are not candidate matched; their union is only a finite audit reference. Selection and coverage summaries are not additive causal effects.

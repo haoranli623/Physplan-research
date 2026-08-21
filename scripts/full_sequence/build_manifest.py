@@ -12,10 +12,24 @@ ROOTS = [
     Path("artifacts/full_sequence/final"),
     Path("results/full_sequence"),
     Path("plots/full_sequence"),
+    Path("scripts/full_sequence"),
 ]
 FILES = [
-    Path("FULL_SEQUENCE_SUMMARY.md"), Path("full_sequence_report.md"),
-    Path("full_sequence_status.md"), Path("docs/full_sequence.md"),
+    Path("boundary_jepa/full_sequence.py"),
+    Path("tests/test_full_sequence.py"),
+    Path("FULL_SEQUENCE_SUMMARY.md"),
+    Path("full_sequence_report.md"),
+    Path("full_sequence_status.md"),
+    Path("PROJECT_CURRENT_STATUS.md"),
+    Path("OVERNIGHT_SUMMARY.md"),
+    Path("docs/full_sequence.md"),
+    Path("paper/draft.md"),
+    Path("paper/claims_and_evidence.md"),
+    Path("paper/related_work_notes.md"),
+    Path("paper/figure_plan.md"),
+    Path("paper/tables.md"),
+    Path("paper/limitations.md"),
+    Path("paper/outline.md"),
 ]
 
 

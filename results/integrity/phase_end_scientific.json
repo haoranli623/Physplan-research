@@ -1,0 +1,565 @@
+{
+  "timestamp_utc": "2026-08-21T08:37:58.265065+00:00",
+  "git_head": "87b4257a13a74bebbeba105c899a3a6d89e9e79b",
+  "manifests": [
+    "results/bottleneck_decomposition/artifact_manifest.json",
+    "results/wall_replication/artifact_manifest.json"
+  ],
+  "passed": true,
+  "passed_count": 53,
+  "total_count": 53,
+  "checks": [
+    {
+      "manifest": "results/bottleneck_decomposition/artifact_manifest.json",
+      "path": "artifacts/bottleneck_decomposition/development_sweeps.h5",
+      "exists": true,
+      "expected_bytes": 5866730360,
+      "actual_bytes": 5866730360,
+      "expected_sha256": "D873F8A9A4C5706D217C569587CA370F82CA4A7F3743CDE97B166A1966720CA7",
+      "actual_sha256": "D873F8A9A4C5706D217C569587CA370F82CA4A7F3743CDE97B166A1966720CA7",
+      "passed": true
+    },
+    {
+      "manifest": "results/bottleneck_decomposition/artifact_manifest.json",
+      "path": "artifacts/bottleneck_decomposition/development_features.h5",
+      "exists": true,
+      "expected_bytes": 124762408,
+      "actual_bytes": 124762408,
+      "expected_sha256": "2F9DCB09843FE801B8EB0F8C5A8919D58108404E4C0AC1DDC282741F119958F7",
+      "actual_sha256": "2F9DCB09843FE801B8EB0F8C5A8919D58108404E4C0AC1DDC282741F119958F7",
+      "passed": true
+    },
+    {
+      "manifest": "results/bottleneck_decomposition/artifact_manifest.json",
+      "path": "artifacts/bottleneck_decomposition/test_sweeps.h5",
+      "exists": true,
+      "expected_bytes": 7333406520,
+      "actual_bytes": 7333406520,
+      "expected_sha256": "4F6D0EEC34E77924058B1F87A189D5B03B98167BB3764D52F4FA9ABC5448C361",
+      "actual_sha256": "4F6D0EEC34E77924058B1F87A189D5B03B98167BB3764D52F4FA9ABC5448C361",
+      "passed": true
+    },
+    {
+      "manifest": "results/bottleneck_decomposition/artifact_manifest.json",
+      "path": "artifacts/bottleneck_decomposition/test_features_bf16.h5",
+      "exists": true,
+      "expected_bytes": 155950248,
+      "actual_bytes": 155950248,
+      "expected_sha256": "F8FB18D73B89C907DA50A0A993851E549E14C26E641912431A155E2C6E2E6524",
+      "actual_sha256": "F8FB18D73B89C907DA50A0A993851E549E14C26E641912431A155E2C6E2E6524",
+      "passed": true
+    },
+    {
+      "manifest": "results/bottleneck_decomposition/artifact_manifest.json",
+      "path": "artifacts/bottleneck_decomposition/test_features_fp32.h5",
+      "exists": true,
+      "expected_bytes": 155950248,
+      "actual_bytes": 155950248,
+      "expected_sha256": "24E69548E81ECFA0D91D545AA112266F7C9A8A9EB8F340267B7F1B9523298E0B",
+      "actual_sha256": "24E69548E81ECFA0D91D545AA112266F7C9A8A9EB8F340267B7F1B9523298E0B",
+      "passed": true
+    },
+    {
+      "manifest": "results/bottleneck_decomposition/artifact_manifest.json",
+      "path": "results/bottleneck_decomposition/development/frozen_gt_latent_ridge.joblib",
+      "exists": true,
+      "expected_bytes": 12317,
+      "actual_bytes": 12317,
+      "expected_sha256": "2D3A1E3A8DB79F01043BE580A07D41E10B2D5287C42FB7E4E1CD819770B86216",
+      "actual_sha256": "2D3A1E3A8DB79F01043BE580A07D41E10B2D5287C42FB7E4E1CD819770B86216",
+      "passed": true
+    },
+    {
+      "manifest": "results/bottleneck_decomposition/artifact_manifest.json",
+      "path": "results/bottleneck_decomposition/test/decomposition_summary.json",
+      "exists": true,
+      "expected_bytes": 9917,
+      "actual_bytes": 9917,
+      "expected_sha256": "EA14ABD5892CC3154F54D4201C19F94F1B2156AB6300AC15A91B1CF0A1E40CA2",
+      "actual_sha256": "EA14ABD5892CC3154F54D4201C19F94F1B2156AB6300AC15A91B1CF0A1E40CA2",
+      "passed": true
+    },
+    {
+      "manifest": "results/bottleneck_decomposition/artifact_manifest.json",
+      "path": "results/bottleneck_decomposition/test/raw_decomposition.npz",
+      "exists": true,
+      "expected_bytes": 284601,
+      "actual_bytes": 284601,
+      "expected_sha256": "19B11E5EF7F3DC32F4DEA9840124839F1A0A76D983F62C3D49C0BB16EE800391",
+      "actual_sha256": "19B11E5EF7F3DC32F4DEA9840124839F1A0A76D983F62C3D49C0BB16EE800391",
+      "passed": true
+    },
+    {
+      "manifest": "results/bottleneck_decomposition/artifact_manifest.json",
+      "path": "results/bottleneck_decomposition/repair/repair_summary.json",
+      "exists": true,
+      "expected_bytes": 1867,
+      "actual_bytes": 1867,
+      "expected_sha256": "D3618E9130E7BC120F7B7DAD2F86336E761A91B3609BE908157B52E836ADCA5C",
+      "actual_sha256": "D3618E9130E7BC120F7B7DAD2F86336E761A91B3609BE908157B52E836ADCA5C",
+      "passed": true
+    },
+    {
+      "manifest": "results/bottleneck_decomposition/artifact_manifest.json",
+      "path": "results/bottleneck_decomposition/repair/repair_raw.npz",
+      "exists": true,
+      "expected_bytes": 67927,
+      "actual_bytes": 67927,
+      "expected_sha256": "396136726143DC5AD1EFD8BAE6F0464742B8493AC3DB66DFCF048E44E58FD402",
+      "actual_sha256": "396136726143DC5AD1EFD8BAE6F0464742B8493AC3DB66DFCF048E44E58FD402",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "artifacts/checkpoints/jepa_wm_wall.pth.tar",
+      "exists": true,
+      "expected_bytes": 211639231,
+      "actual_bytes": 211639231,
+      "expected_sha256": "8EFB0623CFBA1CB3CA210DE26F7579C83DD24936635F11989C515AFCB23BEA1E",
+      "actual_sha256": "8EFB0623CFBA1CB3CA210DE26F7579C83DD24936635F11989C515AFCB23BEA1E",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "artifacts/wall_replication/feasibility_features.npz",
+      "exists": true,
+      "expected_bytes": 21375095,
+      "actual_bytes": 21375095,
+      "expected_sha256": "32F4F5F736597922FC9F67EC2A33AA6FD4219A9DF185F9A91A0A8BEEFD6B5F05",
+      "actual_sha256": "32F4F5F736597922FC9F67EC2A33AA6FD4219A9DF185F9A91A0A8BEEFD6B5F05",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "artifacts/wall_replication/feasibility_features.timing.json",
+      "exists": true,
+      "expected_bytes": 514,
+      "actual_bytes": 514,
+      "expected_sha256": "CF1E5A6C8F059F0AD99FDDC62914E0809946E35F95CE3FD4BECAE612D8FCE66A",
+      "actual_sha256": "CF1E5A6C8F059F0AD99FDDC62914E0809946E35F95CE3FD4BECAE612D8FCE66A",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "artifacts/wall_replication/development_features.npz",
+      "exists": true,
+      "expected_bytes": 42702534,
+      "actual_bytes": 42702534,
+      "expected_sha256": "B520890FC3A9FA1F7AF9DF63DAD30E788FD62211C7B3C0AF7AFC6532AF45A350",
+      "actual_sha256": "B520890FC3A9FA1F7AF9DF63DAD30E788FD62211C7B3C0AF7AFC6532AF45A350",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "artifacts/wall_replication/development_features.timing.json",
+      "exists": true,
+      "expected_bytes": 513,
+      "actual_bytes": 513,
+      "expected_sha256": "398C528E475D11B9742904154817AFF4B69218C9D0FD09DA10C2B06DD8F34034",
+      "actual_sha256": "398C528E475D11B9742904154817AFF4B69218C9D0FD09DA10C2B06DD8F34034",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "artifacts/wall_replication/diagnosis_features.npz",
+      "exists": true,
+      "expected_bytes": 56922049,
+      "actual_bytes": 56922049,
+      "expected_sha256": "C39F6ED3DABAD50ECB2828BFDD9512844B14F0069854F5F9B36A4E74702960FA",
+      "actual_sha256": "C39F6ED3DABAD50ECB2828BFDD9512844B14F0069854F5F9B36A4E74702960FA",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "artifacts/wall_replication/diagnosis_features.timing.json",
+      "exists": true,
+      "expected_bytes": 515,
+      "actual_bytes": 515,
+      "expected_sha256": "C0F6A559E49C61E01CA64239F1ACCC701D7BD69284081A1AA6B40E90155E58F4",
+      "actual_sha256": "C0F6A559E49C61E01CA64239F1ACCC701D7BD69284081A1AA6B40E90155E58F4",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "artifacts/wall_replication/repair_features.npz",
+      "exists": true,
+      "expected_bytes": 57043480,
+      "actual_bytes": 57043480,
+      "expected_sha256": "D97FF18CADA2D5EAFA23041ECA0CEA39FBD66913985CC5B70E07CAB893BFEA10",
+      "actual_sha256": "D97FF18CADA2D5EAFA23041ECA0CEA39FBD66913985CC5B70E07CAB893BFEA10",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "artifacts/wall_replication/repair_features.timing.json",
+      "exists": true,
+      "expected_bytes": 513,
+      "actual_bytes": 513,
+      "expected_sha256": "AFA7E9E488700BFB5C782A9F5D991AEC83FACDBDF2FF92D2E79B172ACB213B2D",
+      "actual_sha256": "AFA7E9E488700BFB5C782A9F5D991AEC83FACDBDF2FF92D2E79B172ACB213B2D",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "artifacts/wall_replication/repair_repaired_predictions.npz",
+      "exists": true,
+      "expected_bytes": 28723034,
+      "actual_bytes": 28723034,
+      "expected_sha256": "5E67DF53EF164E8C738C12533BE326F174FE3C6F9E1ECB47C0D9DA4C33E0CCB6",
+      "actual_sha256": "5E67DF53EF164E8C738C12533BE326F174FE3C6F9E1ECB47C0D9DA4C33E0CCB6",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "artifacts/wall_replication/repair_repaired_predictions.json",
+      "exists": true,
+      "expected_bytes": 378,
+      "actual_bytes": 378,
+      "expected_sha256": "A07D2A6211F001BCEFEC5955F06F8D0077A79584BF98FFE04C9EECC06CCC8378",
+      "actual_sha256": "A07D2A6211F001BCEFEC5955F06F8D0077A79584BF98FFE04C9EECC06CCC8378",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "configs/wall_replication/feasibility.yaml",
+      "exists": true,
+      "expected_bytes": 1175,
+      "actual_bytes": 1175,
+      "expected_sha256": "6EF9AB999791D77BA486E93C2301D14B947827BAA60B352CC29EA77334298F57",
+      "actual_sha256": "6EF9AB999791D77BA486E93C2301D14B947827BAA60B352CC29EA77334298F57",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "configs/wall_replication/development.yaml",
+      "exists": true,
+      "expected_bytes": 1789,
+      "actual_bytes": 1789,
+      "expected_sha256": "431570288EE66FCDEC2C3E9B20B2F6ECCD0C36AD8C46B0D48E1BDD87B7C4FC41",
+      "actual_sha256": "431570288EE66FCDEC2C3E9B20B2F6ECCD0C36AD8C46B0D48E1BDD87B7C4FC41",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "configs/wall_replication/protocol.yaml",
+      "exists": true,
+      "expected_bytes": 4583,
+      "actual_bytes": 4583,
+      "expected_sha256": "058852BEC36525F3ACB69F0E21D9F231F60A84427D5792ED3A2BE2A3E7BF0544",
+      "actual_sha256": "058852BEC36525F3ACB69F0E21D9F231F60A84427D5792ED3A2BE2A3E7BF0544",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "configs/wall_replication/diagnosis.yaml",
+      "exists": true,
+      "expected_bytes": 731,
+      "actual_bytes": 731,
+      "expected_sha256": "4B783F73EECCC9EBA9F011B312448777DFD620B3302F3CBF9EEC16D3AAD3A94D",
+      "actual_sha256": "4B783F73EECCC9EBA9F011B312448777DFD620B3302F3CBF9EEC16D3AAD3A94D",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "configs/wall_replication/repair.yaml",
+      "exists": true,
+      "expected_bytes": 727,
+      "actual_bytes": 727,
+      "expected_sha256": "E71668D15B53A2E575EFE579F24236CF00E3FD1C0DDE5D3672A99E0B810BB960",
+      "actual_sha256": "E71668D15B53A2E575EFE579F24236CF00E3FD1C0DDE5D3672A99E0B810BB960",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "results/wall_replication/feasibility.json",
+      "exists": true,
+      "expected_bytes": 4795,
+      "actual_bytes": 4795,
+      "expected_sha256": "8F36129F89B4BD2A53BC5E4ED98D14C493BC06F89748D20E283B98C9FD46AD4F",
+      "actual_sha256": "8F36129F89B4BD2A53BC5E4ED98D14C493BC06F89748D20E283B98C9FD46AD4F",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "results/wall_replication/development/development_summary.json",
+      "exists": true,
+      "expected_bytes": 9953,
+      "actual_bytes": 9953,
+      "expected_sha256": "A8FFDA6E6EAEA7BA4B46AB0C034526B1C8569412F843D7B71F835A9F7E7FE616",
+      "actual_sha256": "A8FFDA6E6EAEA7BA4B46AB0C034526B1C8569412F843D7B71F835A9F7E7FE616",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "results/wall_replication/development/development_scores.npz",
+      "exists": true,
+      "expected_bytes": 49535,
+      "actual_bytes": 49535,
+      "expected_sha256": "A9EAF10807CA287E160076FBD3E17A53A81B43F3F3F618F6BF5C22F0F57173D3",
+      "actual_sha256": "A9EAF10807CA287E160076FBD3E17A53A81B43F3F3F618F6BF5C22F0F57173D3",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "results/wall_replication/development/frozen_gt_latent_ridge.joblib",
+      "exists": true,
+      "expected_bytes": 34717,
+      "actual_bytes": 34717,
+      "expected_sha256": "F658A360F2AAC485DED0EE6934608133726D1A9CAEEEAF65A9138EB5A811EA95",
+      "actual_sha256": "F658A360F2AAC485DED0EE6934608133726D1A9CAEEEAF65A9138EB5A811EA95",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "results/wall_replication/development/predictor_repair_development.json",
+      "exists": true,
+      "expected_bytes": 1670,
+      "actual_bytes": 1670,
+      "expected_sha256": "11AC6A786564D67F7E12CCD038F8D8683769F6318376A281B2B6921C9F80F890",
+      "actual_sha256": "11AC6A786564D67F7E12CCD038F8D8683769F6318376A281B2B6921C9F80F890",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "results/wall_replication/development/predictor_repair_dev_selected.pth.tar",
+      "exists": true,
+      "expected_bytes": 70537731,
+      "actual_bytes": 70537731,
+      "expected_sha256": "B3C737971D246A779C146364B66D1135A582E7A5F51D9B5FD59F025214398BA9",
+      "actual_sha256": "B3C737971D246A779C146364B66D1135A582E7A5F51D9B5FD59F025214398BA9",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "results/wall_replication/diagnosis/diagnosis.json",
+      "exists": true,
+      "expected_bytes": 6039,
+      "actual_bytes": 6039,
+      "expected_sha256": "EBBFC46B61933CD650754E83884247D5C1CA4F24A9BAF503A59C21AC0F6DF958",
+      "actual_sha256": "EBBFC46B61933CD650754E83884247D5C1CA4F24A9BAF503A59C21AC0F6DF958",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "results/wall_replication/diagnosis/state_metrics.csv",
+      "exists": true,
+      "expected_bytes": 17213,
+      "actual_bytes": 17213,
+      "expected_sha256": "025EB2AF4E7159CD7F6E44F23BD4203554FDA1ECE1D2E8C157D9806B11D156FC",
+      "actual_sha256": "025EB2AF4E7159CD7F6E44F23BD4203554FDA1ECE1D2E8C157D9806B11D156FC",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "results/wall_replication/diagnosis/scores.npz",
+      "exists": true,
+      "expected_bytes": 58557,
+      "actual_bytes": 58557,
+      "expected_sha256": "3A67196DA6CBF7A6A15823DB6609943EF9E4BC45450A3A2648BB43287C98E431",
+      "actual_sha256": "3A67196DA6CBF7A6A15823DB6609943EF9E4BC45450A3A2648BB43287C98E431",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "results/wall_replication/repair/repair.json",
+      "exists": true,
+      "expected_bytes": 4861,
+      "actual_bytes": 4861,
+      "expected_sha256": "89848E7A539551989CC3A8C75425FD96B13E2F2DC9DF3C99E30C23DD06695168",
+      "actual_sha256": "89848E7A539551989CC3A8C75425FD96B13E2F2DC9DF3C99E30C23DD06695168",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "results/wall_replication/repair/state_metrics.csv",
+      "exists": true,
+      "expected_bytes": 12898,
+      "actual_bytes": 12898,
+      "expected_sha256": "48D5267C26FEFD831AEDA9C86E44714729AD1029327DAE54D28AC8E6BAB2FFD1",
+      "actual_sha256": "48D5267C26FEFD831AEDA9C86E44714729AD1029327DAE54D28AC8E6BAB2FFD1",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "results/wall_replication/repair/scores.npz",
+      "exists": true,
+      "expected_bytes": 48726,
+      "actual_bytes": 48726,
+      "expected_sha256": "EE76AC45837714752197071EE741D88339CF4020D37F870D121D4BF07EAD8010",
+      "actual_sha256": "EE76AC45837714752197071EE741D88339CF4020D37F870D121D4BF07EAD8010",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "plots/wall_replication/wall_bottleneck_profile.png",
+      "exists": true,
+      "expected_bytes": 51453,
+      "actual_bytes": 51453,
+      "expected_sha256": "20AFA808FFF3894ED9D212B6C8FB0F7A259A1360D96741932AACEAB5DEFB57DD",
+      "actual_sha256": "20AFA808FFF3894ED9D212B6C8FB0F7A259A1360D96741932AACEAB5DEFB57DD",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "plots/wall_replication/wall_bottleneck_profile.pdf",
+      "exists": true,
+      "expected_bytes": 16550,
+      "actual_bytes": 16550,
+      "expected_sha256": "1B54BC5E00D8EDD2C48977C0A47904FF4EB57851E74A8B0FB255E9DBE42A0DE4",
+      "actual_sha256": "1B54BC5E00D8EDD2C48977C0A47904FF4EB57851E74A8B0FB255E9DBE42A0DE4",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "plots/wall_replication/wall_repair_validation.png",
+      "exists": true,
+      "expected_bytes": 129219,
+      "actual_bytes": 129219,
+      "expected_sha256": "51B06B4F3377BBA8581413989AEB786D2554815CB360F5B9B5AB4974214E37FA",
+      "actual_sha256": "51B06B4F3377BBA8581413989AEB786D2554815CB360F5B9B5AB4974214E37FA",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "plots/wall_replication/wall_repair_validation.pdf",
+      "exists": true,
+      "expected_bytes": 24830,
+      "actual_bytes": 24830,
+      "expected_sha256": "30A5D498B5B8631FEC073E4B61FF9CF7B87B17FF3562929BD5A8DFDB0681F9E9",
+      "actual_sha256": "30A5D498B5B8631FEC073E4B61FF9CF7B87B17FF3562929BD5A8DFDB0681F9E9",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "plots/wall_replication/wall_representative_state.png",
+      "exists": true,
+      "expected_bytes": 117071,
+      "actual_bytes": 117071,
+      "expected_sha256": "DE706CB7A0BABAD48BBEC1BEF017D547AA0B9A863AF60C9C24EE4D82FC4CF5C5",
+      "actual_sha256": "DE706CB7A0BABAD48BBEC1BEF017D547AA0B9A863AF60C9C24EE4D82FC4CF5C5",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "plots/wall_replication/wall_representative_state.pdf",
+      "exists": true,
+      "expected_bytes": 21399,
+      "actual_bytes": 21399,
+      "expected_sha256": "3F52A553B27AA048DF5ED3291482237DD2BD617433121F97C1BFC69783CBB9F8",
+      "actual_sha256": "3F52A553B27AA048DF5ED3291482237DD2BD617433121F97C1BFC69783CBB9F8",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "plots/wall_replication/wall_failure_state.png",
+      "exists": true,
+      "expected_bytes": 121614,
+      "actual_bytes": 121614,
+      "expected_sha256": "4D1795ECBA0BC34EFFA8CD6BE66DA80B4DB65918F12902DDEEFA27E5FF5BF4A3",
+      "actual_sha256": "4D1795ECBA0BC34EFFA8CD6BE66DA80B4DB65918F12902DDEEFA27E5FF5BF4A3",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "plots/wall_replication/wall_failure_state.pdf",
+      "exists": true,
+      "expected_bytes": 21502,
+      "actual_bytes": 21502,
+      "expected_sha256": "36E6A1117F79A84678C4F3F09C596740E55C9FCCFC62BB76A9520BB473D6823D",
+      "actual_sha256": "36E6A1117F79A84678C4F3F09C596740E55C9FCCFC62BB76A9520BB473D6823D",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "plots/wall_replication/selected_states.json",
+      "exists": true,
+      "expected_bytes": 62,
+      "actual_bytes": 62,
+      "expected_sha256": "04036454A6198F8ABE1B5D1FE2C76D22D6CB1D78872C2D8054541408E24C92C8",
+      "actual_sha256": "04036454A6198F8ABE1B5D1FE2C76D22D6CB1D78872C2D8054541408E24C92C8",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "wall_bottleneck_prediction.json",
+      "exists": true,
+      "expected_bytes": 3781,
+      "actual_bytes": 3781,
+      "expected_sha256": "B016B2E633D2573301429FDB9BF2B243E8B9F3F0B5ABBE1A825EB2EC18387145",
+      "actual_sha256": "B016B2E633D2573301429FDB9BF2B243E8B9F3F0B5ABBE1A825EB2EC18387145",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "WALL_FEASIBILITY_REPORT.md",
+      "exists": true,
+      "expected_bytes": 3802,
+      "actual_bytes": 3802,
+      "expected_sha256": "AB1F96295B3156B13D222943CE1D62AC87232BE9C9783797048398628E2A30F1",
+      "actual_sha256": "AB1F96295B3156B13D222943CE1D62AC87232BE9C9783797048398628E2A30F1",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "WALL_REPLICATION_SUMMARY.md",
+      "exists": true,
+      "expected_bytes": 1713,
+      "actual_bytes": 1713,
+      "expected_sha256": "A87A9B998BB8B1D256EA93743903487C4C5972C50F557172B56B6E470C65790D",
+      "actual_sha256": "A87A9B998BB8B1D256EA93743903487C4C5972C50F557172B56B6E470C65790D",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "wall_replication_report.md",
+      "exists": true,
+      "expected_bytes": 6494,
+      "actual_bytes": 6494,
+      "expected_sha256": "47AFF59B535A234E82B7A41CE6470C45A98771B7ED67BF97C05E17ADE2C2AA7C",
+      "actual_sha256": "47AFF59B535A234E82B7A41CE6470C45A98771B7ED67BF97C05E17ADE2C2AA7C",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "WALL_PHASE_SUMMARY.md",
+      "exists": true,
+      "expected_bytes": 3381,
+      "actual_bytes": 3381,
+      "expected_sha256": "781A4ED0FF47BA17B7A2B283CBC6B0F086986EFD722BBE04AFCEB4CC217E597D",
+      "actual_sha256": "781A4ED0FF47BA17B7A2B283CBC6B0F086986EFD722BBE04AFCEB4CC217E597D",
+      "passed": true
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "docs/wall_replication.md",
+      "exists": true,
+      "expected_bytes": 2181,
+      "actual_bytes": 2181,
+      "expected_sha256": "D71824151E163F10C7225DA0D038D184F1AEEDD9E876113D48FB7599A8B254B6",
+      "actual_sha256": "D71824151E163F10C7225DA0D038D184F1AEEDD9E876113D48FB7599A8B254B6",
+      "passed": true
+    }
+  ],
+  "authorized_mutable_manifest_entries": [
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "paper/outline.md",
+      "reason": "paper source explicitly authorized for update in the current phase"
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "paper/claims_and_evidence.md",
+      "reason": "paper source explicitly authorized for update in the current phase"
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "paper/related_work_notes.md",
+      "reason": "paper source explicitly authorized for update in the current phase"
+    },
+    {
+      "manifest": "results/wall_replication/artifact_manifest.json",
+      "path": "paper/figure_plan.md",
+      "reason": "paper source explicitly authorized for update in the current phase"
+    }
+  ]
+}

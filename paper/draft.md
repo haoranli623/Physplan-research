@@ -4,7 +4,7 @@
 
 ### Abstract
 
-When a latent world-model planner selects a poor action, the failure is commonly attributed to inaccurate prediction. That diagnosis is incomplete: decisions also depend on the latent representation, the cost used to rank predicted futures, and the candidates exposed by search. We introduce a controlled attribution protocol that changes one interface at a time while preserving the candidate set. Simulator-evaluated oracle substitutions estimate recoverable prediction, decision-metric, proposal, and within-search headroom at the level of independent initial states. The protocol is designed to predict the component worth repairing before the intervention is run. On Push-T, predicted and ground-truth latents perform similarly under the same learned task readout (normalized-regret gap 0.0071, 95% bootstrap CI [-0.0051, 0.0198]), while replacing latent L2 with that readout exposes substantially larger metric headroom (0.0851 [0.0608, 0.1109]). A pre-specified metric repair then improves regret by 0.0815 [0.0563, 0.1079], whereas increasing predictor inference precision improves it by only 0.0017 with an interval spanning zero. On a disjoint Wall replication, the same protocol instead diagnoses prediction as limiting (gap 0.5636 [0.4871, 0.6373]); the subsequently evaluated predictor repair improves regret by 0.3891 [0.2930, 0.4804] on unseen states, while the wrong-layer metric repair is near zero. These controlled studies show that different planning problems can occupy different failure regimes and support a practical principle: diagnose the limiting interface before retraining the world model. An official Push-T full action-sequence validation is in progress and is not included in the present claims.
+When a latent world-model planner selects a poor action, the failure is commonly attributed to inaccurate prediction. That diagnosis is incomplete: decisions also depend on the score used to rank predicted futures and the candidates exposed by search. We introduce a controlled attribution protocol that changes one interface at a time while preserving the candidate set. Simulator-evaluated oracle substitutions estimate recoverable prediction, decision-metric, proposal, and within-search headroom at the level of independent initial states. On a controlled local Push-T action family, prediction headroom is 0.0071 (95% state-bootstrap CI [-0.0051, 0.0198]) while metric headroom is 0.0851 [0.0608, 0.1109]; a pre-specified metric repair then improves regret by 0.0815 [0.0563, 0.1079], whereas an inference-precision control is near zero. A disjoint Wall replication instead diagnoses prediction as limiting (0.5636 [0.4871, 0.6373]); the pre-specified predictor repair improves regret by 0.3891 [0.2930, 0.4804] on unseen states, while the wrong-layer metric repair is near zero. Crucially, official Push-T H6 action-sequence CEM changes the diagnosis: prediction headroom rises to 0.1608 [0.0565, 0.2725], exceeding metric headroom 0.0950 [0.0026, 0.1978]. The local metric repair has favorable but inconclusive end-to-end gain, 0.0843 [-0.00008, 0.1684], because rescoring also changes adaptive search coverage. These results show that bottlenecks depend on planner regime and support a practical principle: diagnose before retraining or rescoring.
 
 ## 1. Introduction
 
@@ -14,14 +14,14 @@ This distinction matters operationally. Improving a predictor can require new da
 
 We study whether controlled oracle substitutions can identify the dominant recoverable bottleneck before a repair is attempted. For a fixed initial state and fixed candidate actions, we compare selections made using ground-truth or predicted latent futures and task-aligned or default scores. Every selected action is then executed in the simulator. The resulting gaps answer intervention-oriented questions: how much could be recovered by fixing prediction while retaining the same scoring interface, or by fixing the scoring interface while retaining the same predictions? Separate simulator oracles over queried and reference candidates expose search coverage and within-search selection.
 
-Our experiments deliberately emphasize controlled evidence over breadth. Push-T supplies a diagnosis-to-intervention study in a local H6 action family. Wall supplies a pre-registered replication with disjoint development, diagnosis, and repair states. The two tasks yield different diagnoses. Push-T is decision-metric limited under the frozen protocol; Wall is prediction limited. In both cases, the repair selected by the diagnosis substantially outperforms a task-appropriate wrong-layer control.
+Our experiments deliberately emphasize controlled evidence over breadth. Push-T supplies a diagnosis-to-intervention study in a local H6 action family. Wall supplies a pre-registered replication with disjoint development, diagnosis, and repair states. The two controlled studies yield different diagnoses, and their selected repairs substantially outperform task-appropriate wrong-layer controls. A separately frozen validation then asks whether the local Push-T diagnosis survives the official high-dimensional iterative planner. It does not: prediction becomes the larger fixed-trace limitation, and the local metric repair no longer clears the strong-validation criterion.
 
 The contributions are:
 
 1. A candidate-matched, simulator-grounded protocol for estimating recoverable headroom at prediction, decision-metric, proposal, and selection interfaces of a latent planner.
 2. Prospective evidence on Push-T that the diagnosed metric repair recovers the predicted headroom while a predictor-precision control does not.
 3. An independent Wall replication in which the same rule selects a different bottleneck and the corresponding predictor repair succeeds on unseen states.
-4. A claim ledger and artifact manifests that explicitly delimit what these two controlled studies do and do not establish.
+4. A frozen official H6 sequence-planning test showing a planner-regime shift from metric-dominant to prediction-important behavior, together with a retained adaptive-search counterexample and complete raw traces.
 
 We do not propose a new JEPA architecture, latent loss, or optimizer. The contribution is diagnostic: a planning failure should not automatically be labeled a prediction failure.
 
@@ -115,11 +115,27 @@ The pre-specified predictor repair is trained only from development data and eva
 
 As a mechanism check, latent prediction MSE decreases from 0.8564 to 0.1999. Lower MSE is not sufficient for a better decision on every state: on one retained failure case (anchor 31), planning regret increases from 0.215 to 0.991 despite the MSE improvement. The aggregate repair result therefore supports the diagnosis, while the failure case prevents the stronger—and unsupported—claim that improving a predictive loss guarantees better planning.
 
-## 5. Official Full Action-Sequence Planning
+## 5. Official H6 Sequences: A Planner-Regime Shift
 
-The preceding experiments use controlled local candidate families. A focused validation with the official Push-T H6 action-sequence CEM planner is being developed under a separately frozen protocol. It will retain every candidate sequence, compare GT-readout, predicted-readout, and predicted-L2 rankings on identical fixed traces, and evaluate a matched-query adaptive CEM repair that changes only the scorer. Development episodes are separated from the final episode set, and the episode remains the bootstrap unit.
+### 5.1 Frozen protocol
 
-No full-sequence result is reported here yet. In particular, the local Push-T result is not presented as evidence that the official iterative planner is metric limited. This section will be updated only after the final protocol is committed and the new episodes are evaluated.
+The local Push-T family is useful for controlled attribution but does not reproduce iterative high-dimensional planning. We therefore freeze a separate validation using the official H6 one-shot CEM setting: 30 iterations, 300 sequences per iteration, 10 elites, 9000 model queries, and the returned final mean. Each six-step model action contains five 2-D simulator controls, so search operates over 60 scalars and executes 30 controls. Thirty fresh near-contact initial states use contiguous precommitted seeds with no filtering, retry, or replacement.
+
+Every sequence queried by baseline latent-L2 CEM is retained and simulator-evaluated. On this identical 9001-sequence trace per episode, GT-readout, predicted-readout, and predicted-L2 rankings isolate prediction and metric headroom. A second CEM run receives the same model, initial state, horizon, population, elites, initial distribution, random-seed policy, and query budget; only its scorer changes to the frozen action-blind readout. Because that score updates the CEM proposal, the adaptive traces are not candidate matched. Their union is used only as a finite audit reference, not a global action oracle.
+
+### 5.2 Prediction becomes important
+
+GT-readout, predicted-readout, and predicted-L2 mean normalized regrets are 0.1724, 0.3332, and 0.4282. Thus prediction headroom is 0.1608 [0.0565, 0.2725], while metric headroom is 0.0950 [0.0026, 0.1978]. Under the frozen 0.02 material margin and 1.5 dominance ratio, the result is `PREDICTION BECOMES IMPORTANT`.
+
+This is a regime change rather than a contradiction. The local slice contains nearby structured alternatives from the same state; the official planner predicts long 60-D sequences and adapts its proposal from model scores. Prediction errors can accumulate and alter ranking across a much broader action family. The remaining positive metric gap shows that latent L2 is still imperfect, but it is no longer the dominant recoverable limitation.
+
+### 5.3 Metric repair is directional but inconclusive
+
+Matched-budget baseline and task-readout CEM achieve mean normalized regrets 0.4974 and 0.4131. Mean repair improvement is 0.0843, with 95% episode-bootstrap CI [-0.00008, 0.1684]; 16 episodes improve, 9 are unchanged, and 5 are harmed. The lower bound crosses zero, so the frozen strong-validation condition is not met.
+
+The adaptive result exposes an interaction hidden by fixed candidates. Mean within-trace selection gap falls from 0.1834 to 0.0983 raw simulator cost, while mean union-relative coverage gap rises from 0.0297 to 0.0671. Episode 20 is the clearest retained counterexample: the readout chooses the simulator-best sequence in its own trace, yet that trace has coverage gap 0.5811 and regret worsens from 0.4044 to 1.0000. A decision metric can rank its queried candidates better while steering iterative search away from useful candidates.
+
+A post-hoc state-level audit finds that metric gap correlates with repair improvement (Spearman 0.792 [0.493, 0.955]). This descriptive result is labeled exploratory, shares quantities with the repair evaluation, and is not a causal claim or deployable gating rule.
 
 ## 6. Related Work
 
@@ -133,17 +149,19 @@ The closest methodological connection is to component-wise oracle substitution a
 
 ## 7. Limitations
 
-The evidence covers one latent world-model family and two controlled simulated tasks. The Push-T diagnosis and repair share the same final states, although the repair was committed before its computation; only Wall provides a disjoint repair-validation set. Both completed studies use controlled low-dimensional candidate geometries, so neither establishes the dominant bottleneck under the official high-dimensional iterative planner.
+The evidence covers one latent world-model family and two simulated tasks. The local Push-T diagnosis and repair share the same final states, although the repair was committed before its computation; only Wall provides a disjoint repair-validation set. The official H6 validation uses 30 states, fewer than the local studies, and its near-contact generator replaces the unavailable official dataset-sourced initial states.
 
 The GT-readout condition combines representation observability with the finite capacity and development distribution of the ridge readout. It is therefore a practical ceiling, not a pure representation oracle. The readout uses simulator costs during offline development and is not an unsupervised replacement objective. Headroom terms overlap and can change when another interface changes; they must not be summed or treated as a unique causal partition.
 
-The Push-T wrong-layer control changes inference precision, not predictor training, architecture, or data. The Wall predictor repair uses one training seed, and its training cost is not matched to fitting the lightweight metric readout. Candidate families and cost normalizations differ across tasks, so cross-task gap magnitudes should not be compared as if measured on a common physical scale.
+The Push-T wrong-layer control changes inference precision, not predictor training, architecture, or data. The Wall predictor repair uses one training seed, and its training cost is not matched to fitting the lightweight metric readout. No trained predictor repair has yet tested the official H6 diagnosis. Candidate families and cost normalizations differ across tasks, so cross-task gap magnitudes should not be compared as if measured on a common physical scale.
+
+Adaptive CEM traces differ after their first score-dependent update. Their union is not an independent or global oracle, and coverage and selection summaries cannot be added causally. The full-sequence repair interval crosses zero; its favorable mean must not be described as validated. The post-hoc state-wise correlation was chosen after aggregate analysis and requires independent confirmation.
 
 Finally, average improvements conceal heterogeneous states. The Wall repair harms 11 of 80 held-out states, and lower prediction MSE does not guarantee lower regret. Deployment would require uncertainty estimates or a fallback rule, neither of which is studied here.
 
 ## 8. Conclusion
 
-Planning through a latent world model is a pipeline, not a single prediction loss. Controlled candidate-matched substitutions identify little predictor headroom but substantial decision-metric headroom on Push-T, and the prospectively selected metric repair recovers that gap. The same protocol identifies the opposite regime on Wall; a predictor repair then succeeds on disjoint states while the metric control does not. The supported conclusion is deliberately bounded: under these frozen protocols, attribution predicted which component offered recoverable decision quality. The practical lesson is broader but still a hypothesis for further testing—diagnose before retraining the world model.
+Planning through a latent world model is a pipeline, not a single prediction loss. Controlled substitutions identify decision-metric headroom on local Push-T and prediction headroom on Wall, and pre-specified repairs recover the diagnosed gaps. Under official Push-T H6 sequence search, prediction becomes the larger limitation and the local metric repair is no longer conclusive because rescoring changes proposal coverage. The supported conclusion is deliberately bounded: bottleneck diagnoses depend on the task, candidate family, and planner, and successful local repairs should not be extrapolated without re-diagnosis. Diagnose before retraining or rescoring.
 
 ## References (working links)
 

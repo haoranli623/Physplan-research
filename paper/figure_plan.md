@@ -43,12 +43,18 @@ Use the profile and repair plot in the main paper. Keep representative/failure s
 
 Do not add panels merely to increase figure count.
 
-## Figure 5 — Official full action-sequence validation (pending)
+## Figure 5 — Official full action-sequence validation
 
-Only create after the protocol is frozen and final evaluation is complete.
+Current asset: `plots/full_sequence/full_sequence_validation.png`.
 
 - Left: fixed-trace prediction and metric gaps with episode-bootstrap intervals.
 - Middle: matched-query baseline versus targeted adaptive CEM regret.
-- Right: query coverage and helped/unchanged/harmed distribution, if legible.
+- Right: sorted per-episode repair improvement, retaining harmed and unchanged states.
 
-Every plotted candidate statistic must be recoverable from the saved CEM trace. Do not reuse local-slice figures as evidence for this section.
+The title reports the frozen `PREDICTION BECOMES IMPORTANT` decision. Every statistic is recoverable from the saved CEM traces. The repair error bar crossing zero must remain visually and textually explicit.
+
+## Supplementary Figure — Full-sequence state-wise regimes
+
+Current asset: `plots/full_sequence/statewise_regimes.png`.
+
+This plot is explicitly labeled post-hoc exploratory. It shows prediction versus metric gaps, repair heterogeneity, and the metric-gap/repair association. Do not promote its correlation to a preregistered or causal result.

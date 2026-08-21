@@ -2,9 +2,9 @@
 
 ## Headline claim
 
-Different latent world-model planning problems can expose different recoverable bottlenecks. Candidate-matched oracle substitutions diagnosed the limiting interface before intervention in the completed Push-T and Wall studies, and the selected repair subsequently outperformed the wrong-layer control.
+Different latent world-model planning regimes can expose different recoverable bottlenecks. Candidate-matched oracle substitutions diagnosed intervention-relevant interfaces in local Push-T and Wall, while a separately frozen official H6 validation showed that the diagnosis can change when the planner and candidate family become more realistic.
 
-This is an intervention-oriented empirical claim under two frozen protocols, not a universal or additive causal decomposition.
+This is an intervention-oriented empirical claim under three frozen regimes, not a universal or additive causal decomposition.
 
 ## Claim P1 — Push-T predictor headroom is small under the frozen local protocol
 
@@ -104,7 +104,7 @@ This is an intervention-oriented empirical claim under two frozen protocols, not
 
 **Evidence**
 
-- Identical conceptual substitutions classify Push-T as decision metric and Wall as prediction.
+- Identical conceptual substitutions classify local Push-T as decision metric, Wall as prediction, and official Push-T H6 as prediction important with residual metric headroom.
 - Corresponding targeted repairs win over task-appropriate wrong-layer controls in both studies.
 
 **Limitations**
@@ -115,23 +115,33 @@ This is an intervention-oriented empirical claim under two frozen protocols, not
 **Unsupported stronger claim**
 
 - All failures can be uniquely or additively attributed.
-- A two-task result establishes broad generality.
+- A two-task, three-regime result establishes broad generality.
 
 ## Claim F1 — Official full action-sequence planning
 
 **Status**
 
-- Pending. Development and final episodes must be new.
-- No scientific result may be added until the protocol YAML is committed before final evaluation.
+- Complete under frozen protocol commit `3cbd3c5`; 30/30 new final episodes, no filtering, retry, or replacement.
+- Frozen decision: `PREDICTION BECOMES IMPORTANT`.
 
-**Required evidence**
+**Evidence**
 
-- Fixed-trace GT-readout, predicted-readout, and predicted-L2 comparisons on identical CEM candidate sequences.
-- Simulator evaluation of retained queried sequences, proposal coverage, and within-search selection.
-- Matched-query adaptive CEM comparison in which only the scorer changes.
-- Episode-level bootstrap intervals and helped/unchanged/harmed counts.
+- The fixed baseline trace contains 9000 CEM queries plus returned mean for every state; all three rankings use these identical candidates.
+- GT/predicted-readout regrets 0.1724/0.3332; prediction gap 0.1608 [0.0565, 0.2725].
+- Predicted-L2 regret 0.4282; metric gap 0.0950 [0.0026, 0.1978].
+- Matched-budget adaptive baseline/readout regret 0.4974/0.4131; improvement 0.0843 [-0.00008, 0.1684].
+- Helped/unchanged/harmed: 16/9/5.
+- Baseline/targeted raw selection gaps 0.1834/0.0983; coverage gaps 0.0297/0.0671.
 
-**Unsupported until completion**
+**Limitations**
 
-- Push-T is metric limited under the official full planner.
-- The local diagnosis survives iterative high-dimensional proposal adaptation.
+- Only 30 states and an explicitly adapted near-contact initial-state generator because the official dataset is unavailable.
+- Adaptive traces are not candidate matched after score-dependent CEM updates; their union is only an audit reference.
+- The metric-repair CI crosses zero and cannot be called a validated end-to-end improvement.
+- No trained predictor repair or wrong-layer comparison has yet tested the H6 diagnosis.
+
+**Unsupported stronger claim**
+
+- Push-T is generally metric limited.
+- The local metric repair reliably transfers to iterative high-dimensional planning.
+- The state-wise post-hoc metric-gap/repair correlation defines a causal or deployable selector.

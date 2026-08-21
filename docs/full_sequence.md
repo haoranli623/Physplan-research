@@ -20,4 +20,29 @@ The final candidate after the last CEM update (the official returned mean sequen
 
 Every final candidate sequence, score, simulator cost, distribution mean/std, and final state is retained. Episode is the independent statistical unit.
 
-Run commands will be frozen in `configs/full_sequence/protocol.yaml` after development and before final evaluation.
+The run commands and all interpretation rules were frozen in `configs/full_sequence/protocol.yaml` before final evaluation (protocol commit `3cbd3c5`). All 30 final episodes completed without filtering or replacement.
+
+## Final result
+
+- Frozen decision: `PREDICTION BECOMES IMPORTANT`.
+- Prediction gap: 0.1608 [0.0565, 0.2725].
+- Metric gap: 0.0950 [0.0026, 0.1978].
+- Baseline/targeted adaptive regret: 0.4974/0.4131.
+- Metric-repair improvement: 0.0843 [-0.00008, 0.1684]; helped/unchanged/harmed 16/9/5.
+
+The local metric bottleneck therefore does not remain dominant under the official H6 planner. The metric repair is favorable on average but inconclusive under the frozen criterion. See `full_sequence_report.md` for the selection/coverage interaction and retained failure cases.
+
+## Reproduction
+
+```powershell
+$env:KMP_DUPLICATE_LIB_OK='TRUE'
+D:\anaconda\envs\torch-gpu\python.exe -m scripts.full_sequence.run_final --config configs/full_sequence/protocol.yaml
+D:\anaconda\envs\torch-gpu\python.exe -m scripts.full_sequence.analyze --config configs/full_sequence/protocol.yaml
+D:\anaconda\envs\torch-gpu\python.exe -m scripts.full_sequence.plot_results
+D:\anaconda\envs\torch-gpu\python.exe -m scripts.full_sequence.audit_failure_cases
+D:\anaconda\envs\torch-gpu\python.exe -m scripts.full_sequence.verify_final_artifacts
+D:\anaconda\envs\torch-gpu\python.exe -m scripts.full_sequence.build_manifest
+D:\anaconda\envs\torch-gpu\python.exe -m scripts.full_sequence.verify_manifest
+```
+
+The runner skips only episodes with an existing completed JSON marker. Analysis requires all 30 paired JSON/NPZ files and validates each frozen episode/seed identity before producing results.

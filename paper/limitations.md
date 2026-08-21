@@ -4,9 +4,9 @@
 
 - One action-conditioned JEPA world-model family is evaluated.
 - Two simulated tasks are complete: Push-T and Wall.
-- Both completed protocols use controlled low-dimensional candidate families.
+- The local Push-T and Wall protocols use controlled low-dimensional candidate families; the official Push-T H6 action-sequence protocol is now complete on 30 states.
 - Only Wall has disjoint development, diagnosis, and repair state sets.
-- The official Push-T full action-sequence planner is pending and cannot be used to support current claims.
+- The official Push-T dataset-sourced initial states were unavailable; the H6 validation uses a frozen fresh near-contact generator and canonical goal.
 
 ## Attribution limits
 
@@ -15,6 +15,7 @@
 - GT readout combines representation observability and readout capacity; it is not a pure representation oracle.
 - The learned readout uses simulator task costs on development states.
 - A near-zero mean prediction gap does not imply that every state is predicted adequately.
+- Full-sequence fixed-trace headroom and adaptive-CEM repair measure different interventions because the scorer changes subsequent proposals.
 
 ## Intervention limits
 
@@ -23,12 +24,15 @@
 - Wall's predictor repair uses one training seed.
 - Training compute is not matched between the Wall predictor repair and lightweight metric control.
 - Eleven of 80 held-out Wall states are harmed by the predictor repair.
+- The full-sequence metric repair helps/does not change/harms 16/9/5 states, and its 95% CI crosses zero.
+- No trained full-sequence predictor repair has yet tested the frozen `PREDICTION BECOMES IMPORTANT` diagnosis.
 
 ## Cross-task limits
 
 - Push-T and Wall use different physical costs, candidate geometries, and normalizations.
 - Absolute gap magnitudes should not be compared as a common effect scale.
 - Two tasks do not establish universal bottleneck taxonomy or architectural generality.
+- The 30-state full-sequence sample yields wide intervals and is not an architecture-level replication.
 - Different task diagnoses show that the procedure is not mechanically anti-L2; they do not prove it will identify a unique dominant component everywhere.
 
 ## Language that is supported
@@ -39,6 +43,8 @@
 
 > Controlled oracle substitutions can identify intervention-relevant recoverable headroom in these two studies.
 
+> Under official Push-T H6 sequence planning, prediction headroom exceeds metric headroom; the local metric repair has favorable but inconclusive mean benefit because adaptive search coverage changes.
+
 ## Language that is not supported
 
 - “JEPA world models are generally metric limited.”
@@ -46,6 +52,8 @@
 - “The decomposition uniquely or causally assigns all error.”
 - “L2 is always a poor planning metric.”
 - “Lower prediction loss guarantees better control.”
-- “The method generalizes to realistic MPC” before full-sequence validation.
+- “The local metric bottleneck generalizes to realistic MPC.”
+- “The full-sequence metric repair is validated” when its confidence interval crosses zero.
+- “The post-hoc state-wise correlation is causal or deployable.”
 - “FP32 tests predictor improvement” without the qualifier “inference precision.”
 - Any “first” or state-of-the-art claim.

@@ -18,6 +18,7 @@ AUTHORIZED_MUTABLE = {
     "paper/claims_and_evidence.md",
     "paper/related_work_notes.md",
     "paper/figure_plan.md",
+    "paper/outline.md",
 }
 
 
