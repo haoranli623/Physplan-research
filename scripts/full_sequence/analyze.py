@@ -98,8 +98,9 @@ def main() -> None:
         "protocol": cfg,
         "warning": "Headroom terms are paired contrasts and are not additive causal components.",
     }
-    (result_dir / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
-    print(json.dumps(summary, indent=2))
+    serialized = json.dumps(summary, indent=2, default=str)
+    (result_dir / "summary.json").write_text(serialized, encoding="utf-8")
+    print(serialized)
 
 
 if __name__ == "__main__":

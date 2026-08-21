@@ -75,3 +75,10 @@
 - GPU utilization was 99%, device memory roughly 6.5 GB, temperature 73°C, and thermal slowdown inactive.
 - Runner stderr still contained only launch-time dependency warnings; no retry, skip, replacement, protocol change, or final-metric inspection occurred.
 - Next routine checkpoint: 30/30 or immediate runner exit/error.
+
+## 2026-08-21 — final generation complete; analysis serialization fix
+
+- At 2026-08-21 04:21 EDT, all 30/30 JSON/NPZ pairs were complete and the runner exited normally. Stderr contained no runtime error.
+- The first frozen-analysis invocation completed data loading/statistic construction but failed before writing or printing `summary.json` because YAML parsed `frozen_utc_date` as a Python `date`, which the standard JSON encoder cannot serialize.
+- No result was inspected from the partially written CSV. The engineering-only fix adds `default=str` to summary JSON serialization; no metric, data row, bootstrap seed/sample count, threshold, or interpretation rule changed.
+- Next step: rerun the identical frozen analysis command once, then inspect the resulting summary.
