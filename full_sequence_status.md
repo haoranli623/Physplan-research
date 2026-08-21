@@ -53,3 +53,11 @@
 - The runner remained healthy with no stderr growth beyond the launch-time dependency warnings.
 - CEM phases sustained approximately 99–100% GPU utilization. Observed peak temperature was 86°C with NVIDIA software thermal slowdown reported inactive, followed by rapid cooldown during simulator replay.
 - Final metrics remain uninspected. The protocol and all scientific definitions remain frozen.
+
+## 2026-08-20 — external GPU contention during episode 7
+
+- At approximately 21:12 EDT, an unrelated user `cs2` process and Lossless Scaling began sharing the GPU. These processes were not launched, modified, or terminated by this experiment.
+- Total device memory rose from roughly 6.6–7.0 GB to roughly 14.1 GB, leaving about 2 GB free. Device temperature reached 87°C and NVIDIA software thermal slowdown became active.
+- The final runner remained alive and stderr showed no OOM or new error, but targeted-CEM wall-clock throughput slowed materially.
+- Scientific computation is unchanged: the runner still uses the frozen candidates, query sub-batch 75, scorer, checkpoint, seeds, and budgets. If resource contention causes failure, the exact frozen command will be resumed from completed episode pairs without replacement.
+- No final effect metric was inspected while diagnosing this resource event.
