@@ -68,3 +68,10 @@
 - External GPU contention had ended; device memory returned to roughly 6.6 GB, temperature was 72°C, and thermal slowdown was inactive.
 - Runner stderr still contained only the launch-time dependency warnings. No final effect metric was inspected.
 - Monitoring frequency was reduced at the user's request; the next routine checkpoint is 20/30, with immediate attention only if the runner exits or reports an error.
+
+## 2026-08-21 — frozen final run checkpoint 20/30
+
+- At 2026-08-21 01:32 EDT, 20/30 complete JSON/NPZ pairs were present and episode 20 had started automatically.
+- GPU utilization was 99%, device memory roughly 6.5 GB, temperature 73°C, and thermal slowdown inactive.
+- Runner stderr still contained only launch-time dependency warnings; no retry, skip, replacement, protocol change, or final-metric inspection occurred.
+- Next routine checkpoint: 30/30 or immediate runner exit/error.
