@@ -22,7 +22,7 @@ The diagnostic compares four conditions while preserving the initial state, cand
   \item[Predicted L2.] The baseline latent distance scores the same predictions.
   \item[Simulator oracle.] Simulator cost selects the best candidate, either from the reference set or from actions queried by search.
 \end{description}
-The readout never observes the action; it maps latent transition information to simulator task cost and is fit only on development states. Thus it cannot exploit a direct action-to-cost shortcut.
+The readout never observes the action; it maps latent transition information to simulator task cost and is fit only on development states. Thus it cannot exploit a direct action-to-cost shortcut. It is a diagnostic substitution when used to measure headroom; using it inside a planner is a separate, deployable scorer intervention.
 
 Prediction and metric headroom are the paired state-level contrasts
 \begin{align}
@@ -33,7 +33,7 @@ Proposal headroom compares the simulator-best queried candidate with the best re
 
 \subsection{Prospective diagnosis and intervention}
 
-Before repair evaluation, each controlled protocol fixes the substitution definitions, dominance rule, bootstrap, selected intervention, wrong-layer control, and success criterion. The diagnosed component is the eligible gap whose lower confidence bound clears the frozen materiality margin and dominates the alternatives; otherwise the result is inconclusive. The prospective prediction is directional: repair at the diagnosed interface should improve over the baseline and outperform a repair at a non-dominant layer. All states, including harmed cases, remain in the analysis.
+Before repair evaluation, each controlled protocol fixes the substitution definitions, dominance rule, bootstrap, selected intervention, wrong-layer control, and success criterion. Local Push-T uses a material mean gap of $0.02$ and Wall uses $0.05$; in each, a material gap must have a confidence bound above zero and its mean must be at least $1.5\times$ the runner-up. H6 was frozen separately: ``prediction important'' requires the prediction-gap lower bound to exceed $0.02$ and its mean to exceed $1.5\times\max(\Gmetric,0.02)$. These rules classify evidence; they do not test the paired difference $\Gpred-\Gmetric$. The prospective prediction is directional: repair at the diagnosed interface should improve over baseline and outperform a repair at a non-dominant layer. All states, including harmed cases, remain in the analysis.
 
 \subsection{Fixed traces versus adaptive search}
 \label{sec:adaptive}

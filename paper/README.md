@@ -51,7 +51,7 @@ Appendix:
 
 ## Page count and anonymity
 
-- Main text through conclusion: **7 pages**.
+- Main text through conclusion: **8 pages**.
 - References: **2 pages**.
 - Appendix: **2 pages**.
 - Compiled PDF: **11 pages total**.

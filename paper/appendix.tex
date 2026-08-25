@@ -19,13 +19,19 @@ In controlled local Push-T, every condition uses the same 81-action reference fa
 
 The adaptive H6 comparison is deliberately labeled differently. Baseline and readout CEM share horizon, population, elite count, query budget, initialization, and random-seed policy, but their candidate traces diverge once scores change the elite set. The trace union is a finite diagnostic reference, not an oracle over the continuous action space.
 
+\subsection{Readouts and predictor repair}
+
+All readouts are action blind and are trained only on encoded true futures from development data. Local Push-T uses terminal pooled visual and proprioceptive latents with \texttt{StandardScaler}+ridge ($\alpha=100$), selected from $\{0.1,1,10,100,1000\}$ by five-fold anchor-grouped mean GT Spearman correlation on 80 development anchors. Wall uses terminal goal-delta, absolute-delta, and squared-delta visual/proprioceptive features with ridge $\alpha=10$, selected from $\{0.1,1,10,100,1000,10000\}$ by the same grouped criterion on 60 development anchors. H6 uses terminal pooled visual and proprioceptive latents with ridge $\alpha=0.1$, selected by five-fold grouped-development-episode MSE. No readout is refit on predicted or final-evaluation latents.
+
+The Wall repair trains only the predictor; both encoders remain frozen. Forty-eight development anchors train the model and 12 select the epoch with minimum validation latent loss. AdamW uses learning rate $3\times10^{-5}$ and weight decay $0.01$ for five epochs; the loss is visual-trajectory MSE plus $0.1$ proprioceptive-trajectory MSE. The selected epoch is 5. The repair evaluation uses one training seed and 80 disjoint final anchors. Its bootstrap therefore measures evaluation-state uncertainty conditional on that fitted predictor, not variability across training runs.
+
 \subsection{Statistical unit and confidence intervals}
 
 Local Push-T and Wall bootstrap independent anchor states; H6 bootstraps episodes. Candidate actions and repeated queries within a state are dependent and are not resampled as independent trials. All reported confidence intervals are paired 95\% nonparametric bootstrap intervals from the frozen analyses. The repair accounting retains every improved, unchanged, and harmed state or episode.
 
 \section{Additional Frozen Results}
 
-\begin{table}[h]
+\begin{table}[H]
   \caption{Supporting frozen measurements omitted from the compact main table. Lower regret and MSE are better.}
   \label{tab:additional}
   \centering
@@ -51,3 +57,5 @@ Local Push-T and Wall bootstrap independent anchor states; H6 bootstraps episode
 \section{Claim Boundaries}
 
 The evidence does not support a universal claim that latent planners are prediction limited or metric limited. It does not make oracle gaps additive or uniquely causal, and the FP32 control does not test a general predictor improvement. The official H6 scorer repair is not statistically significant under the frozen criterion. The controlled local Push-T protocol is not the official planner. Finally, the experiments do not establish transfer to real robots, learned policies, or vision--language--action systems.
+
+The evidence also does not establish a statistically significant ordering between the H6 prediction and metric gaps: the prediction point estimate is larger and meets the frozen prediction-important rule, but no paired interval for their difference was computed. The H6 scorer test is not a diagnosis-selected predictor repair. Cross-regime ``migration'' is descriptive because task, candidate family, horizon, inference precision, and planner differ together.

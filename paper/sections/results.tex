@@ -1,14 +1,14 @@
 \section{Results}
 \label{sec:results}
 
-Table~\ref{tab:cross-regime} and Figure~\ref{fig:results} summarize the frozen results. The dominant recoverable interface changes across the three planning regimes.
+Table~\ref{tab:cross-regime} and Figure~\ref{fig:results} summarize the frozen results. The ordering of recoverable interface headroom differs across the three planning protocols.
 
 \input{tables/cross_regime}
 
 \begin{figure*}[t]
   \centering
   \includegraphics[width=0.88\textwidth]{figures/cross_regime_results.pdf}
-  \caption{\textbf{Across-regime diagnosis and intervention.} (a) Candidate-matched prediction and decision-metric headroom. (b) Mean regret improvement from the diagnosis-selected intervention. Error bars are 95\% paired bootstrap CIs over states or episodes. The hatched H6 result is directionally positive but statistically inconclusive because its CI crosses zero.}
+  \caption{\textbf{Across-regime diagnosis and intervention.} (a) Candidate-matched prediction and decision-metric headroom. (b) Mean regret improvement from the local and Wall diagnosis-selected repairs and the H6 scorer stress test. Error bars are 95\% paired bootstrap CIs over states or episodes. The hatched H6 result is directionally positive but statistically inconclusive because its CI crosses zero. Regrets are normalized within task-specific candidate sets; compare interface ordering and uncertainty within a regime, not bar magnitude across tasks.}
   \label{fig:results}
 \end{figure*}
 
@@ -18,20 +18,20 @@ The ground-truth-latent and predicted-latent task readouts achieve state-level S
 
 The diagnosis-selected repair reduces regret from $0.1237$ with BF16 prediction and latent L2 to $0.0421$ with the task readout: an improvement of $0.0815$ $[0.0563,0.1079]$. Across states, 62\% improve, 21\% are unchanged, and 17\% are harmed. The FP32-predictor plus latent-L2 control improves regret by only $0.0017$, with a CI crossing zero. This supports the narrow statement that increasing predictor inference precision did not recover planning performance; FP32 is not evidence that every possible predictor improvement would fail.
 
-The observed repair closely matches the prior metric gap, whereas the precision control aligns with the negligible prediction gap. This diagnosis-to-intervention agreement is the principal local Push-T result.
+The observed repair is close to the prior metric gap, whereas the precision control aligns with the negligible prediction gap. Because diagnosis and repair use the same final anchors and readout, this numerical closeness is an internal prospective consistency check, not an independent estimate of the same causal effect. The precommitted repair/control contrast is the principal local result.
 
-\subsection{Wall: an independent prediction bottleneck}
+\subsection{Wall: disjoint-state prediction diagnosis}
 
-On 80 diagnosis states, prediction headroom is $0.5636$ $[0.4871,0.6373]$, metric headroom is $-0.0279$ with a CI crossing zero, and proposal headroom is $0.0333$. The same rule that diagnoses local Push-T as metric limited therefore diagnoses Wall as prediction limited. This counter-regime makes clear that the procedure is not constructed to declare latent L2 the bottleneck.
+On 80 diagnosis states, prediction headroom is $0.5636$ $[0.4871,0.6373]$, metric headroom is $-0.0279$ $[-0.0905,0.0345]$, and proposal headroom is $0.0333$. The frozen Wall rule therefore diagnoses prediction as the dominant recoverable interface. This counter-regime shows that the procedure is not mechanically constructed to declare latent L2 the bottleneck.
 
-On 80 entirely new repair states, the pre-specified predictor repair reduces regret from $0.5561$ to $0.1670$, an improvement of $0.3891$ $[0.2930,0.4804]$. The wrong-layer metric repair improves regret by $0.0069$ $[-0.0489,0.0625]$. Full-trajectory latent MSE falls from $0.8564$ to $0.1999$.
+On 80 entirely new repair states, the pre-specified predictor repair reduces regret from $0.5561$ to $0.1670$, an improvement of $0.3891$ $[0.2930,0.4804]$. The wrong-layer metric repair improves regret by $0.0069$ $[-0.0489,0.0625]$. Full-trajectory latent MSE falls from $0.8564$ to $0.1999$. These intervals bootstrap evaluation states conditional on one trained repair checkpoint; they do not measure training-seed variability.
 
 Average prediction improvement is not sufficient for state-wise decision improvement. In a retained counterexample, one anchor's latent MSE improves while regret worsens from $0.215$ to $0.991$. This does not negate the aggregate repair; it bounds the claim: lower predictive error does not guarantee better action selection for every state. The Wall predictor repair uses one training seed, which limits claims about training variability.
 
-\subsection{H6: bottleneck migration and metric--search coupling}
+\subsection{H6: changed headroom ordering and metric--search coupling}
 
-On the official H6 baseline trace, GT-readout, predicted-readout, and predicted-L2 mean regrets are $0.1724$, $0.3332$, and $0.4282$. Prediction headroom is therefore $0.1608$ $[0.0565,0.2725]$, exceeding metric headroom $0.0950$ $[0.0026,0.1978]$. The result is mixed---both gaps are positive---but prediction is the larger limitation under the frozen rule. This differs from the controlled local action slice: long 60-D sequences broaden the candidate family and accumulate model error.
+On the official H6 baseline trace, GT-readout, predicted-readout, and predicted-L2 mean regrets are $0.1724$, $0.3332$, and $0.4282$. Prediction headroom is therefore $0.1608$ $[0.0565,0.2725]$ and metric headroom is $0.0950$ $[0.0026,0.1978]$. Both gaps are positive; the prediction point estimate is larger and satisfies the frozen prediction-important rule. We did not compute a paired confidence interval for their difference, so this is a rule-based classification rather than evidence that $\Gpred>\Gmetric$ statistically. The ordering differs from the controlled local action slice, but task, candidate dimension, horizon, precision, and planner also change; the study does not isolate which factor causes the shift.
 
-Matched-budget baseline and task-readout CEM obtain regrets of $0.4974$ and $0.4131$. The scorer-repair improvement is $0.0843$ $[-0.00008,0.1684]$: 16 episodes improve, 9 are unchanged, and 5 worsen. Because the interval narrowly crosses zero, the result is \textbf{directionally positive but statistically inconclusive}, not a validated successful repair.
+Matched-budget baseline and task-readout CEM obtain regrets of $0.4974$ and $0.4131$. The scorer-stress-test improvement is $0.0843$ $[-0.00008,0.1684]$: 16 episodes improve, 9 are unchanged, and 5 worsen. Because the interval narrowly crosses zero, the result is \textbf{directionally positive but statistically inconclusive}, not a validated successful repair. Moreover, it tests the local scorer intervention rather than the predictor repair selected by the H6 diagnosis.
 
 The adaptive traces explain why fixed-candidate attribution need not predict end-to-end gain exactly. Changing the scorer reduces within-trace selection gap but can redirect future proposals. In a retained H6 episode, the readout selects the simulator-best sequence in its own trace, yet search coverage degrades and normalized regret worsens from $0.4044$ to $1.0000$. Thus a better ranking rule on available candidates need not expose better candidates under adaptive search.

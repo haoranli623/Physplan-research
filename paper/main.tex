@@ -13,8 +13,10 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning}
 \usepackage{placeins}
+\usepackage{float}
 \usepackage{url}
 \usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=black,citecolor=black,urlcolor=blue}
 
 \title{Where Does Latent Planning Fail?\\
 Controlled Bottleneck Attribution for World-Model Planning}
@@ -30,7 +32,7 @@ Controlled Bottleneck Attribution for World-Model Planning}
 \maketitle
 
 \begin{abstract}
-When a latent world-model planner selects a poor action, inaccurate prediction is a natural suspect, but decisions also depend on how predicted futures are scored and which candidates search exposes. We introduce a controlled attribution protocol that changes one interface at a time and executes every selected action in the simulator. Candidate-matched oracle substitutions estimate recoverable prediction, decision-metric, and search headroom using initial states as the independent units. A controlled local Push-T protocol exhibits negligible prediction headroom but a substantial metric gap; the diagnosis-selected scorer reduces normalized regret by $0.0815$ (95\% CI $[0.0563,0.1079]$). An independent Wall replication reverses the diagnosis: prediction headroom is $0.5636$ $[0.4871,0.6373]$, and a pre-specified predictor repair improves regret by $0.3891$ $[0.2930,0.4804]$, while a wrong-layer metric repair does not. Under the official high-dimensional Push-T H6 CEM planner, prediction headroom exceeds metric headroom, and changing the scorer also changes adaptive search coverage; its end-to-end improvement is directionally positive but statistically inconclusive. Thus, the dominant recoverable bottleneck can migrate across planning regimes. These results support a practical rule: diagnose where decision quality is lost before retraining the world model or changing the planner.
+When a latent world-model planner selects a poor action, inaccurate prediction is a natural suspect, but decisions also depend on how predicted futures are scored and which candidates search exposes. We introduce a controlled attribution protocol that changes one interface at a time and executes every selected action in the simulator. Candidate-matched oracle substitutions estimate recoverable prediction, decision-metric, and search headroom using initial states as the independent units. A controlled local Push-T protocol exhibits negligible prediction headroom but a substantial metric gap; the diagnosis-selected scorer reduces normalized regret by $0.0815$ (95\% CI $[0.0563,0.1079]$). A disjoint-state prospective Wall validation reverses the diagnosis: prediction headroom is $0.5636$ $[0.4871,0.6373]$, and a pre-specified predictor repair improves regret by $0.3891$ $[0.2930,0.4804]$, while a wrong-layer metric repair does not. On the official high-dimensional Push-T H6 CEM trace, both gaps are positive and the prediction-gap point estimate is larger under a frozen classification rule. A scorer stress test is directionally positive but statistically inconclusive and changes adaptive search coverage. Across these protocols, the ordering of recoverable headroom changes with the planning regime. These results support a practical rule: diagnose where decision quality is lost before retraining the world model or changing the planner.
 \end{abstract}
 
 \input{sections/introduction}
