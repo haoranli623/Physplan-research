@@ -1,0 +1,53 @@
+\section{Detailed Protocol and Reproducibility}
+\label{app:repro}
+
+\subsection{Frozen experimental record}
+
+The manuscript is produced from a completed and frozen experimental record; no experiments were rerun for paper preparation. The final code state is commit \texttt{ceb6122}, and the official H6 protocol was frozen at commit \texttt{3cbd3c5}. Repository validation records confirm 30/30 paired H6 JSON/NPZ traces, 18/18 related tests, 53/53 immutable historical scientific artifacts, and 117/117 SHA-256 manifest checks. Commit hashes are provided without an identifying repository URL to preserve anonymity.
+
+The authoritative machine-readable summaries are:
+\begin{itemize}
+  \item controlled local Push-T diagnosis and repair summaries;
+  \item Wall diagnosis and repair summaries, with separate development, diagnosis, and repair-state manifests; and
+  \item the official H6 aggregate summary plus all 30 paired per-episode raw traces.
+\end{itemize}
+Each headline value in the paper is mapped to its report section and saved artifact in the anonymized supplementary evidence audit.
+
+\subsection{Candidate sets and intervention controls}
+
+In controlled local Push-T, every condition uses the same 81-action reference family and the same 65-query budget per anchor. In Wall, all readout comparisons within a diagnosis state use the same one-dimensional waypoint candidates. For fixed-trace H6 attribution, all scores rank the identical 9,001 sequences retained from the baseline trace. Consequently, each fixed-trace regret contrast measures selection on matched candidates rather than proposal quality.
+
+The adaptive H6 comparison is deliberately labeled differently. Baseline and readout CEM share horizon, population, elite count, query budget, initialization, and random-seed policy, but their candidate traces diverge once scores change the elite set. The trace union is a finite diagnostic reference, not an oracle over the continuous action space.
+
+\subsection{Statistical unit and confidence intervals}
+
+Local Push-T and Wall bootstrap independent anchor states; H6 bootstraps episodes. Candidate actions and repeated queries within a state are dependent and are not resampled as independent trials. All reported confidence intervals are paired 95\% nonparametric bootstrap intervals from the frozen analyses. The repair accounting retains every improved, unchanged, and harmed state or episode.
+
+\section{Additional Frozen Results}
+
+\begin{table}[h]
+  \caption{Supporting frozen measurements omitted from the compact main table. Lower regret and MSE are better.}
+  \label{tab:additional}
+  \centering
+  \small
+  \begin{tabular}{@{}lll@{}}
+    \toprule
+    Regime & Quantity & Value \\
+    \midrule
+    Local Push-T & GT / predicted readout Spearman $\rho$ & $0.696$ / $0.689$ \\
+    Local Push-T & GT / predicted readout regret & $0.0289$ / $0.0360$ \\
+    Local Push-T & FP32 predictor + L2 improvement & $0.0017$ (CI crosses 0) \\
+    Local Push-T & repair outcomes & 62\% / 21\% / 17\% improved / same / harmed \\
+    Wall & baseline / predictor-repair regret & $0.5561$ / $0.1670$ \\
+    Wall & wrong-layer metric repair & $0.0069$ $[-0.0489,0.0625]$ \\
+    Wall & full-trajectory latent MSE & $0.8564\rightarrow0.1999$ \\
+    H6 & GT-readout / pred-readout / pred-L2 regret & $0.1724$ / $0.3332$ / $0.4282$ \\
+    H6 & baseline / scorer-repair regret & $0.4974$ / $0.4131$ \\
+    H6 & repair outcomes & 16 / 9 / 5 improved / same / harmed \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Claim Boundaries}
+
+The evidence does not support a universal claim that latent planners are prediction limited or metric limited. It does not make oracle gaps additive or uniquely causal, and the FP32 control does not test a general predictor improvement. The official H6 scorer repair is not statistically significant under the frozen criterion. The controlled local Push-T protocol is not the official planner. Finally, the experiments do not establish transfer to real robots, learned policies, or vision--language--action systems.

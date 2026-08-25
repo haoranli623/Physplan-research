@@ -1,0 +1,21 @@
+\section{Experimental Setup}
+\label{sec:experiments}
+
+\subsection{Controlled local Push-T}
+
+Push-T is a contact-rich planar manipulation task \citep{florence2022ibc}. The controlled local protocol uses the frozen action-conditioned JEPA world model and 100 fresh cloned anchor states. Each state has an identical 81-action local angular reference family at horizon H6; a finite-grid CEM-like planner receives 65 queries. The frozen action-blind ridge readout is trained on development states from ground-truth latent transitions and simulator costs. Exact state restoration, action alignment, temporal indexing, and deterministic replay were validated before attribution. This restricted local action slice enables auditable candidate matching; it is \emph{not} the official Push-T planner.
+
+The diagnosis, metric repair, and inference-precision control were fixed before repair computation. The repair replaces latent L2 with the frozen readout under the same query budget. The control changes predictor inference from BF16 to FP32 while retaining latent L2; it tests numerical precision only, not a retrained or architecturally improved predictor.
+
+\subsection{Independent Wall replication}
+
+Wall uses the frozen environment/model interface and a controlled one-dimensional waypoint candidate family. Development (60), diagnosis (80), and repair-validation (80) states have disjoint seeds, cloned states, and layouts. The protocol was frozen before diagnosis, and the repair choice was recorded while the repair cache was absent. The pre-specified predictor repair is fit only on development data and evaluated on 80 entirely new states. A metric repair serves as the wrong-layer control. Exact replay, physical labels, cost monotonicity, and rollout alignment were audited before scaling.
+
+\subsection{Official high-dimensional Push-T H6}
+
+The frozen H6 validation uses the official one-shot CEM setting: 30 iterations, 300 sequences per iteration, 10 elites, 9,000 model queries, and the returned final mean. Each H6 model action contains five 2-D simulator controls, so CEM searches 60 scalars and the plan executes 30 controls. Thirty fresh near-contact initial states use contiguous precommitted seeds with no filtering, retry, or replacement.
+
+Every sequence queried by baseline latent-L2 CEM is retained and simulator-evaluated. GT-readout, predicted-readout, and predicted-L2 rankings on this identical 9,001-sequence trace per episode isolate fixed-trace prediction and metric headroom. A matched-budget CEM run changes only the scorer to the frozen readout. Because this changes elite updates, the two adaptive traces are not candidate matched; their union is used only as a finite audit reference, never as a global action oracle.
+
+\paragraph{Statistics.}
+Reported intervals are 95\% paired nonparametric bootstrap confidence intervals over independent anchor states or episodes. No candidate-level pseudoreplication is used. Full protocol and artifact details appear in Appendix~\ref{app:repro}.

@@ -1,0 +1,46 @@
+\section{Controlled Bottleneck Attribution}
+\label{sec:method}
+
+\subsection{Planning pipeline and regret}
+
+For initial state $s$, a proposal mechanism supplies candidate action sequences $a\in A_s$. An encoder maps observations to latents; an action-conditioned predictor produces future latents $\hat z_s(a)$; and a decision metric $q(s,a)$ ranks candidates. The simulator cost $J_s(a)$, unavailable to the deployed planner, is used only for evaluation. Lower cost is better.
+
+For method $m$, let $a_m(s)=\arg\min_{a\in A_s}q_m(s,a)$. On a finite candidate set, we report normalized regret
+\begin{equation}
+\R_m(s)=\frac{J_s(a_m)-\min_{a\in A_s}J_s(a)}
+{\max_{a\in A_s}J_s(a)-\min_{a\in A_s}J_s(a)+\epsilon}.
+\label{eq:regret}
+\end{equation}
+All headline uncertainty treats the cloned initial state (or H6 episode) as the independent unit. Multiple nearby candidates from one state are never treated as independent observations.
+
+\subsection{Candidate-matched oracle substitutions}
+
+The diagnostic compares four conditions while preserving the initial state, candidate actions, and simulator evaluation:
+\begin{description}
+  \item[GT readout.] A frozen task readout scores encoded simulator futures.
+  \item[Predicted readout.] The same readout scores world-model predictions.
+  \item[Predicted L2.] The baseline latent distance scores the same predictions.
+  \item[Simulator oracle.] Simulator cost selects the best candidate, either from the reference set or from actions queried by search.
+\end{description}
+The readout never observes the action; it maps latent transition information to simulator task cost and is fit only on development states. Thus it cannot exploit a direct action-to-cost shortcut.
+
+Prediction and metric headroom are the paired state-level contrasts
+\begin{align}
+\Gpred &= \mathbb{E}_s[\R_{\text{pred-readout}}(s)-\R_{\text{GT-readout}}(s)],\\
+\Gmetric &= \mathbb{E}_s[\R_{\text{pred-L2}}(s)-\R_{\text{pred-readout}}(s)].
+\end{align}
+Proposal headroom compares the simulator-best queried candidate with the best reference candidate. Within-search selection headroom compares the planner's selected queried candidate with the simulator-best queried candidate. These are recoverable contrasts under specific substitutions. They overlap, depend on the candidate set and readout capacity, and must not be summed or interpreted as a unique causal partition.
+
+\subsection{Prospective diagnosis and intervention}
+
+Before repair evaluation, each controlled protocol fixes the substitution definitions, dominance rule, bootstrap, selected intervention, wrong-layer control, and success criterion. The diagnosed component is the eligible gap whose lower confidence bound clears the frozen materiality margin and dominates the alternatives; otherwise the result is inconclusive. The prospective prediction is directional: repair at the diagnosed interface should improve over the baseline and outperform a repair at a non-dominant layer. All states, including harmed cases, remain in the analysis.
+
+\subsection{Fixed traces versus adaptive search}
+\label{sec:adaptive}
+
+On a frozen candidate set, substituting a score isolates ranking quality. Adaptive CEM is different:
+\[
+q \longrightarrow \text{elite selection} \longrightarrow \text{proposal update}
+\longrightarrow \text{future candidate distribution}.
+\]
+Changing the score therefore changes both ranking and search coverage after the first update. Fixed-trace headroom and end-to-end adaptive-search gain answer different questions; equality between them is neither assumed nor required.

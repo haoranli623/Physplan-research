@@ -1,0 +1,54 @@
+\documentclass{article}
+
+\usepackage[dblblindworkshop]{neurips_2026}
+\workshoptitle{Physical Understanding for Decision-Making: Bridging Foundation Models and Reliable Agents}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\usepackage{placeins}
+\usepackage{url}
+\usepackage{hyperref}
+
+\title{Where Does Latent Planning Fail?\\
+Controlled Bottleneck Attribution for World-Model Planning}
+
+\author{Anonymous Authors}
+
+\newcommand{\R}{\mathcal{R}}
+\newcommand{\Gpred}{G_{\mathrm{pred}}}
+\newcommand{\Gmetric}{G_{\mathrm{metric}}}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+When a latent world-model planner selects a poor action, inaccurate prediction is a natural suspect, but decisions also depend on how predicted futures are scored and which candidates search exposes. We introduce a controlled attribution protocol that changes one interface at a time and executes every selected action in the simulator. Candidate-matched oracle substitutions estimate recoverable prediction, decision-metric, and search headroom using initial states as the independent units. A controlled local Push-T protocol exhibits negligible prediction headroom but a substantial metric gap; the diagnosis-selected scorer reduces normalized regret by $0.0815$ (95\% CI $[0.0563,0.1079]$). An independent Wall replication reverses the diagnosis: prediction headroom is $0.5636$ $[0.4871,0.6373]$, and a pre-specified predictor repair improves regret by $0.3891$ $[0.2930,0.4804]$, while a wrong-layer metric repair does not. Under the official high-dimensional Push-T H6 CEM planner, prediction headroom exceeds metric headroom, and changing the scorer also changes adaptive search coverage; its end-to-end improvement is directionally positive but statistically inconclusive. Thus, the dominant recoverable bottleneck can migrate across planning regimes. These results support a practical rule: diagnose where decision quality is lost before retraining the world model or changing the planner.
+\end{abstract}
+
+\input{sections/introduction}
+\input{sections/related_work}
+\input{sections/method}
+\input{sections/experiments}
+\input{sections/results}
+\input{sections/limitations}
+\input{sections/conclusion}
+
+\label{maintext-end}
+\FloatBarrier
+\clearpage
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\clearpage
+\appendix
+\input{appendix}
+
+\end{document}

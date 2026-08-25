@@ -1,0 +1,28 @@
+\begin{tikzpicture}[
+  node distance=3.5mm and 3.5mm,
+  box/.style={draw, rounded corners=1.5pt, align=center, minimum height=7mm, inner xsep=4pt, font=\scriptsize},
+  base/.style={box, fill=black!4},
+  oracle/.style={box, draw=blue!65!black, fill=blue!5},
+  flow/.style={-{Latex[length=1.7mm]}, semithick},
+  intervention/.style={-{Latex[length=1.7mm]}, dashed, draw=blue!65!black, semithick}
+]
+\node[base] (proposal) {search / proposal};
+\node[base, right=of proposal] (actions) {candidate actions};
+\node[base, right=of actions] (predictor) {world-model\\prediction};
+\node[base, right=of predictor] (score) {decision\\metric};
+\node[base, right=of score] (elite) {elite set /\\selection};
+\node[base, right=of elite] (outcome) {environment\\outcome};
+\draw[flow] (proposal) -- (actions);
+\draw[flow] (actions) -- (predictor);
+\draw[flow] (predictor) -- (score);
+\draw[flow] (score) -- (elite);
+\draw[flow] (elite) -- (outcome);
+\draw[flow, rounded corners=4pt] (elite.south) -- ++(0,-5mm) -| node[pos=.42, below, font=\scriptsize] {CEM update} (proposal.south);
+
+\node[oracle, above=8mm of predictor] (gt) {encoded true future};
+\node[oracle, above=17mm of score] (readout) {frozen task readout};
+\node[oracle, above=8mm of elite] (simoracle) {simulator oracle};
+\draw[intervention] (gt) -- node[right, font=\tiny] {prediction} (predictor);
+\draw[intervention] (readout) -- node[right, font=\tiny] {metric} (score);
+\draw[intervention] (simoracle) -- node[right, font=\tiny] {selection / coverage} (elite);
+\end{tikzpicture}

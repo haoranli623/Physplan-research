@@ -1,0 +1,25 @@
+\section{Introduction}
+\label{sec:introduction}
+
+Latent world models make planning computationally attractive by predicting future representations instead of reconstructing pixels \citep{hafner2019planet,zhou2025dinowm,assran2025vjepa2,terver2026jepawms}. A planner, however, contains more than a predictor. Candidate actions are proposed, future latents are predicted, a decision metric ranks them, and search selects an action for execution. A poor action can therefore arise even when predicted latents are close under the training loss. Conversely, visibly imperfect predictions can preserve enough information to select the best available action.
+
+This distinction matters in practice. Predictor retraining may require new data and substantial compute. If recoverable decision quality is instead lost at the scoring or proposal interface, predictor improvements target the wrong component. The reverse error is equally possible: a task-aligned scorer cannot restore information that prediction has discarded. Generic prediction accuracy alone is therefore insufficient to localize a planning failure.
+
+We ask: \emph{where is the dominant recoverable bottleneck in a frozen world-model planning pipeline?} PhysPlan answers with controlled oracle substitutions. For the same initial state and candidate actions, it replaces predicted futures with encoded simulator futures, replaces latent distance with a frozen task readout, or compares queried actions with simulator oracles. Every resulting selection is evaluated by simulator cost. These contrasts estimate the decision headroom recoverable at prediction, metric, proposal, and within-search selection interfaces (Figure~\ref{fig:pipeline}); they are diagnostic contrasts, not an additive causal decomposition.
+
+We test whether a diagnosis prospectively identifies a useful intervention. In a controlled local Push-T protocol, prediction headroom is nearly zero while decision-metric headroom is substantial; a pre-specified metric repair recovers almost exactly that gap, whereas increasing predictor inference precision does not recover planning performance. An independent Wall replication yields the opposite diagnosis, and its pre-specified predictor repair succeeds on unseen states while a wrong-layer metric repair does not. Finally, the official high-dimensional Push-T H6 planner reveals a regime shift: prediction headroom becomes larger than metric headroom, and the scorer changes the candidate distribution explored by adaptive CEM \citep{rubinstein1999cem}. The H6 scorer repair is directionally positive but statistically inconclusive.
+
+Our contributions are threefold:
+\begin{enumerate}
+  \item a candidate-matched, simulator-grounded protocol for estimating recoverable headroom at prediction, decision-metric, proposal, and selection interfaces of a frozen latent planner;
+  \item cross-regime evidence that controlled local Push-T is primarily metric limited, whereas an independent Wall replication is strongly prediction limited, together with diagnosis-selected interventions and task-appropriate wrong-layer controls; and
+  \item an official Push-T H6 study showing bottleneck migration and metric--search coupling: under adaptive CEM, changing the scorer changes both candidate ranking and future search coverage.
+\end{enumerate}
+We do not propose a new world-model architecture, latent objective, or optimizer. The methodological claim is deliberately narrower: diagnose the dominant recoverable bottleneck before retraining or rescoring.
+
+\begin{figure*}[t]
+  \centering
+  \resizebox{\textwidth}{!}{\input{figures/attribution_pipeline}}
+  \caption{PhysPlan attributes recoverable decision headroom by controlled substitutions at planner interfaces. On a fixed candidate trace, encoded true futures isolate prediction headroom and a frozen task readout isolates metric headroom. Simulator oracles expose within-search selection and proposal coverage. Under adaptive CEM, elite selection updates the proposal, so a scorer intervention changes both ranking and future candidate coverage.}
+  \label{fig:pipeline}
+\end{figure*}

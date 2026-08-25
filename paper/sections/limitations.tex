@@ -1,0 +1,17 @@
+\section{Discussion and Limitations}
+\label{sec:limitations}
+
+\paragraph{What the method adds.}
+PhysPlan is more than an ablation table because each contrast is tied to a specific recoverable intervention, evaluated on identical candidates, and followed by a pre-specified targeted repair and wrong-layer control in the controlled regimes. It does not uniquely assign causal responsibility: gaps are practical ceilings under explicit substitutions, and components interact. The value is prospective localization before engineering effort, not a claim of an additive causal factorization.
+
+\paragraph{Why not always improve prediction?}
+Prediction is clearly limiting on Wall and becomes the larger fixed-trace limitation in H6. It is not the dominant recoverable interface in controlled local Push-T, where a simple metric repair recovers substantial regret and higher predictor inference precision does not. The conclusion is therefore neither ``prediction does not matter'' nor ``metrics are generally limiting,'' but that the diagnosis must be repeated when the task, action family, or planner changes.
+
+\paragraph{Scope.}
+Controlled local Push-T uses a restricted local action slice, and Wall uses a controlled 1-D waypoint construction. These designs strengthen candidate-matched attribution but limit behavioral breadth. H6 supplies a realistic high-dimensional planning test, yet contains only 30 episodes; the scorer-repair CI narrowly crosses zero. Wall's predictor repair has one training seed. The local Push-T repair shares final states with diagnosis, although its intervention was committed before computation; Wall alone uses a disjoint repair set.
+
+\paragraph{Oracle and interaction limits.}
+The GT-readout condition combines representation observability with the finite capacity and development distribution of the ridge readout; it is a practical ceiling, not a pure representation oracle. Oracle gaps need not be additive. Under CEM, score, elite choice, and proposal coverage interact, so fixed-trace metric headroom is not equivalent to an end-to-end scorer intervention. Cross-task gap magnitudes also use task-specific finite-set normalization and should not be interpreted as a common physical scale.
+
+\paragraph{Generality and reliability.}
+The study covers one latent world-model family and two simulated tasks. It does not establish broad validity for real robots, vision--language--action models, learned policies, or other planners. Average gains conceal heterogeneous states: both controlled repairs harm some cases, and lower latent MSE does not guarantee state-wise decision improvement. Deployment would require uncertainty-aware gating or fallback mechanisms, which are outside this frozen study.
