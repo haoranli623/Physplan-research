@@ -54,7 +54,7 @@ Appendix:
 - Main text through conclusion: **8 pages**.
 - References: **2 pages**.
 - Appendix: **2 pages**.
-- Compiled PDF: **11 pages total**.
+- Compiled PDF: **12 pages total**.
 - Verified Full Paper limit: **9 main pages**, excluding references and appendix.
 - The submission build uses `dblblindworkshop`; author identities, affiliations, acknowledgments, and repository URLs are absent.
 

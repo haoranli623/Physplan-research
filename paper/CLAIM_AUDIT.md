@@ -23,7 +23,7 @@ Audit refreshed after the reviewer-driven revision. Frozen machine-readable arti
 
 ## Related-work verification
 
-Every bibliography entry used in the manuscript was checked against a primary paper page, official proceedings record, DOI record, or official arXiv record. The revised positioning explicitly includes Objective Mismatch and planning-aware prediction evaluation; neither is used to alter PhysPlan results. PhysPlan does not claim oracle substitution or task-aware scoring as individually new. Its defensible novelty is the candidate-matched, precommitted diagnosis--repair--wrong-layer-control workflow and the fixed-trace/adaptive-search distinction.
+Every bibliography entry used in the manuscript was checked against a primary paper page, official proceedings record, DOI record, or official arXiv record. The revised positioning explicitly includes Objective Mismatch, planning-aware prediction evaluation, IMWM, and VIScore; none is used to alter PhysPlan results. PhysPlan does not claim oracle substitution, task-aware scoring, or the general observation that prediction is not the only bottleneck as individually new. Its defensible novelty is the candidate-matched, precommitted interface-attribution workflow, prospective repair/control tests where available, and the fixed-trace/adaptive-search distinction.
 
 ## Unsupported-statement check
 
