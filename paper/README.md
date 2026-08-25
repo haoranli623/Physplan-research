@@ -64,4 +64,4 @@ The live sources do not explicitly resolve whether the appendix must be concaten
 
 ## Frozen evidence
 
-Paper preparation did not rerun experiments. Final code commit: `ceb6122`. Frozen H6 protocol commit: `3cbd3c5`. Repository checks confirm 30/30 H6 raw JSON/NPZ pairs, 18/18 related tests, 53/53 immutable historical artifacts, and 117/117 SHA-256 manifest checks.
+Paper preparation did not rerun experiments. The final code state and frozen H6 protocol version were archived before manuscript preparation. Repository checks confirm 30/30 H6 raw JSON/NPZ pairs, 18/18 related tests, 53/53 immutable historical artifacts, and 117/117 SHA-256 manifest checks.

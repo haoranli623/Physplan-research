@@ -80,7 +80,13 @@ ax.axhline(0, color="#555555", lw=0.7)
 ax.set_xticks(x, names)
 ax.set_ylabel("Within-regime normalized-regret gap")
 ax.set_title("(a) Diagnosed headroom by regime")
-ax.legend(frameon=False, loc="upper left")
+ax.legend(
+    loc="upper center",
+    bbox_to_anchor=(0.5, 1.23),
+    ncol=2,
+    frameon=False,
+    columnspacing=1.2,
+)
 ax.spines[["top", "right"]].set_visible(False)
 ax.grid(axis="y", color="#dddddd", lw=0.5, zorder=0)
 
