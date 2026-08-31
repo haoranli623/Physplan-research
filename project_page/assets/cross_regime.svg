@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" role="img" aria-labelledby="title desc">
+  <title id="title">Recoverable headroom and intervention improvement across three planning regimes</title>
+  <desc id="desc">Panel A compares prediction and decision-metric gaps with 95 percent confidence intervals for controlled Local Push-T, Wall, and Push-T H6. Panel B shows targeted or stress-test intervention improvement. The H6 intervention interval narrowly crosses zero.</desc>
+  <defs>
+    <pattern id="metricHatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="7" height="7" fill="#fbf1e5"/>
+      <line x1="0" y1="0" x2="0" y2="7" stroke="#d08a40" stroke-width="2"/>
+    </pattern>
+    <pattern id="inconclusiveHatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="8" height="8" fill="#f5f8fa"/>
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#607584" stroke-width="2"/>
+    </pattern>
+  </defs>
+  <rect width="1000" height="560" rx="16" fill="#ffffff"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="62" y="40" font-size="18" font-weight="700" fill="#17212b">A. Recoverable headroom by interface</text>
+    <text x="650" y="40" font-size="18" font-weight="700" fill="#17212b">B. Intervention improvement</text>
+
+    <!-- Panel A grid: y-range -0.12 to 0.68, zero at 316.5 -->
+    <g stroke="#dce4ea" stroke-width="1">
+      <path d="M82 99 H566"/>
+      <path d="M82 171.5 H566"/>
+      <path d="M82 244 H566"/>
+      <path d="M82 316.5 H566"/>
+    </g>
+    <path d="M82 360 V70 M82 316.5 H566" fill="none" stroke="#778693" stroke-width="1.5"/>
+    <g font-size="12" fill="#5b6875" text-anchor="end">
+      <text x="72" y="103">0.6</text>
+      <text x="72" y="175.5">0.4</text>
+      <text x="72" y="248">0.2</text>
+      <text x="72" y="320.5">0.0</text>
+      <text x="72" y="364">−0.12</text>
+    </g>
+    <text transform="translate(25 242) rotate(-90)" text-anchor="middle" font-size="13" fill="#5b6875">Regret gap (lower regret is better)</text>
+
+    <!-- Local Push-T bars and CIs -->
+    <rect x="150" y="313.9" width="28" height="2.6" rx="2" fill="#2f6f9f"/>
+    <path d="M164 309.3 V318.4 M158 309.3 H170 M158 318.4 H170" stroke="#17212b" stroke-width="1.5"/>
+    <rect x="184" y="285.7" width="28" height="30.8" rx="2" fill="url(#metricHatch)" stroke="#b86b18" stroke-width="1.5"/>
+    <path d="M198 276.3 V294.5 M192 276.3 H204 M192 294.5 H204" stroke="#17212b" stroke-width="1.5"/>
+    <text x="164" y="301" text-anchor="middle" font-size="12" font-weight="700" fill="#245678">.007</text>
+    <text x="198" y="268" text-anchor="middle" font-size="12" font-weight="700" fill="#8c5112">.085</text>
+
+    <!-- Wall bars and CIs -->
+    <rect x="300" y="112.2" width="28" height="204.3" rx="2" fill="#2f6f9f"/>
+    <path d="M314 85.5 V139.9 M308 85.5 H320 M308 139.9 H320" stroke="#17212b" stroke-width="1.5"/>
+    <rect x="334" y="316.5" width="28" height="10.1" rx="2" fill="url(#metricHatch)" stroke="#b86b18" stroke-width="1.5"/>
+    <path d="M348 304.0 V349.3 M342 304.0 H354 M342 349.3 H354" stroke="#17212b" stroke-width="1.5"/>
+    <text x="314" y="77" text-anchor="middle" font-size="12" font-weight="700" fill="#245678">.564</text>
+    <text x="348" y="345" text-anchor="middle" font-size="12" font-weight="700" fill="#8c5112">−.028</text>
+
+    <!-- H6 bars and CIs -->
+    <rect x="450" y="258.2" width="28" height="58.3" rx="2" fill="#2f6f9f"/>
+    <path d="M464 217.7 V296.0 M458 217.7 H470 M458 296.0 H470" stroke="#17212b" stroke-width="1.5"/>
+    <rect x="484" y="282.1" width="28" height="34.4" rx="2" fill="url(#metricHatch)" stroke="#b86b18" stroke-width="1.5"/>
+    <path d="M498 244.8 V315.6 M492 244.8 H504 M492 315.6 H504" stroke="#17212b" stroke-width="1.5"/>
+    <text x="464" y="209" text-anchor="middle" font-size="12" font-weight="700" fill="#245678">.161</text>
+    <text x="498" y="237" text-anchor="middle" font-size="12" font-weight="700" fill="#8c5112">.095</text>
+
+    <g font-size="13" fill="#17212b" text-anchor="middle">
+      <text x="181" y="384"><tspan x="181">Local</tspan><tspan x="181" dy="17">Push-T</tspan></text>
+      <text x="331" y="384">Wall</text>
+      <text x="481" y="384"><tspan x="481">Push-T H6</tspan><tspan x="481" dy="17">adaptive CEM</tspan></text>
+    </g>
+
+    <g transform="translate(125 438)" font-size="12" fill="#5b6875">
+      <rect width="17" height="13" rx="2" fill="#2f6f9f"/>
+      <text x="25" y="11">Prediction gap</text>
+      <rect x="137" width="17" height="13" rx="2" fill="url(#metricHatch)" stroke="#b86b18"/>
+      <text x="162" y="11">Decision-metric gap</text>
+      <path d="M314 6.5 H337" stroke="#17212b" stroke-width="1.5"/>
+      <path d="M325.5 1 V12" stroke="#17212b" stroke-width="1.5"/>
+      <text x="345" y="11">95% CI</text>
+    </g>
+
+    <!-- Panel B grid: y-range -0.03 to 0.52, zero at 344.2 -->
+    <g stroke="#dce4ea" stroke-width="1">
+      <path d="M650 80.5 H940"/>
+      <path d="M650 185.9 H940"/>
+      <path d="M650 291.4 H940"/>
+      <path d="M650 344.2 H940"/>
+    </g>
+    <path d="M650 360 V70 M650 344.2 H940" fill="none" stroke="#778693" stroke-width="1.5"/>
+    <g font-size="12" fill="#5b6875" text-anchor="end">
+      <text x="640" y="84.5">0.5</text>
+      <text x="640" y="189.9">0.3</text>
+      <text x="640" y="295.4">0.1</text>
+      <text x="640" y="348.2">0.0</text>
+    </g>
+
+    <rect x="690" y="301.2" width="48" height="43" rx="3" fill="#b86b18"/>
+    <path d="M714 287.3 V314.5 M707 287.3 H721 M707 314.5 H721" stroke="#17212b" stroke-width="1.5"/>
+    <text x="714" y="279" text-anchor="middle" font-size="12" font-weight="700" fill="#8c5112">+.082</text>
+
+    <rect x="783" y="139.0" width="48" height="205.2" rx="3" fill="#2f6f9f"/>
+    <path d="M807 90.9 V189.7 M800 90.9 H814 M800 189.7 H814" stroke="#17212b" stroke-width="1.5"/>
+    <text x="807" y="82" text-anchor="middle" font-size="12" font-weight="700" fill="#245678">+.389</text>
+
+    <rect x="876" y="299.7" width="48" height="44.5" rx="3" fill="url(#inconclusiveHatch)" stroke="#607584" stroke-width="1.5"/>
+    <path d="M900 255.4 V344.3 M893 255.4 H907 M893 344.3 H907" stroke="#17212b" stroke-width="1.5"/>
+    <text x="900" y="247" text-anchor="middle" font-size="12" font-weight="700" fill="#526976">+.084</text>
+
+    <g font-size="13" fill="#17212b" text-anchor="middle">
+      <text x="714" y="384"><tspan x="714">Local metric</tspan><tspan x="714" dy="17">repair</tspan></text>
+      <text x="807" y="384"><tspan x="807">Wall predictor</tspan><tspan x="807" dy="17">repair</tspan></text>
+      <text x="900" y="384"><tspan x="900">H6 scorer</tspan><tspan x="900" dy="17">stress test</tspan></text>
+    </g>
+    <text x="900" y="431" text-anchor="middle" font-size="12" font-weight="700" fill="#526976">CI crosses zero</text>
+    <text x="900" y="449" text-anchor="middle" font-size="11" fill="#5b6875">directional / inconclusive</text>
+
+    <rect x="62" y="490" width="876" height="46" rx="8" fill="#f5f8fa"/>
+    <text x="500" y="509" text-anchor="middle" font-size="12" fill="#5b6875">
+      <tspan x="500">Descriptive cross-regime view. Candidate sets and regret scales are regime specific;</tspan>
+      <tspan x="500" dy="17">compare interface ordering within a regime, not absolute bar height across regimes.</tspan>
+    </text>
+  </g>
+</svg>

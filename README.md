@@ -43,6 +43,34 @@ This working branch contains a prospective Push-T diagnostic built on the offici
 
 See [BOTTLENECK_DECOMPOSITION_SUMMARY.md](BOTTLENECK_DECOMPOSITION_SUMMARY.md), [the full report](bottleneck_decomposition_report.md), and [reproduction instructions](docs/bottleneck_decomposition.md). Boundary-JEPA is not trained: its motivating predictor-specific hypothesis was not supported by the earlier frozen experiments.
 
+### PhysPlan research snapshot
+
+PhysPlan studies where recoverable decision quality is lost in a frozen latent
+world-model planning pipeline. Controlled oracle substitutions measure
+headroom at prediction, decision-metric, and search-related interfaces before
+an intervention is selected. The completed project covers controlled local
+Push-T, Wall, and official Push-T H6 adaptive-CEM protocols; conclusions and
+limitations are frozen in [`PhysPlan_Technical_Report.docx`](PhysPlan_Technical_Report.docx)
+and the paper source under [`paper/`](paper/).
+
+Research navigation:
+
+- `boundary_jepa/`, `wall_replication/`, and `scripts/` contain the diagnostic,
+  replication, training, and analysis implementations.
+- `configs/` contains frozen protocol and experiment configurations.
+- `tests/` contains simulator, protocol, artifact-integrity, and analysis tests.
+- `results/` contains compact frozen summaries, records, manifests, and selected
+  small reproducibility artifacts; publication figures are under `plots/`.
+- `docs/` contains verified protocol notes and reproduction commands for the
+  completed experimental stages.
+- `paper/` contains the manuscript source and generated paper figures/tables.
+- `project_page/` contains the standalone static project page source.
+
+Large generated sweeps, cached features, downloaded checkpoints, and raw
+rollout archives are intentionally kept outside Git. Use the commands already
+recorded in `docs/` and the experiment summaries rather than inferring new
+reproduction commands from this overview.
+
 ---
 
 ## 🎯 Pretrained Models

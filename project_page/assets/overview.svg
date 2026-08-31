@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" role="img" aria-labelledby="title desc">
+  <title id="title">PhysPlan planning interfaces with adaptive search feedback</title>
+  <desc id="desc">Search proposes candidate actions, the world model predicts their futures, a decision metric scores them, elite candidates are selected, and the chosen action produces an environment outcome. Elite selection feeds back to the search proposal. Prediction, decision-metric, and search-selection coverage interfaces are highlighted.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#81909d"/></marker>
+    <marker id="feedbackArrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2a7f78"/></marker>
+    <pattern id="metricPattern" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="#fbf1e5"/><line x1="0" y1="0" x2="0" y2="6" stroke="#d89a58" stroke-width="2"/></pattern>
+  </defs>
+  <rect width="960" height="460" rx="16" fill="#ffffff"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <g fill="none" stroke="#81909d" stroke-width="2" marker-end="url(#arrow)">
+      <path d="M161 218 H184"/><path d="M298 218 H321"/><path d="M463 218 H490"/><path d="M624 218 H651"/><path d="M785 218 H804"/>
+    </g>
+
+    <g>
+      <rect x="23" y="158" width="138" height="120" rx="12" fill="#eaf5f3" stroke="#2a7f78" stroke-width="2" stroke-dasharray="6 4"/>
+      <circle cx="67" cy="190" r="7" fill="#2a7f78"/><circle cx="92.5" cy="180" r="7" fill="#ffffff" stroke="#2a7f78" stroke-width="2"/><circle cx="118" cy="196" r="7" fill="#ffffff" stroke="#2a7f78" stroke-width="2"/>
+      <path d="M67 214 L92.5 228 L118 211" fill="none" stroke="#2a7f78" stroke-width="3"/>
+      <text x="92.5" y="249" text-anchor="middle" font-size="14" font-weight="700" fill="#17212b">Search /</text><text x="92.5" y="267" text-anchor="middle" font-size="14" font-weight="700" fill="#17212b">proposal</text>
+    </g>
+    <g>
+      <rect x="184" y="170" width="114" height="96" rx="12" fill="#f5f8fa" stroke="#b9c5ce" stroke-width="2"/>
+      <path d="M211 205 H271 M211 218 H257 M211 231 H265" fill="none" stroke="#5b6875" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="278" cy="205" r="4" fill="#5b6875"/><circle cx="264" cy="218" r="4" fill="#5b6875"/><circle cx="272" cy="231" r="4" fill="#5b6875"/>
+      <text x="241" y="251" text-anchor="middle" font-size="14" font-weight="700" fill="#17212b">Candidate actions</text>
+    </g>
+    <g>
+      <rect x="321" y="158" width="142" height="120" rx="12" fill="#e9f2f8" stroke="#2f6f9f" stroke-width="2"/>
+      <path d="M352 199 C367 178 392 178 407 199 C392 220 367 220 352 199 Z" fill="none" stroke="#2f6f9f" stroke-width="3"/>
+      <circle cx="380" cy="199" r="7" fill="#2f6f9f"/><path d="M419 189 Q430 199 419 209" fill="none" stroke="#2f6f9f" stroke-width="3" stroke-linecap="round"/>
+      <text x="392" y="242" text-anchor="middle" font-size="14" font-weight="700" fill="#17212b">World-model</text><text x="392" y="260" text-anchor="middle" font-size="13" fill="#5b6875">predicted futures</text>
+    </g>
+    <g>
+      <rect x="490" y="158" width="134" height="120" rx="12" fill="url(#metricPattern)" stroke="#b86b18" stroke-width="2"/>
+      <path d="M521 200 H580 M521 187 H562 M521 213 H569" fill="none" stroke="#b86b18" stroke-width="3" stroke-linecap="round"/><circle cx="590" cy="200" r="8" fill="none" stroke="#b86b18" stroke-width="3"/>
+      <text x="557" y="243" text-anchor="middle" font-size="14" font-weight="700" fill="#17212b">Decision metric</text><text x="557" y="261" text-anchor="middle" font-size="13" fill="#5b6875">candidate scores</text>
+    </g>
+    <g>
+      <rect x="651" y="158" width="134" height="120" rx="12" fill="#eaf5f3" stroke="#2a7f78" stroke-width="2"/>
+      <circle cx="685" cy="199" r="8" fill="#2a7f78"/><circle cx="718" cy="188" r="8" fill="#2a7f78"/><circle cx="751" cy="205" r="8" fill="#ffffff" stroke="#2a7f78" stroke-width="2"/>
+      <path d="M681 224 L704 244 L754 218" fill="none" stroke="#2a7f78" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="718" y="261" text-anchor="middle" font-size="14" font-weight="700" fill="#17212b">Elite set / selection</text>
+    </g>
+    <g>
+      <rect x="804" y="170" width="132" height="96" rx="12" fill="#17212b"/>
+      <path d="M833 207 H907 M870 183 V231" stroke="#91b8d4" stroke-width="2" opacity="0.75"/><circle cx="870" cy="207" r="13" fill="#ffffff"/>
+      <path d="M864 207 L869 212 L878 201" fill="none" stroke="#2a7f78" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="870" y="242" text-anchor="middle" font-size="13" font-weight="700" fill="#ffffff">Environment</text><text x="870" y="259" text-anchor="middle" font-size="13" font-weight="700" fill="#ffffff">outcome</text>
+    </g>
+
+    <path d="M392 158 V112" stroke="#2f6f9f" stroke-width="2"/><rect x="333" y="72" width="118" height="40" rx="20" fill="#2f6f9f"/><text x="392" y="97" text-anchor="middle" font-size="13" font-weight="700" fill="#ffffff">PREDICTION</text>
+    <path d="M557 158 V112" stroke="#b86b18" stroke-width="2"/><rect x="483" y="72" width="148" height="40" rx="20" fill="#ffffff" stroke="#b86b18" stroke-width="2"/><text x="557" y="97" text-anchor="middle" font-size="13" font-weight="700" fill="#8c5112">DECISION METRIC</text>
+    <path d="M90 158 V126 H718 V158" fill="none" stroke="#2a7f78" stroke-width="2" stroke-dasharray="5 4"/>
+    <rect x="76" y="27" width="238" height="40" rx="20" fill="#ffffff" stroke="#2a7f78" stroke-width="2" stroke-dasharray="5 3"/><text x="195" y="52" text-anchor="middle" font-size="13" font-weight="700" fill="#20635e">SEARCH / SELECTION COVERAGE</text><path d="M195 67 V126" stroke="#2a7f78" stroke-width="2" stroke-dasharray="5 4"/>
+
+    <path d="M718 278 V348 Q718 374 692 374 H116 Q90 374 90 348 V278" fill="none" stroke="#2a7f78" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#feedbackArrow)"/>
+    <rect x="284" y="347" width="240" height="52" rx="26" fill="#eaf5f3" stroke="#2a7f78" stroke-width="1.5"/>
+    <text x="404" y="368" text-anchor="middle" font-size="13" font-weight="700" fill="#20635e">CEM feedback / proposal update</text><text x="404" y="386" text-anchor="middle" font-size="12" fill="#5b6875">elites shape the next candidate distribution</text>
+    <text x="28" y="436" font-size="13" fill="#5b6875">One interface is substituted at a time; measured gaps are diagnostic headroom, not additive causal effects.</text>
+  </g>
+</svg>

@@ -1,7 +1,22 @@
 *.pyc
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 .vscode/
+.idea/
 .*.swp
 mpk_dataset_cache/
+
+/.venv/
+/venv/
+/env/
+.env
+.env.*
+.DS_Store
+Thumbs.db
+wandb/
+*.tmp
 
 run.py
 main_distributed_video.py
@@ -36,6 +51,12 @@ artifacts/invalid_*/
 results/checkpoints/
 results/wall_replication/**/*.pth.tar
 logs/
+
+# Local packaging/review copies; canonical paper/report/page sources are kept.
+/PhysPlan_Review_Bundle.zip
+/paper.zip
+/project_page.zip
+/review/
 
 macros.py
 CLAUDE.md

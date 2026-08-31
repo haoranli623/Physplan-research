@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="PhysPlan diagnoses recoverable failure bottlenecks at prediction, decision-metric, and search interfaces in latent world-model planning.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta property="og:title" content="PhysPlan">
+  <meta property="og:description" content="Diagnosing Failure Bottlenecks in Latent World-Model Planning">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/og_cover.png">
+  <title>PhysPlan — Diagnosing Failure Bottlenecks in Latent World-Model Planning</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="#top" aria-label="PhysPlan home">PhysPlan</a>
+      <nav aria-label="Page sections">
+        <a href="#overview">Overview</a>
+        <a href="#method">Method</a>
+        <a href="#results">Results</a>
+        <a href="#scope">Scope</a>
+      </nav>
+      <!-- AFTER REVIEW: add author / paper / code links here. -->
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero shell" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">World-model planning diagnostics</p>
+        <h1 id="hero-title">PhysPlan</h1>
+        <p class="hero-subtitle">Diagnosing Failure Bottlenecks in Latent World-Model Planning</p>
+        <p class="hero-description">A controlled framework for identifying whether recoverable planning performance is lost in prediction, decision metrics, or search before modifying the world model or planner.</p>
+      </div>
+      <div class="hero-note" aria-label="Core message">
+        <span class="note-mark" aria-hidden="true">?</span>
+        <p>A poor planning decision does not necessarily imply a poor world model.</p>
+        <p class="note-detail">Measure where decision quality is recoverable before deciding what to repair.</p>
+      </div>
+    </section>
+
+    <section id="overview" class="section section-tint">
+      <div class="shell">
+        <div class="section-heading narrow">
+          <p class="eyebrow">Core question</p>
+          <h2>Where does a planning decision go wrong?</h2>
+          <p>Prediction error is an obvious suspect when a planner chooses a poor action. But predicted futures can also be scored incorrectly, or search may never expose a good candidate. PhysPlan intervenes at one interface at a time and evaluates the selected action in the simulator.</p>
+        </div>
+        <figure class="figure-card">
+          <picture class="responsive-figure">
+            <source media="(max-width: 620px)" srcset="assets/overview_mobile.svg" width="500" height="900">
+            <img src="assets/overview.svg" alt="Adaptive planning loop in which search proposes candidate actions, the world model predicts futures, a decision metric scores them, and elite selection updates the search proposal before an action produces an environment outcome." width="960" height="460">
+          </picture>
+          <figcaption>Controlled oracle substitutions estimate interface-specific recoverable decision headroom. The resulting gaps may interact and are not assumed additive.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="method" class="section">
+      <div class="shell method-grid">
+        <div class="section-heading">
+          <p class="eyebrow">Diagnose before repair</p>
+          <h2>Turn diagnosis into a testable intervention choice</h2>
+          <p>PhysPlan uses familiar oracle substitutions as controlled diagnostics. The methodological test is whether a frozen diagnosis corresponds to improvement at the targeted interface, with a pre-specified non-dominant-layer control where available.</p>
+          <p class="boundary-note">The evidence strength differs by protocol: Local Push-T provides same-state intervention consistency, Wall provides prospective disjoint-state validation, and H6 is an adaptive-planner stress test.</p>
+        </div>
+        <figure class="figure-card compact">
+          <picture class="responsive-figure">
+            <source media="(max-width: 620px)" srcset="assets/diagnosis_repair_mobile.svg" width="500" height="760">
+            <img src="assets/diagnosis_repair.svg" alt="Four-step process: measure recoverable headroom, identify the dominant bottleneck, apply a targeted intervention, then compare against a control or wrong-layer intervention." width="960" height="280">
+          </picture>
+          <figcaption>Diagnosis precedes intervention; the scorer stress test in H6 is not the diagnosis-selected predictor repair.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="results" class="section section-tint">
+      <div class="shell">
+        <div class="section-heading narrow">
+          <p class="eyebrow">Key results</p>
+          <h2>Three planning regimes, three evidence profiles</h2>
+          <p>All intervals below are paired state- or episode-level 95% bootstrap confidence intervals. Candidate samples within a state are not treated as independent observations.</p>
+        </div>
+
+        <div class="result-grid">
+          <article class="result-card local">
+            <header>
+              <p class="card-index">01</p>
+              <div>
+                <h3>Controlled Local Push-T</h3>
+                <p class="diagnosis metric-text">Decision-metric limited</p>
+              </div>
+            </header>
+            <div class="metric-pair">
+              <div>
+                <span>Prediction gap</span>
+                <strong>0.0071</strong>
+                <small>CI [−0.0051, 0.0198]</small>
+              </div>
+              <div>
+                <span>Decision-metric gap</span>
+                <strong>0.0851</strong>
+                <small>CI [0.0608, 0.1109]</small>
+              </div>
+            </div>
+            <dl class="result-list">
+              <div><dt>BF16 + latent-L2 regret</dt><dd>0.1237</dd></div>
+              <div><dt>BF16 + task-readout regret</dt><dd>0.0421</dd></div>
+              <div class="emphasis"><dt>Targeted improvement</dt><dd>+0.0815 <small>CI [0.0563, 0.1079]</small></dd></div>
+            </dl>
+            <p>The recoverable headroom is concentrated at the decision metric rather than prediction under this controlled protocol.</p>
+            <p class="caveat"><strong>Evidence boundary:</strong> same-state intervention consistency, not held-out validation.</p>
+          </article>
+
+          <article class="result-card wall">
+            <header>
+              <p class="card-index">02</p>
+              <div>
+                <h3>Wall</h3>
+                <p class="diagnosis prediction-text">Prediction limited</p>
+              </div>
+            </header>
+            <div class="metric-pair">
+              <div>
+                <span>Prediction gap</span>
+                <strong>0.5636</strong>
+                <small>CI [0.4871, 0.6373]</small>
+              </div>
+              <div>
+                <span>Metric gap</span>
+                <strong>−0.0279</strong>
+                <small>CI crosses zero</small>
+              </div>
+            </div>
+            <dl class="result-list">
+              <div><dt>Baseline → predictor-repair regret</dt><dd>0.5561 → 0.1670</dd></div>
+              <div class="emphasis"><dt>Predictor-repair improvement</dt><dd>+0.3891 <small>CI [0.2930, 0.4804]</small></dd></div>
+              <div><dt>Wrong-layer metric repair</dt><dd>+0.0069 <small>CI [−0.0489, 0.0625]</small></dd></div>
+              <div><dt>Full-trajectory latent MSE</dt><dd>0.8564 → 0.1999</dd></div>
+            </dl>
+            <p>The diagnosis reverses: prediction has substantial recoverable headroom, and the pre-specified predictor repair improves planning while the wrong-layer metric repair does not.</p>
+            <p class="caveat"><strong>Evidence boundary:</strong> prospective evaluation uses disjoint states. The repair used one training seed; state-level intervals are conditional on that checkpoint.</p>
+          </article>
+
+          <article class="result-card h6">
+            <header>
+              <p class="card-index">03</p>
+              <div>
+                <h3>Official Push-T H6 Adaptive CEM</h3>
+                <p class="diagnosis mixed-text">Mixed fixed-trace headroom</p>
+              </div>
+            </header>
+            <div class="metric-pair">
+              <div>
+                <span>Prediction gap</span>
+                <strong>0.1608</strong>
+                <small>CI [0.0565, 0.2725]</small>
+              </div>
+              <div>
+                <span>Metric gap</span>
+                <strong>0.0950</strong>
+                <small>CI [0.0026, 0.1978]</small>
+              </div>
+            </div>
+            <dl class="result-list">
+              <div class="emphasis"><dt>Scorer stress-test improvement</dt><dd>+0.0843 <small>CI [−0.00008, 0.1684]</small></dd></div>
+              <div><dt>Episode outcomes</dt><dd>16 improved · 9 unchanged · 5 worsened</dd></div>
+            </dl>
+            <p>Both recoverable gaps are positive, with a larger prediction-gap point estimate under the frozen classification rule.</p>
+            <ul class="caveat-list">
+              <li>No paired interval was computed for the difference between the two gaps; prediction is not claimed to be statistically larger.</li>
+              <li>The scorer intervention is a stress test, not the diagnosis-selected predictor repair.</li>
+              <li>The improvement is directionally positive but statistically inconclusive.</li>
+              <li>Changing the scorer can also alter adaptive CEM search coverage.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="cross-regime" class="section">
+      <div class="shell">
+        <div class="section-heading narrow">
+          <p class="eyebrow">Cross-regime view</p>
+          <h2>The dominant recoverable bottleneck changes across planning regimes</h2>
+          <p>Across the studied protocols, the ordering of prediction and decision-metric headroom changes. This migration is descriptive: the experiments do not isolate which individual factor caused the change.</p>
+        </div>
+        <figure class="figure-card chart-card">
+          <picture class="cross-picture">
+            <source media="(max-width: 620px)" srcset="assets/cross_regime_mobile.svg" width="600" height="1080">
+            <img src="assets/cross_regime.svg" alt="Grouped bars comparing prediction and decision-metric headroom across Local Push-T, Wall, and Push-T H6, alongside frozen intervention improvements." width="1000" height="560">
+          </picture>
+          <figcaption>Values use regime-specific candidate sets. Cross-regime gap magnitudes are not directly comparable as a single normalized physical quantity; interpret ordering and uncertainty within each regime.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="why" class="section section-dark">
+      <div class="shell why-grid">
+        <div>
+          <p class="eyebrow">Why it matters</p>
+          <h2>Diagnosis should guide repair</h2>
+        </div>
+        <div class="why-points">
+          <p>Under these protocols, prediction error is not always the dominant recoverable source of planning failure.</p>
+          <p>Decision quality depends on multiple interfaces between a world model and a planner.</p>
+          <p>Controlled interventions can identify where recoverable decision headroom exists before expensive retraining.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="scope" class="section">
+      <div class="shell scope-grid">
+        <div class="section-heading">
+          <p class="eyebrow">Limitations and scope</p>
+          <h2>A controlled study, not a universal diagnosis</h2>
+          <p>The study is designed for auditable attribution. That control also bounds what the results establish.</p>
+        </div>
+        <ul class="scope-list">
+          <li>Local Push-T and Wall use controlled candidate constructions; Wall uses a one-dimensional waypoint family.</li>
+          <li>The H6 study contains 30 episodes, and its scorer stress-test interval crosses zero.</li>
+          <li>Oracle gaps may interact and are not assumed additive.</li>
+          <li>The Wall predictor repair uses one training seed.</li>
+          <li>The results do not establish generality to policy learning, real robots, or arbitrary planners.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-inner">
+      <p>PhysPlan · Research project</p>
+      <!-- AFTER REVIEW: add public author and project links here. -->
+    </div>
+  </footer>
+</body>
+</html>
