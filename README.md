@@ -2,6 +2,8 @@
 
 **Controlled Bottleneck Attribution for World-Model Planning**
 
+Accepted at NeurIPS 2026 Workshop on Physical Understanding (PhysUnderstand) — Poster.
+
 PhysPlan studies where recoverable planning performance is lost in latent
 world-model planning pipelines. Rather than assuming that poor planning
 implies poor prediction, it measures recoverable headroom at prediction,
